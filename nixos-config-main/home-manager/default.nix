@@ -15,6 +15,7 @@
     ++ [(import ./micro.nix)]                     # nano replacement
     ++ [(import ./nvim.nix)]                      # neovim editor
     ++ [(import ./packages.nix)]                  # other packages
+    ++ [(./rclone.nix)]
     ++ [(import ./scripts/scripts.nix)]           # personal scripts
     ++ [(import ./swaylock.nix)]                  # lock screen
     # ++ [(import ./vscodium.nix)]                  # vscode forck

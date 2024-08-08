@@ -9,7 +9,6 @@
     ./openrgb.nix
     ./packages.nix
     # ./samba.nix
-    ./rclone.nix
     ./security.nix
     ./services.nix
     ./sound.nix
