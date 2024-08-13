@@ -1,11 +1,11 @@
-{ pkgs, inputs, username, host, myOptions, ... }: {
+{ pkgs, inputs, username, host, pkgs-stable, pkgs-unstable, pkgs-main, myOptions, ... }: {
   
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {
     backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs username host myOptions; };
+    extraSpecialArgs = { inherit inputs username host pkgs-stable pkgs-unstable pkgs-main myOptions; };
     users.${username} = {
       imports = 
         if (host == "desktop") then 

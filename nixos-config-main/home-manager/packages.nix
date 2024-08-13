@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-main ... }: 
+{ inputs, pkgs, pkgs-main, ... }: 
 {
   home.packages = (with pkgs; [
     bitwise                           # cli tool for bit / hex manipulation
