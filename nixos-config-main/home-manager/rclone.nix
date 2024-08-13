@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
-  programs.rclone = {
-    enable = true;
-  };
+  home.packages = (with pkgs; [ rclone ]);
+  #programs.rclone = {
+  #  enable = true;
+  #};
 }

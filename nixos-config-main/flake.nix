@@ -46,13 +46,13 @@
         };
         laptop = {
           enable-nvidia = false;
-          enable-rgb-lights = false;
+          enable-rgb-lights = true;
           hostname = "DESKTOP-SCSCNBU";
           enable-auto-login = true;
         };
         vm = {
           enable-nvidia = false;
-          enable-rgb-lights = false;
+          enable-rgb-lights = true;
           hostname = "NIXVM";
           enable-auto-login = true;
         };

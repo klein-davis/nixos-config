@@ -7,7 +7,6 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino
-    angryipscanner
     blender
     clementine
     firefox
@@ -16,15 +15,11 @@
     #pkgs-unstable.obsidian
     #pcmanfm-qt
     powertop
+    ddcutil
 
     pkgs-main.lmstudio
 
-    # Coding stuff
-    #(python3.withPackages (ps: with ps; [ requests ]))
-    gcc
-    gnumake
-    nodejs
-    vscode
+    nmap
 
     # CLI utils
     atuin

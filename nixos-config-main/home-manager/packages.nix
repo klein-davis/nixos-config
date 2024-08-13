@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: 
+{ inputs, pkgs, pkgs-main ... }: 
 {
   home.packages = (with pkgs; [
     bitwise                           # cli tool for bit / hex manipulation
@@ -29,16 +29,16 @@
     wdisplays
     wineWowPackages.wayland
 
-    # C / C++
+    # Coding stuff
     gcc
     gnumake
-
-    # Python
-    #python3
+    python3
+    vscode
+    devenv
 
     bleachbit                         # cache cleaner
     cmatrix
-    gparted                           # partition manager
+    pkgs-main.gparted                           # partition manager
     ffmpeg
     imv                               # image viewer
     killall
