@@ -52,7 +52,7 @@
         };
         vm = {
           enable-nvidia = false;
-          enable-rgb-lights = true;
+          enable-rgb-lights = false;
           hostname = "NIXVM";
           enable-auto-login = true;
         };
