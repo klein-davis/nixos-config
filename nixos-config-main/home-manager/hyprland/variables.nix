@@ -13,7 +13,7 @@
     GDK_BACKEND = "wayland";
     ANKI_WAYLAND = "1";
     DIRENV_LOG_FORMAT = "";
-    LIBSEAT_BACKEND = "logind";
+    LIBSEAT_BACKEND = "seatd";
     WLR_RENDERER_ALLOW_SOFTWARE = "1";
     WLR_DRM_NO_ATOMIC = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
@@ -29,5 +29,6 @@
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     #GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
+    GTK_THEME = "Breeze-Dark";
   };
 }

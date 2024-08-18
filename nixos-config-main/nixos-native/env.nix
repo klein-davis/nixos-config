@@ -5,6 +5,7 @@
     RANGER_LOAD_DEFAULT_RC = "FALSE";
     #QT_QPA_PLATFORMTHEME = "qt5ct";
     GSETTINGS_BACKEND = "keyfile";
+    LIBSEAT_BACKEND = "seatd";
   };
 
   # Hyperland Nvidia configuration
@@ -12,17 +13,16 @@
     # Hint electron apps to use wayland
     #NIXOS_OZONE_WL = "1";
   #};
-  environment.sessionVariables =
-    {
+  environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
+  }
+  // lib.optionalAttrs config.programs.hyprland.enable ( # No idea what the // is there for
+    {
+      LIBVA_DRIVER_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     }
-    // lib.optionalAttrs config.programs.hyprland.enable (
-      {
-        LIBVA_DRIVER_NAME = "nvidia";
-        GBM_BACKEND = "nvidia-drm";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      }
-    );
+  );
 
   nix.settings = {
     substituters = [ "https://cuda-maintainers.cachix.org" ];

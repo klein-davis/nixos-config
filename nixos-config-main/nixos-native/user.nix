@@ -26,7 +26,7 @@
     users.${username} = {
       isNormalUser = true;
       description = "user";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "seat" ];
       packages = with pkgs; [];
       shell = pkgs.zsh;
     };

@@ -10,12 +10,13 @@
     ++ [(import ./git.nix)]                       # version control
     ++ [(import ./gtk.nix)]                       # gtk theme
     ++ [(import ./hyprland)]                      # window manager
-    ++ [(import ./hypridle.nix)]                      # idle
+    ++ [(import ./hypridle.nix)]                  # idle
     ++ [(import ./kitty.nix)]                     # terminal
     ++ [(import ./mako.nix)]                      # notification deamon
     ++ [(import ./micro.nix)]                     # nano replacement
     ++ [(import ./nvim.nix)]                      # neovim editor
     ++ [(import ./packages.nix)]                  # other packages
+    # ++ [(import ./preactivation.nix)]             # fix gtk rebuild error
     ++ [(./rclone.nix)]
     ++ [(import ./scripts/scripts.nix)]           # personal scripts
     ++ [(import ./swaylock.nix)]                  # lock screen

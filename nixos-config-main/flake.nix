@@ -40,9 +40,9 @@
       myCOptions = {
         desktop = {
           enable-nvidia = true;
-          enable-rgb-lights = true;
+          enable-rgb-lights = false;
           hostname = "DESKTOP-GV1U8SC";
-          enable-auto-login = true;
+          enable-auto-login = false;
         };
         laptop = {
           enable-nvidia = false;
