@@ -13,6 +13,7 @@
     GDK_BACKEND = "wayland";
     ANKI_WAYLAND = "1";
     DIRENV_LOG_FORMAT = "";
+    #LIBSEAT_BACKEND = "logind";
     LIBSEAT_BACKEND = "seatd";
     WLR_RENDERER_ALLOW_SOFTWARE = "1";
     WLR_DRM_NO_ATOMIC = "1";

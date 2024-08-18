@@ -11,14 +11,6 @@
     _2048-in-terminal
     vitetris
     nethack
-    
-    ## Celeste
-    celeste-classic
-    celeste-classic-pm
-
-    ## Doom
-    # gzdoom
-    crispy-doom
 
     ## Emulation
     sameboy
