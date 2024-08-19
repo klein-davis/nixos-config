@@ -42,25 +42,26 @@
           enable-nvidia = true;
           enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
-          enable-auto-login = true;
-          enable-ssh-access = true;
         };
         laptop = {
-          enable-nvidia = false;
-          enable-rgb-lights = true;
           hostname = "DESKTOP-SCSCNBU";
-          enable-auto-login = true;
-          enable-ssh-access = true;
+          power.mobile = true;
         };
         vm = {
+          hostname = "NIXVM";
+        };
+
+        default = {
           enable-nvidia = false;
           enable-rgb-lights = false;
-          hostname = "NIXVM";
           enable-auto-login = true;
           enable-ssh-access = true;
+          power = {
+            mobile = false;
+          };
         };
       };
-
+      mergeAttrs = lhs: rhs: nixpkgs.lib.attrsets.recursiveUpdate lhs rhs;
       pkgs-stable = import nixpkgs-stable {
           inherit system;
           config.allowUnfree = true;
@@ -80,21 +81,30 @@
           modules = [
             (import ./hosts/desktop)
             inputs.stylix.nixosModules.stylix];
-          specialArgs = { host="desktop"; myOptions = myCOptions.desktop; inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; };
+          specialArgs = { host="desktop";
+            myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
+            inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; 
+          };
         };
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             (import ./hosts/laptop)
             inputs.stylix.nixosModules.stylix];
-          specialArgs = { host="laptop"; myOptions = myCOptions.laptop;  inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; };
+          specialArgs = { host="laptop"; 
+            myOptions = mergeAttrs myCOptions.default myCOptions.laptop;
+            inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; 
+          };
         };
         vm = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             (import ./hosts/vm)
             inputs.stylix.nixosModules.stylix];
-          specialArgs = { host="vm"; myOptions = myCOptions.laptop; inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; };
+          specialArgs = { host="vm"; 
+            myOptions = mergeAttrs myCOptions.default myCOptions.vm;
+            inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; 
+          };
         };
       };
 
