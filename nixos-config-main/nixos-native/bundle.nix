@@ -8,6 +8,7 @@
     ./network.nix
     ./openrgb.nix
     ./packages.nix
+    ./power.nix
     # ./samba.nix
     ./security.nix
     ./services.nix
