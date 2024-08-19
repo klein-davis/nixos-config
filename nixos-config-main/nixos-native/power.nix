@@ -1,7 +1,9 @@
 { pkgs, config, myOptions, ... }: {
 
   # mobile = false
-  powerManagement.cpuFreqGovernor = if ! myOptions.power.mobile then ("performance") else ();
+  powerManagement = if ! myOptions.power.mobile then {
+    cpuFreqGovernor = "performance";
+  } else {};
   
   # mobile = true
   environment = if myOptions.power.mobile then {
