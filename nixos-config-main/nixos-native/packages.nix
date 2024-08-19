@@ -16,6 +16,7 @@
     #pcmanfm-qt
     powertop
     ddcutil
+    qpwgraph
 
     pkgs-main.lmstudio
 

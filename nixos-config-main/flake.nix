@@ -43,18 +43,21 @@
           enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
           enable-auto-login = true;
+          enable-ssh-access = true;
         };
         laptop = {
           enable-nvidia = false;
           enable-rgb-lights = true;
           hostname = "DESKTOP-SCSCNBU";
           enable-auto-login = true;
+          enable-ssh-access = true;
         };
         vm = {
           enable-nvidia = false;
           enable-rgb-lights = false;
           hostname = "NIXVM";
           enable-auto-login = true;
+          enable-ssh-access = true;
         };
       };
 
