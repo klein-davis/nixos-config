@@ -16,7 +16,7 @@
   environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
   }
-  // lib.optionalAttrs config.programs.hyprland.enable ( # No idea what the // is there for
+  // lib.optionalAttrs config.programs.hyprland.enable (
     {
       LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
