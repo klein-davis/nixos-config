@@ -1,7 +1,6 @@
 { pkgs, pkgsBundle, ... }: {
   nixpkgs.config = {
     allowUnfree = true;
-    #permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
 
   environment.systemPackages = with pkgs; [
@@ -9,23 +8,20 @@
     arduino
     blender
     clementine
+    ddcutil
     firefox
     kdenlive
+    pkgsBundle.pkgs-main.lmstudio
+    nmap
     obs-studio
     pkgsBundle.pkgs-unstable.obsidian
-    pcmanfm-qt
     powertop
-    ddcutil
     qpwgraph
 
-    pkgsBundle.pkgs-main.lmstudio
-
-    nmap
-
     # CLI utils
-    atuin
-    bluez
-    bluez-tools
+    #atuin
+    #bluez
+    #bluez-tools
     fastfetch
     file
     lux
@@ -46,12 +42,9 @@
     zram-generator
 
     # GUI utils
-    #dmenu
     feh
     gromit-mpx
     screenkey
-
-    #rocm-opencl-icd
   ];
 
   fonts.packages = with pkgs; [

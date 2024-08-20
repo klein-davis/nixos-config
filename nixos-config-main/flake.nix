@@ -96,9 +96,7 @@
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.desktop).system;
-          modules = [
-            (import ./hosts/desktop)
-            inputs.stylix.nixosModules.stylix];
+          modules = [(import ./hosts/desktop)];
           specialArgs = { host="desktop";
             myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.desktop).system;
@@ -107,9 +105,7 @@
         };
         laptop = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.laptop).system;
-          modules = [
-            (import ./hosts/laptop)
-            inputs.stylix.nixosModules.stylix];
+          modules = [(import ./hosts/laptop)];
           specialArgs = { host="laptop"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.laptop;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.laptop).system;
@@ -118,9 +114,7 @@
         };
         vm = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.vm).system;
-          modules = [
-            (import ./hosts/vm)
-            inputs.stylix.nixosModules.stylix];
+          modules = [(import ./hosts/vm)];
           specialArgs = { host="vm"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.vm;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.vm).system;
@@ -129,9 +123,7 @@
         };
         pi = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.pi).system;
-          modules = [
-            (import ./hosts/pi)
-            inputs.stylix.nixosModules.stylix];
+          modules = [(import ./hosts/pi)];
           specialArgs = { host="pi"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.pi;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.pi).system;

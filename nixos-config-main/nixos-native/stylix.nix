@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
+  imports = [ inputs.stylix.nixosModules.stylix ];
   stylix.base16Scheme = {
     base00 = "282828";
     base01 = "3c3836";
@@ -19,7 +20,6 @@
     base0E = "d3869b";
     base0F = "d65d0e";
   };
-
 
   stylix.image = "~/Pictures/wallpapers/wallpaper.png";
 }
