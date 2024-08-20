@@ -1,4 +1,4 @@
-{ inputs, pkgs, ...}: 
+{ inputs, pkgs, split-monitor-workspaces, ...}: 
 {
   home.packages = with pkgs; [
     # swww
@@ -23,5 +23,8 @@
     };
     # enableNvidiaPatches = false;
     systemd.enable = true;
+    plugins = [
+      split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+    ];
   };
 }

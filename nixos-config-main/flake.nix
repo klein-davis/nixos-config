@@ -24,6 +24,14 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+    };
   
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -32,7 +40,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, home-manager, split-monitor-workspaces, ... } @ inputs:
 
     let
       system = "x86_64-linux";
@@ -89,7 +97,7 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="desktop";
             myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
           };
         };
         laptop = nixpkgs.lib.nixosSystem {
@@ -99,7 +107,7 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="laptop"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.laptop;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
           };
         };
         vm = nixpkgs.lib.nixosSystem {
@@ -109,7 +117,7 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="vm"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.vm;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
           };
         };
         pi = nixpkgs.lib.nixosSystem {
@@ -119,7 +127,7 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="pi"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.pi;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
           };
         };
       };

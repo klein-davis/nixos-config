@@ -1,11 +1,11 @@
-{ pkgs, inputs, host, pkgs-stable, pkgs-unstable, pkgs-main, myOptions, ... }: {
+{ pkgs, inputs, host, pkgs-stable, pkgs-unstable, pkgs-main, myOptions, split-monitor-workspaces, ... }: {
   
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {
     backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs host pkgs-stable pkgs-unstable pkgs-main myOptions; };
+    extraSpecialArgs = { inherit inputs host pkgs-stable pkgs-unstable pkgs-main myOptions split-monitor-workspaces; };
     users.${myOptions.username} = {
       imports = 
         if (host == "desktop") then 

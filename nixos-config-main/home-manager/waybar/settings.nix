@@ -1,7 +1,6 @@
 { ... }:
 {
     programs.waybar = {
-        enable = true;
         settings = {
         mainBar = {
             layer = "top";
@@ -15,7 +14,17 @@
 
             "hyprland/workspaces" = {
             disable-scroll = true;
+			all-outputs = false;
             };
+		
+		plugin = {
+			"split-monitor-workspaces" = {
+				count = 5;
+				keep_focused = 0;
+				enable_notifications = 0;
+				enable_persistent_workspaces = 1;
+    		};
+		};
 
         "hyprland/language" = {
             format-en = "US";
