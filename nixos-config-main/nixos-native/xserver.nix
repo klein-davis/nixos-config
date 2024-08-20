@@ -1,15 +1,9 @@
-{ pkgs, username, myOptions, ... }: 
+{ pkgs, myOptions, ... }: 
 {
   services = {
   
     xserver = {
       enable = true;
-      #windowManager.herbstluftwm.enable = true;
-
-      # displayManager.autoLogin = {
-      #   enable = true;
-      #   user = "${username}";
-      # };
 
       xkb.layout = "us";
       xkb.variant = "";

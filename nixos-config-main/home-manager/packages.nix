@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-main, ... }: 
+{ inputs, pkgs, pkgs-main, myOptions, ... }: 
 {
   home.packages = (with pkgs; [
     bitwise                           # cli tool for bit / hex manipulation
@@ -58,6 +58,6 @@
     wget
     xdg-utils
     xxd
-    inputs.alejandra.defaultPackage.${system}
+    inputs.alejandra.defaultPackage.${myOptions.system}
   ]);
 }

@@ -1,4 +1,4 @@
-{inputs, username, host, ...}: {
+{inputs, host, ...}: {
   imports =
        [(import ./default.nix)];
     # ++ [(import ./rider.nix)]                     # C# JetBrain editor

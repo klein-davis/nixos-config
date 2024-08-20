@@ -1,4 +1,4 @@
-{inputs, username, host, ...}: {
+{inputs, host, ...}: {
   imports =
        [(import ./audacious/audacious.nix)]       # music player
     ++ [(import ./bat.nix)]                       # better cat command

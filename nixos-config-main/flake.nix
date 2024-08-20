@@ -35,9 +35,9 @@
   outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, home-manager, ... } @ inputs:
 
     let
-      username = "kleind";
       system = "x86_64-linux";
       myCOptions = {
+        
         desktop = {
           enable-nvidia = true;
           enable-rgb-lights = true;
@@ -50,8 +50,14 @@
         vm = {
           hostname = "NIXVM";
         };
+        pi = {
+          system = "aarch64-linux";
+          # system = "armv7l-linux"; # For 3B and older
+        };
 
         default = {
+          username = "kleind";
+          system = "x86_64-linux";
           enable-nvidia = false;
           enable-rgb-lights = false;
           enable-auto-login = true;
@@ -77,40 +83,45 @@
     in {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = (mergeAttrs myCOptions.default myCOptions.desktop).system;
           modules = [
             (import ./hosts/desktop)
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="desktop";
             myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
-            inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
           };
         };
         laptop = nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = (mergeAttrs myCOptions.default myCOptions.laptop).system;
           modules = [
             (import ./hosts/laptop)
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="laptop"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.laptop;
-            inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
           };
         };
         vm = nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = (mergeAttrs myCOptions.default myCOptions.vm).system;
           modules = [
             (import ./hosts/vm)
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="vm"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.vm;
-            inherit self inputs username pkgs-stable pkgs-main pkgs-unstable; 
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
+          };
+        };
+        pi = nixpkgs.lib.nixosSystem {
+          system = (mergeAttrs myCOptions.default myCOptions.pi).system;
+          modules = [
+            (import ./hosts/pi)
+            inputs.stylix.nixosModules.stylix];
+          specialArgs = { host="pi"; 
+            myOptions = mergeAttrs myCOptions.default myCOptions.pi;
+            inherit self inputs pkgs-stable pkgs-main pkgs-unstable; 
           };
         };
       };
-
-      #homeConfigurations.nixuser = home-manager.lib.homeManagerConfiguration {
-      #  pkgs = nixpkgs.legacyPackages.${system};
-      #  modules = [ ./home-manager/home.nix ];
-      #};
     };
 }

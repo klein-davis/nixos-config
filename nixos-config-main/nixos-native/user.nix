@@ -1,18 +1,18 @@
-{ pkgs, inputs, username, host, pkgs-stable, pkgs-unstable, pkgs-main, myOptions, ... }: {
+{ pkgs, inputs, host, pkgs-stable, pkgs-unstable, pkgs-main, myOptions, ... }: {
   
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {
     backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs username host pkgs-stable pkgs-unstable pkgs-main myOptions; };
-    users.${username} = {
+    extraSpecialArgs = { inherit inputs host pkgs-stable pkgs-unstable pkgs-main myOptions; };
+    users.${myOptions.username} = {
       imports = 
         if (host == "desktop") then 
           [ ./../home-manager/default.desktop.nix ]
         else [ ./../home-manager ];
-      home.username = "${username}";
-      home.homeDirectory = "/home/${username}";
+      home.username = "${myOptions.username}";
+      home.homeDirectory = "/home/${myOptions.username}";
       home.stateVersion = "24.05";
       programs.home-manager.enable = true;
     };
@@ -23,7 +23,7 @@
   users = {
     defaultUserShell = pkgs.zsh;
 
-    users.${username} = {
+    users.${myOptions.username} = {
       isNormalUser = true;
       description = "user";
       extraGroups = [ "networkmanager" "wheel" "video" "seat" ];
@@ -35,8 +35,8 @@
   # Enable automatic login for the user.
   services.displayManager.autoLogin = {
     enable = myOptions.enable-auto-login;
-    user = "${username}";
+    user = "${myOptions.username}";
   };
 
-  nix.settings.allowed-users = [ "${username}" ];
+  nix.settings.allowed-users = [ "${myOptions.username}" ];
 }
