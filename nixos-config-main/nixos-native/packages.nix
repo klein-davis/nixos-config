@@ -12,8 +12,8 @@
     firefox
     kdenlive
     obs-studio
-    #pkgsBundle.pkgs-unstable.obsidian
-    #pcmanfm-qt
+    pkgsBundle.pkgs-unstable.obsidian
+    pcmanfm-qt
     powertop
     ddcutil
     qpwgraph
