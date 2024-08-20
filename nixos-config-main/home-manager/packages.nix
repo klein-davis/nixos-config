@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-main, myOptions, ... }: 
+{ inputs, pkgs, pkgsBundle, myOptions, ... }: 
 {
   home.packages = (with pkgs; [
     bitwise                           # cli tool for bit / hex manipulation
@@ -39,7 +39,7 @@
 
     bleachbit                         # cache cleaner
     cmatrix
-    pkgs-main.gparted                           # partition manager
+    pkgsBundle.pkgs-main.gparted                           # partition manager
     ffmpeg
     imv                               # image viewer
     killall

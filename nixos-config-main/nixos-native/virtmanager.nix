@@ -1,8 +1,8 @@
-{ pkgs-stable, ... }: {
+{ pkgsBundle, ... }: {
   virtualisation.libvirtd.enable = true;
   programs.virt-manager = {
     enable = true;
-    package = pkgs-stable.virt-manager;
+    package = pkgsBundle.pkgs-stable.virt-manager;
   };
 }
 

@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, myOptions, ... }:
+{ pkgs, pkgsBundle, myOptions, ... }:
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -7,7 +7,7 @@
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
   (if (myOptions.enable-nvidia == true) then [ "nvidia-drm.fbdev=1" ] else []);
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs-stable.linuxKernel.packages.linux_6_9;
+  #boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_9;
   #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_4_19.override {
   #  argsOverride = rec {
   #    src = pkgs.fetchurl {

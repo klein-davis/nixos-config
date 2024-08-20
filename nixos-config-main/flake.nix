@@ -40,7 +40,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, home-manager, split-monitor-workspaces, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, home-manager, ... } @ inputs:
 
     let
       system = "x86_64-linux";
@@ -75,19 +75,23 @@
           };
         };
       };
+
       mergeAttrs = lhs: rhs: nixpkgs.lib.attrsets.recursiveUpdate lhs rhs;
-      pkgs-stable = import nixpkgs-stable {
-          inherit system;
+
+      pkgsBundle = sys : {
+        pkgs-stable = import nixpkgs-stable {
+          system = sys;
           config.allowUnfree = true;
         };
-      pkgs-unstable = import nixpkgs-unstable {
-          inherit system;
+        pkgs-unstable = import nixpkgs-unstable {
+          system = sys;
           config.allowUnfree = true;
         };
-      pkgs-main = import nixpkgs-main {
-          inherit system;
+        pkgs-main = import nixpkgs-main {
+          system = sys;
           config.allowUnfree = true;
         };
+      };
     in {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
@@ -97,7 +101,8 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="desktop";
             myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
+            pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.desktop).system;
+            inherit self inputs; 
           };
         };
         laptop = nixpkgs.lib.nixosSystem {
@@ -107,7 +112,8 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="laptop"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.laptop;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
+            pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.laptop).system;
+            inherit self inputs; 
           };
         };
         vm = nixpkgs.lib.nixosSystem {
@@ -117,7 +123,8 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="vm"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.vm;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
+            pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.vm).system;
+            inherit self inputs; 
           };
         };
         pi = nixpkgs.lib.nixosSystem {
@@ -127,7 +134,8 @@
             inputs.stylix.nixosModules.stylix];
           specialArgs = { host="pi"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.pi;
-            inherit self inputs pkgs-stable pkgs-main pkgs-unstable split-monitor-workspaces; 
+            pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.pi).system;
+            inherit self inputs; 
           };
         };
       };
