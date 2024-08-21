@@ -153,7 +153,7 @@
         "waybar &"
         "mako &"
         "wl-paste --watch cliphist store &"
-      ] ++ (if myOptions.enable-rgb-lights then ["openrgb --startminimized"] else []);
+      ] ++ (if myOptions.enable-rgb-lights then ["(sleep 6 && openrgb --startminimized) &"] else []);
 
 
       bind = [
@@ -168,6 +168,7 @@
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
+        "$mainMod, O, exec, systemctl suspend"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left,  movefocus, l"

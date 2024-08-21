@@ -10,6 +10,7 @@
     clementine
     ddcutil
     firefox
+    gamescope
     kdenlive
     pkgsBundle.pkgs-main.lmstudio
     nmap
