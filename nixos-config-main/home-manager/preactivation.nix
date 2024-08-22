@@ -1,4 +1,4 @@
-{
+{config, ...}: {
 home.activation.preActivation = ''
     # Ensure ~/.config/gtk-4.0/settings.ini config file is removed before activation
     if [ -f "${config.xdg.configHome}/gtk-4.0/settings.ini" ]; then

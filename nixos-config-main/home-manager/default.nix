@@ -16,7 +16,7 @@
     ++ [(import ./micro.nix)]                     # nano replacement
     ++ [(import ./nvim.nix)]                      # neovim editor
     ++ [(import ./packages.nix)]                  # other packages
-    # ++ [(import ./preactivation.nix)]             # fix gtk rebuild error
+    ++ [(import ./preactivation.nix)]             # fix gtk rebuild error
     ++ [(./rclone.nix)]
     ++ [(import ./scripts/scripts.nix)]           # personal scripts
     ++ [(import ./swaylock.nix)]                  # lock screen

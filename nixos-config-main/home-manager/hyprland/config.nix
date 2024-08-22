@@ -168,7 +168,8 @@
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
-        "$mainMod, O, exec, systemctl suspend"
+        "$mainMod, O, exec, (swaylock & (sleep 1 && systemctl suspend))"
+        "$mainMod, L, exec, swaylock"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left,  movefocus, l"
@@ -247,9 +248,6 @@
 
         # Disable all effects
         "$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
-
-        # Lock
-        "$mainMod, L, exec, swaylock"
 
         # Screenshots
         #, print, exec, $HOME/.config/hypr/scripts/screenshots/captureAll.sh
