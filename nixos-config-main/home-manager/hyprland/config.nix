@@ -26,8 +26,11 @@
         # Leftmost monitor
         "DP-2, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
 
-      ]
-      ++ [ ",preferred,auto,1" ];
+        # TV (3840x2160)
+        "HDMI-A-2, 3840x2160@30, 5760x0, 1"  # Landscape, Rightmost
+
+      ];
+      #++ [ ",preferred,auto,1" ];
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -168,7 +171,7 @@
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
-        "$mainMod, O, exec, (swaylock & (sleep 1 && systemctl suspend))"
+        "$mainMod, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"
         "$mainMod, L, exec, swaylock"
 
         # Move focus with mainMod + arrow keys
