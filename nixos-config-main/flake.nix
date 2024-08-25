@@ -2,10 +2,10 @@
   description = "My system configuration";
 
   inputs = {
-
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-main.url = "github:NixOS/nixpkgs";
 
@@ -40,12 +40,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, home-manager, ... } @ inputs:
-
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, home-manager, ... } @ inputs:
     let
       system = "x86_64-linux";
       myCOptions = {
-        
         desktop = {
           enable-nvidia = true;
           enable-rgb-lights = true;
@@ -79,6 +77,10 @@
       mergeAttrs = lhs: rhs: nixpkgs.lib.attrsets.recursiveUpdate lhs rhs;
 
       pkgsBundle = sys : {
+        pkgs-old = import nixpkgs-old {
+          system = sys;
+          config.allowUnfree = true;
+        };
         pkgs-stable = import nixpkgs-stable {
           system = sys;
           config.allowUnfree = true;

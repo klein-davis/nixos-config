@@ -29,8 +29,8 @@
         # TV (3840x2160)
         "HDMI-A-2, 3840x2160@30, 5760x0, 1"  # Landscape, Rightmost
 
-      ];
-      #++ [ ",preferred,auto,1" ];
+      ]
+      ++ [ ",preferred,auto,1" ];
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -165,6 +165,8 @@
         "$mainMod, Return, exec, alacritty"
         "$mainMod, Q, killactive,"
         "$mainMod, M, exit,"
+        "$mainMod, R, exec, obsidian"
+        "$mainMod, C, exec, code"
         "$mainMod, E, exec, nemo ~"
         "$mainMod, F, togglefloating,"
         "$mainMod, D, exec, wofi --show drun"
@@ -219,6 +221,10 @@
         # Scroll through existing workspaces with mainMod + scroll
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
+        "$mainMod, mouse:276, workspace, e+1"
+        "$mainMod, mouse:275, workspace, e-1"
+        #"$mainMod SHIFT, mouse:276, workspace, e+5"
+        #"$mainMod SHIFT, mouse:275, workspace, e-5"
 
         # Keyboard backlight
         "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"

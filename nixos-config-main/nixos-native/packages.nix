@@ -7,6 +7,7 @@
     # Desktop apps
     arduino
     blender
+    chromium
     clementine
     ddcutil
     firefox
@@ -46,6 +47,14 @@
     feh
     gromit-mpx
     screenkey
+
+    # CLI Toys
+    cowsay
+    kittysay
+    ponysay
+    pokemonsay
+    charasay
+    
   ];
 
   fonts.packages = with pkgs; [
