@@ -168,13 +168,19 @@
         "$mainMod, R, exec, obsidian"
         "$mainMod, C, exec, code"
         "$mainMod, E, exec, nemo ~"
-        "$mainMod, F, togglefloating,"
+        "$mainMod, G, togglefloating,"
+        "$mainMod, F, fullscreenstate, 2"
         "$mainMod, D, exec, wofi --show drun"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
         "$mainMod, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"
         "$mainMod, L, exec, swaylock"
+
+        # Cycle through windows
+        "ALT, Tab, bringactivetotop,"
+        "ALT, Tab, cyclenext,"
+        "ALT SHIFT, Tab, cyclenext, prev"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left,  movefocus, l"
