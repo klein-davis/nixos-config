@@ -10,6 +10,7 @@
     chromium
     clementine
     ddcutil
+    pkgsBundle.pkgs-stable.distrobox
     firefox
     gamescope
     kdenlive
@@ -19,11 +20,13 @@
     pkgsBundle.pkgs-unstable.obsidian
     powertop
     qpwgraph
+    virtualbox
 
     # CLI utils
     #atuin
     #bluez
     #bluez-tools
+    busybox
     fastfetch
     file
     lux

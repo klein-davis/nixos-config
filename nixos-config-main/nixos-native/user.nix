@@ -22,7 +22,7 @@
 
     users.${myOptions.username} = {
       isNormalUser = true;
-      description = "user";
+      description = "My Silly Name Here";
       extraGroups = [ "networkmanager" "wheel" "video" "seat" ];
       packages = with pkgs; [];
       shell = pkgs.zsh;

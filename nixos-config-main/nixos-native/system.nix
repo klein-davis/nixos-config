@@ -2,6 +2,19 @@
 {
   # imports = [ inputs.nix-gaming.nixosModules.default ];
   boot.tmp.cleanOnBoot = true;
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    #xorg.libXrender
+  ];
+
+  environment.sessionVariables = {
+    #NIX_LD = lib.mkForce lib.mkIf (myOptions.system == "x86_64-linux") "${pkgs.glibc}/lib64/ld-linux-x86-64.so.2";
+    #NIX_LD_LIBRARY_PATH = impureLibraryPath;
+  };
+
+  virtualisation.podman.enable = true;
+
   nix = {
     settings = {
       auto-optimise-store = true;

@@ -1,9 +1,33 @@
 { pkgs, myOptions, ... }: 
 {
+  # systemd.services.wpa_supplicant.environment.OPENSSL_CONF = 
+  #   if myOptions.enable-enterprise-wifi then { pkgs.writeText "openssl.cnf" 
+  #   "openssl_conf = openssl_init
+  #   [openssl_init]
+  #   ssl_conf = ssl_sect
+  #   [ssl_sect]
+  #   system_default = system_default_sect
+  #   [system_default_sect]
+  #   Options = UnsafeLegacyRenegotiation
+  #   [system_default_sect]
+  #   CipherString = Default:@SECLEVEL=0"
+  #   } else {};
+  systemd.services.wpa_supplicant.environment.OPENSSL_CONF = pkgs.writeText "openssl.cnf" ''
+  openssl_conf = openssl_init
+  [openssl_init]
+  ssl_conf = ssl_sect
+  [ssl_sect]
+  system_default = system_default_sect
+  [system_default_sect]
+  Options = UnsafeLegacyRenegotiation
+  [system_default_sect]
+  CipherString = Default:@SECLEVEL=0
+'';
+
   networking = {
     hostName = myOptions.hostname;
     networkmanager.enable = true;
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [ "1.1.1.1" ''8.8.8.8'' ];
     firewall = {
       enable = true;
       #allowedTCPPorts = [ 22 80 443 59010 59011 ];

@@ -52,13 +52,14 @@
         laptop = {
           hostname = "DESKTOP-SCSCNBU";
           power.mobile = true;
+          enable-enterprise-wifi = true;
         };
         vm = {
           hostname = "NIXVM";
         };
         pi = {
           system = "aarch64-linux";
-          # system = "armv7l-linux"; # For 3B and older
+          # s                    ystem = "armv7l-linux"; # For 3B and older
         };
 
         default = {
@@ -68,6 +69,7 @@
           enable-rgb-lights = false;
           enable-auto-login = true;
           enable-ssh-access = true;
+          enable-enterprise-wifi = false;
           power = {
             mobile = false;
           };
