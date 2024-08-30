@@ -59,7 +59,7 @@
         };
         pi = {
           system = "aarch64-linux";
-          # s                    ystem = "armv7l-linux"; # For 3B and older
+          # system = "armv7l-linux"; # For 3B and older
         };
 
         default = {

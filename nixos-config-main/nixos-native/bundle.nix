@@ -15,7 +15,7 @@
     ./sound.nix
     ./ssh.nix
     ./steam.nix
-    # ./stylix.nix
+    ./stylix.nix
     ./system.nix
     ./trim.nix
     ./user.nix
