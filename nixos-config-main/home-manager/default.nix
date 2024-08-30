@@ -19,6 +19,7 @@
     ++ [(import ./preactivation.nix)]             # fix gtk rebuild error
     ++ [(./rclone.nix)]
     ++ [(import ./scripts/scripts.nix)]           # personal scripts
+    ++ [(import ./stylix.nix)]
     ++ [(import ./swaylock.nix)]                  # lock screen
     # ++ [(import ./vscodium.nix)]                  # vscode forck
     ++ [(import ./waybar)]                        # status bar

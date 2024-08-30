@@ -30,20 +30,20 @@
     #     variant = "mocha";
     #   };
     # };
-    theme = {
-      name = "Breeze-Dark";
-      package = pkgs.libsForQt5.breeze-gtk;
-    };
-    cursorTheme = {
-      name = "Nordzy-cursors";
-      package = pkgs.nordzy-cursor-theme;
-      size = 22;
-    };
-  };
+  #   theme = {
+  #     name = "Breeze-Dark";
+  #     package = pkgs.libsForQt5.breeze-gtk;
+  #   };
+  #   cursorTheme = {
+  #     name = "Nordzy-cursors";
+  #     package = pkgs.nordzy-cursor-theme;
+  #     #size = 22;
+  #   };
+  # };
   
-  home.pointerCursor = {
-    name = "Nordzy-cursors";
-    package = pkgs.nordzy-cursor-theme;
-    size = 22;
+  # home.pointerCursor = {
+  #   name = "Nordzy-cursors";
+  #   package = pkgs.nordzy-cursor-theme;
+  #   #size = 22;
   };
 }

@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   programs.wofi = {
     enable = true;
@@ -19,7 +19,7 @@
       image_size = 40;
       gtk_dark = true;
     };
-    style = ''
+    style = lib.mkForce ''
     /* 050505,515151,b5b5b5,7c7c7c,3c3c3c,272727,848484,737474,343434,1c1c1c */
     @define-color accent #848484; /* Selected color */
     @define-color border #b5b5b5; /* Uh, border     */

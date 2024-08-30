@@ -1,7 +1,8 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, myOptions, ... }:
 
 {
   imports = [ inputs.stylix.nixosModules.stylix ];
+  stylix.enable = true;
   stylix.base16Scheme = {
     base00 = "101010";
     base01 = "686868";
@@ -21,5 +22,27 @@
     base0F = "A0A0A0";
   };
 
-  stylix.image = "~/Pictures/wallpapers/wallpaper.png";
+  # stylix.fonts.sizes = {
+  #   applications = 12;
+  #   terminal = 15;
+  #   desktop = 10;
+  #   popups = 10;
+  # };
+ 
+  # stylix.opacity = {
+  #   applications = 1.0;
+  #   terminal = 1.0;
+  #   desktop = 1.0;
+  #   popups = 1.0;
+  # };
+
+  stylix.cursor = {
+      name = "Nordzy-cursors";
+      package = pkgs.nordzy-cursor-theme;
+      size = 22;
+    };
+  stylix.image = builtins.toPath "/home/${myOptions.username}/Pictures/wallpapers/wallpaper.png";
+  #stylix.image = config.lib.stylix.pixel "base00";
+
+  
 }
