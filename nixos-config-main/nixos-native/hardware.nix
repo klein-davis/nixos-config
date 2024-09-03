@@ -7,10 +7,11 @@
       extraPackages = [ pkgs.vaapiVdpau pkgs.libvdpau-va-gl ];
     };
     nvidia = if (myOptions.enable-nvidia) then {
-     modesetting.enable = true;
-     powerManagement.enable = true; # Fix sleep?
-     nvidiaSettings = true;
-     package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = true; # For stylix
+      modesetting.enable = true;
+      powerManagement.enable = true; # Fix sleep?
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     } else {};
   };
 }

@@ -26,6 +26,7 @@
       extraGroups = [ "networkmanager" "wheel" "video" "seat" ];
       packages = with pkgs; [];
       shell = pkgs.zsh;
+      initialPassword = "${myOptions.default-passwd}";
     };
   };
 

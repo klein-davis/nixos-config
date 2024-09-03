@@ -1,8 +1,8 @@
-{ pkgs, lib, config, inputs, ... }: 
+{ pkgs, lib, config, inputs, pkgsBundle, ... }: 
 {
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    package = pkgsBundle.pkgs-stable.swaylock-effects;
     settings = {
       clock = true;
       datestr = "";

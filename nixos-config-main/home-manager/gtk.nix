@@ -10,17 +10,17 @@
 
   gtk = {
     enable = true;
-    font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 12;
-    };
-    # iconTheme = {
-    #   name = "Papirus-Dark";
-    #   package = pkgs.catppuccin-papirus-folders.override {
-    #     flavor = "mocha";
-    #     accent = "lavender";
-    #   };
+    # font = {
+    #   name = "JetBrainsMono Nerd Font";
+    #   size = 12;
     # };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders.override {
+        flavor = "mocha";
+        accent = "lavender";
+      };
+    };
     # theme = {
     #   name = "Catppuccin-Mocha-Compact-Lavender-Dark";
     #   package = pkgs.catppuccin-gtk.override {
@@ -30,15 +30,15 @@
     #     variant = "mocha";
     #   };
     # };
-  #   theme = {
-  #     name = "Breeze-Dark";
-  #     package = pkgs.libsForQt5.breeze-gtk;
-  #   };
-  #   cursorTheme = {
-  #     name = "Nordzy-cursors";
-  #     package = pkgs.nordzy-cursor-theme;
-  #     #size = 22;
-  #   };
+    # theme = {
+    #   name = "Breeze-Dark";
+    #   package = pkgs.libsForQt5.breeze-gtk;
+    # };
+    cursorTheme = {
+      name = "Nordzy-cursors";
+      package = pkgs.nordzy-cursor-theme;
+      #size = 22;
+    };
   # };
   
   # home.pointerCursor = {

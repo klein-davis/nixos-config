@@ -2,8 +2,8 @@
   description = "My system configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -30,7 +30,7 @@
     };
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+      inputs.hyprland.follows = "hyprland";
     };
   
     home-manager = {
@@ -63,7 +63,8 @@
         };
 
         default = {
-          username = "kleind";
+          username = "nixuser";
+          default-passwd = "password";
           system = "x86_64-linux";
           enable-nvidia = false;
           enable-rgb-lights = false;
