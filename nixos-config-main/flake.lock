@@ -364,6 +364,26 @@
         "type": "github"
       }
     },
+    "hyprgrass": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1724620988,
+        "narHash": "sha256-3CN9ZioI5XBtp6WF61hH2EyASHUIPJQCTXiW1rt9n5w=",
+        "owner": "horriblename",
+        "repo": "hyprgrass",
+        "rev": "427690aec574fec75f5b7b800ac4a0b4c8e4b1d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "repo": "hyprgrass",
+        "type": "github"
+      }
+    },
     "hyprland": {
       "inputs": {
         "aquamarine": "aquamarine",
@@ -736,6 +756,7 @@
         "alejandra": "alejandra",
         "home-manager": "home-manager",
         "hypr-contrib": "hypr-contrib",
+        "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprpicker": "hyprpicker",

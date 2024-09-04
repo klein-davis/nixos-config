@@ -12,7 +12,7 @@
     };
     initExtraFirst = ''
       DISABLE_MAGIC_FUNCTIONS=true
-      #export "MICRO_TRUECOLOR=1"
+      export "MICRO_TRUECOLOR=1"
     '';
     shellAliases = {
       # record = "wf-recorder --audio=alsa_output.pci-0000_08_00.6.analog-stereo.monitor -f $HOME/Videos/$(date +'%Y%m%d%H%M%S_1.mp4')";
@@ -21,10 +21,10 @@
       #c = "clear";
       #cd = "z";
       #tt = "gtrash put";
-      #cat = "bat";
+      cat = "bat";
       #nano = "micro";
       #code = "codium";
-      #py = "python";
+      py = "python";
       #icat = "kitten icat";
       #dsize = "du -hs";
       #findw = "grep -rl";
@@ -35,7 +35,7 @@
 
       # Nixos
       #cdnix = "cd ~/nixos-config && codium ~/nixos-config";
-      #ns = "nix-shell --run zsh";
+      ns = "nix-shell --run zsh";
       #nix-shell = "nix-shell --run zsh";
       #nix-switch = "sudo nixos-rebuild switch --flake ~/nixos-config#${host}";
       #nix-switchu = "sudo nixos-rebuild switch --upgrade --flake ~/nixos-config#${host}";

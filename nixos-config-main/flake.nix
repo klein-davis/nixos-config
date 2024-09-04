@@ -32,6 +32,10 @@
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
+    hyprgrass = {
+        url = "github:horriblename/hyprgrass";
+        inputs.hyprland.follows = "hyprland"; # IMPORTANT
+    };
   
     home-manager = {
       url = "github:nix-community/home-manager";

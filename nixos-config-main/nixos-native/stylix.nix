@@ -23,6 +23,11 @@
       base0F = "A0A0A0";
     };
 
+    polarity = "dark";
+
+    targets = {
+      gtk.enable = true;
+    };
     fonts.sizes = {
       applications = 12;
       terminal = 15;
@@ -42,7 +47,7 @@
       package = pkgs.nordzy-cursor-theme;
       # size = 15;
     };
-    # stylix.theme = {
+    # gtk = {
     #   name = "Breeze-Dark";
     #   package = pkgs.libsForQt5.breeze-gtk;
     # };
