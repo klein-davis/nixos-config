@@ -8,6 +8,6 @@
     mako.enable = false;
     swaylock.enable = false;
     waybar.enable = false;
-    #plasma.enable = false;
+    kde.enable = false;
   };
 }

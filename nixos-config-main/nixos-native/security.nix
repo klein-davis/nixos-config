@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: 
+{ lib, pkgs, myOptions, ... }: 
 {
   security.rtkit.enable = true;
   security.sudo.enable = true;
@@ -7,15 +7,15 @@
   security.pam.services.swaylock.text = lib.readFile "${pkgs.swaylock}/etc/pam.d/swaylock";
   # IDK
   # security.pam.services.swaylock.fprintAuth = false;
-  # security.sudo.extraRules = [
-  #     {
-  #         users = [ "YOUR_USERNAME" ];
-  #         commands = [
-  #             {
-  #                 command = "gpu-screen-recorder";
-  #                 options = ["NOPASSWD"];
-  #             }
-  #         ];
-  #     }
-  # ]
+  security.sudo.extraRules = [
+      {
+          #users = [ "nixuser" ];
+          commands = [
+              {
+                  command = "/run/current-system/sw/bin/nixos-rebuild";
+                  options = ["NOPASSWD"];
+              }
+          ];
+      }
+  ];
 }

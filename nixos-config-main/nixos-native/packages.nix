@@ -7,7 +7,7 @@
     # Desktop apps
     arduino
     blender
-    chromium
+    #chromium
     clementine
     ddcutil
     pkgsBundle.pkgs-stable.distrobox
@@ -15,6 +15,7 @@
     gamescope
     kdenlive
     pkgsBundle.pkgs-main.lmstudio
+    neverball
     nmap
     obs-studio
     pkgsBundle.pkgs-unstable.obsidian

@@ -23,6 +23,7 @@
     soundwireserver                       # pass audio to android phone
     todo                                  # cli todo list
     toipe                                 # typing test in the terminal
+    udiskie
     valgrind                              # c memory analyzer
     yazi                                  # terminal file manager
     #youtube-dl
@@ -33,7 +34,7 @@
     # Coding stuff
     gcc
     gnumake
-    python3
+    #python3
     vscode
     devenv
 

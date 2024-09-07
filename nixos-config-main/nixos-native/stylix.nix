@@ -3,7 +3,7 @@
 {
   imports = [ inputs.stylix.nixosModules.stylix ];
   stylix = {
-    enable = true;
+    enable = false;
     base16Scheme = {
       base00 = "101010";
       base01 = "686868";
@@ -27,6 +27,7 @@
 
     targets = {
       gtk.enable = true;
+      #kde.enable = false;
     };
     fonts.sizes = {
       applications = 12;
@@ -42,15 +43,12 @@
       popups = 1.0;
     };
 
-    cursor = {
-      name = "Nordzy-cursors";
-      package = pkgs.nordzy-cursor-theme;
-      # size = 15;
-    };
-    # gtk = {
-    #   name = "Breeze-Dark";
-    #   package = pkgs.libsForQt5.breeze-gtk;
+    # cursor = {
+    #   name = "Nordzy-cursors";
+    #   package = pkgs.nordzy-cursor-theme;
+    #   # size = 15;
     # };
+    
     image = /wallpaper.png;
   };
 }

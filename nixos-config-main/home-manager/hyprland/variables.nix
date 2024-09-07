@@ -21,7 +21,7 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_QPA_PLATFORM = "xcb";
     QT_QPA_PLATFORMTHEME = "qt5ct";
-    #QT_STYLE_OVERRIDE = "kvantum";
+    QT_STYLE_OVERRIDE = "kvantum";
     MOZ_ENABLE_WAYLAND = "1";
     #WLR_BACKEND = "vulkan";
     #WLR_RENDERER = "vulkan";
@@ -30,6 +30,6 @@
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     #GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
-    GTK_THEME = "Breeze-Dark";
+    #GTK_THEME = "Breeze-Dark";
   };
 }
