@@ -23,7 +23,7 @@
     users.${myOptions.username} = {
       isNormalUser = true;
       description = "My Silly Name Here";
-      extraGroups = [ "networkmanager" "wheel" "video" "seat" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "seat" "vboxusers"];
       packages = with pkgs; [];
       shell = pkgs.zsh;
       initialPassword = "${myOptions.default-passwd}";

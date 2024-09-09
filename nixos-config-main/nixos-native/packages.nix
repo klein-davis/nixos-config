@@ -21,7 +21,6 @@
     pkgsBundle.pkgs-unstable.obsidian
     powertop
     qpwgraph
-    virtualbox
 
     # CLI utils
     #atuin

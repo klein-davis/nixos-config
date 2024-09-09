@@ -16,14 +16,14 @@
     iconTheme = lib.mkForce  {
       # name = "Shades-of-gray";
       # package = pkgs.shades-of-gray-theme;
-      # name = "Adwaita";
-      # package = pkgs.adwaita-icon-theme; 
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme; 
       # name = "windows10";
       # package = pkgs.windows10-icons;
       # name = "WhiteSur";
       # package = pkgs.whitesur-icon-theme;
-      name = "Gruvbox-Plus-Dark";
-      package = pkgs.gruvbox-plus-icons;  
+      # name = "Gruvbox-Plus-Dark";
+      # package = pkgs.gruvbox-plus-icons;  
     };
     cursorTheme = {
       name = "Nordzy-cursors";
