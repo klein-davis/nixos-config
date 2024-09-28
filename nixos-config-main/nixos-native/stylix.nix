@@ -3,7 +3,7 @@
 {
   imports = [ inputs.stylix.nixosModules.stylix ];
   stylix = {
-    enable = true;
+    enable = false;
     base16Scheme = {
       base00 = "101010";
       base01 = "686868";

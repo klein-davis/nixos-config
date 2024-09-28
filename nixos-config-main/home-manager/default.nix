@@ -13,12 +13,12 @@
     ++ [(import ./hypridle.nix)]                  # idle
     ++ [(import ./kitty.nix)]                     # terminal
     ++ [(import ./mako.nix)]                      # notification deamon
-    ++ [(import ./micro.nix)]                     # nano replacement
+    # ++ [(import ./micro.nix)]                     # nano replacement
     ++ [(import ./nvim.nix)]                      # neovim editor
     ++ [(import ./packages.nix)]                  # other packages
     ++ [(import ./preactivation.nix)]             # fix gtk rebuild error
     ++ [(./rclone.nix)]
-    ++ [(import ./scripts/scripts.nix)]           # personal scripts
+    # ++ [(import ./scripts/scripts.nix)]           # personal scripts
     ++ [(import ./stylix.nix)]
     ++ [(import ./swaylock.nix)]                  # lock screen
     # ++ [(import ./vscodium.nix)]                  # vscode forck

@@ -16,8 +16,8 @@
       ocamllabs.ocaml-platform
 
       # Color theme
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
+      # catppuccin.catppuccin-vsc
+      # catppuccin.catppuccin-vsc-icons
     ];
     userSettings = {
       "update.mode" = "none";

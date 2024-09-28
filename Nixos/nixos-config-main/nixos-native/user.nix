@@ -2,7 +2,7 @@
   
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {
-    backupFileExtension = "backup2";
+    backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs host pkgsBundle myOptions; };

@@ -1,4 +1,4 @@
-{ pkgs, myOptions, ... }: 
+{ lib, pkgs, myOptions, ... }: 
 {
   # systemd.services.wpa_supplicant.environment.OPENSSL_CONF = 
   #   if myOptions.enable-enterprise-wifi then { pkgs.writeText "openssl.cnf" 
@@ -12,6 +12,7 @@
   #   [system_default_sect]
   #   CipherString = Default:@SECLEVEL=0"
   #   } else {};
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
   systemd.services.wpa_supplicant.environment.OPENSSL_CONF = pkgs.writeText "openssl.cnf" ''
   openssl_conf = openssl_init
   [openssl_init]

@@ -1,11 +1,66 @@
 { self, pkgs, lib, inputs, myOptions, ...}: 
 {
   # imports = [ inputs.nix-gaming.nixosModules.default ];
+  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
   boot.tmp.cleanOnBoot = true;
-
+  programs.nix-index.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     #xorg.libXrender
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    atk
+    cairo
+    cmake
+    cups
+    curl
+    dbus
+    expat
+    fontconfig
+    freetype
+    fuse3
+    gdk-pixbuf
+    glib
+    gtk3
+    icu
+    libGL
+    libappindicator-gtk3
+    libdrm
+    libglvnd
+    libnotify
+    libpulseaudio
+    libunwind
+    libusb1
+    libuuid
+    libxkbcommon
+    libxml2
+    mesa
+    ncurses5
+    nspr
+    nss
+    openssl
+    pango
+    pipewire
+    saw-tools
+    stdenv.cc.cc
+    systemd
+    vulkan-loader
+    xorg.libX11
+    xorg.libXScrnSaver
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libxcb
+    xorg.libxkbfile
+    xorg.libxshmfence
+    zlib
   ];
 
   environment.sessionVariables = {

@@ -14,6 +14,7 @@
     firefox
     gamescope
     kdenlive
+    libheif
     pkgsBundle.pkgs-main.lmstudio
     neverball
     nmap
@@ -21,6 +22,7 @@
     pkgsBundle.pkgs-unstable.obsidian
     powertop
     qpwgraph
+    vim
 
     # CLI utils
     #atuin

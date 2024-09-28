@@ -203,6 +203,7 @@
         "$mainMod, T, exec, kitty"
         "$mainMod, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"
         "$mainMod, L, exec, swaylock"
+        "$mainMod, S, exec, firefox"
 
         # Cycle through windows
         "ALT, Tab, bringactivetotop,"

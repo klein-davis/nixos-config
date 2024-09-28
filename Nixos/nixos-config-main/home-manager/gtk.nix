@@ -6,20 +6,20 @@
     (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     pkgs.twemoji-color-font
     pkgs.noto-fonts-emoji
-  ];  
+  ];
 
   
 
   gtk = lib.mkForce {
-    enable = false;
+    enable = true;
     
     iconTheme = lib.mkForce  {
-      # name = "Shades-of-gray";
+      # name = "Shades-of-gray-Arch";
       # package = pkgs.shades-of-gray-theme;
       # name = "Adwaita";
       # package = pkgs.adwaita-icon-theme; 
-      name = "windows10";
-      package = pkgs.windows10-icons;
+      # name = "windows10";
+      # package = pkgs.windows10-icons;
       # name = "WhiteSur";
       # package = pkgs.whitesur-icon-theme;
       # name = "Gruvbox-Plus-Dark";
@@ -34,11 +34,11 @@
         name = "Breeze-Dark";
         package = pkgs.libsForQt5.breeze-gtk;
     };
-  };
+  # };
   
   # home.pointerCursor = {
   #   name = "Nordzy-cursors";
   #   package = pkgs.nordzy-cursor-theme;
   #   #size = 22;
-  # };
+  };
 }

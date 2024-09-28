@@ -2,6 +2,7 @@
 {
   home.packages = (with pkgs; [
     bitwise                               # cli tool for bit / hex manipulation
+    dust
     eza                                   # ls replacement
     entr                                  # perform action when file change
     fd                                    # find replacement
@@ -32,9 +33,12 @@
     wineWowPackages.wayland
 
     # Coding stuff
+    clang-tools
     gcc
+    gdb
+    cmake
     gnumake
-    #python3
+    python3
     vscode
     devenv
 

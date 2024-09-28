@@ -42,6 +42,9 @@
       #url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, home-manager, ... } @ inputs:
@@ -49,8 +52,8 @@
       system = "x86_64-linux";
       myCOptions = {
         desktop = {
-          enable-nvidia = true;
-          enable-rgb-lights = true;
+          enable-nvidia = false;
+          # enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
         };
         laptop = {
