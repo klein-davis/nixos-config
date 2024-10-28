@@ -6,8 +6,8 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino
-    blender
-    #chromium
+    pkgsBundle.pkgs-stable.blender
+    chromium
     clementine
     ddcutil
     pkgsBundle.pkgs-stable.distrobox
@@ -15,7 +15,8 @@
     gamescope
     kdenlive
     libheif
-    pkgsBundle.pkgs-main.lmstudio
+    # pkgsBundle.pkgs-main.lmstudio
+    lmstudio
     neverball
     nmap
     obs-studio
@@ -23,6 +24,7 @@
     powertop
     qpwgraph
     vim
+    vcv-rack
 
     # CLI utils
     #atuin

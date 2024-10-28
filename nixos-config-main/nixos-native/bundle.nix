@@ -19,6 +19,7 @@
     ./system.nix
     ./trim.nix
     ./user.nix
+    #./user2.nix
     ./virtmanager.nix
     ./xserver.nix
     ./zram.nix

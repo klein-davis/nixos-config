@@ -13,7 +13,7 @@
     hexdump
     jdk17                                 # java
     lazygit
-    libreoffice
+    # libreoffice
     nemo-with-extensions                  # file manager
     nitch                                 # systhem fetch util
     nix-prefetch-github
@@ -34,11 +34,12 @@
 
     # Coding stuff
     clang-tools
+    # clang
     gcc
     gdb
-    cmake
+    # cmake
     gnumake
-    python3
+    # python3
     vscode
     devenv
 

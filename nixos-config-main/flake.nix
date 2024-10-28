@@ -2,8 +2,8 @@
   description = "My system configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:NixOS/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -52,7 +52,7 @@
       system = "x86_64-linux";
       myCOptions = {
         desktop = {
-          enable-nvidia = false;
+          enable-nvidia = true;
           # enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
         };
@@ -68,6 +68,12 @@
           system = "aarch64-linux";
           # system = "armv7l-linux"; # For 3B and older
         };
+	desktop2 = {
+          enable-nvidia = true;
+          # enable-rgb-lights = true;
+          hostname = "DESKTOP-2";
+        };
+
 
         default = {
           username = "nixuser";
@@ -75,7 +81,7 @@
           system = "x86_64-linux";
           enable-nvidia = false;
           enable-rgb-lights = false;
-          enable-auto-login = true;
+          enable-auto-login = false;
           enable-ssh-access = true;
           enable-enterprise-wifi = false;
           power = {
@@ -142,6 +148,15 @@
             inherit self inputs; 
           };
         };
+	desktop2 = nixpkgs.lib.nixosSystem {
+          system = (mergeAttrs myCOptions.default myCOptions.desktop2).system;
+          modules = [(import ./hosts/desktop2)];
+          specialArgs = { host="desktop2";
+            myOptions = mergeAttrs myCOptions.default myCOptions.desktop2;
+            pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.desktop2).system;
+            inherit self inputs; 
+          };
+	};
       };
     };
 }
