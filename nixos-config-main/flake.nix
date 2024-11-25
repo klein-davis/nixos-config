@@ -4,6 +4,7 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs-super-old.url = "github:nixos/nixpkgs/nixos-21.05";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -47,7 +48,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, nixpkgs-super-old, home-manager, ... } @ inputs:
     let
       system = "x86_64-linux";
       myCOptions = {
@@ -93,6 +94,10 @@
       mergeAttrs = lhs: rhs: nixpkgs.lib.attrsets.recursiveUpdate lhs rhs;
 
       pkgsBundle = sys : {
+        pkgs-super-old = import nixpkgs-super-old {
+          system = sys;
+          config.allowUnfree = true;
+        };
         pkgs-old = import nixpkgs-old {
           system = sys;
           config.allowUnfree = true;

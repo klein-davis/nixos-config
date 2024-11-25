@@ -1,19 +1,23 @@
 { inputs, pkgs, pkgsBundle, myOptions, ... }: 
 {
   home.packages = (with pkgs; [
+    # atop
     bitwise                               # cli tool for bit / hex manipulation
+    # pkgsBundle.pkgs-super-old.cgminer
+    # cgminer
     dust
     eza                                   # ls replacement
     entr                                  # perform action when file change
     fd                                    # find replacement
     file                                  # show file information 
+    freecad
     gtt                                   # google translate TUI
     gimp
     gtrash                                # rm replacement, put deleted files in system trash
     hexdump
     jdk17                                 # java
     lazygit
-    # libreoffice
+    pkgsBundle.pkgs-stable.libreoffice
     nemo-with-extensions                  # file manager
     nitch                                 # systhem fetch util
     nix-prefetch-github
@@ -24,12 +28,14 @@
     soundwireserver                       # pass audio to android phone
     todo                                  # cli todo list
     toipe                                 # typing test in the terminal
+    ttyper
     udiskie
     valgrind                              # c memory analyzer
-    yazi                                  # terminal file manager
+    # yazi                                  # terminal file manager
     #youtube-dl
     #zenity
     wdisplays
+    # writedisk
     wineWowPackages.wayland
 
     # Coding stuff
@@ -38,14 +44,13 @@
     gcc
     gdb
     # cmake
-    gnumake
+    # gnumake
     # python3
     vscode
     devenv
 
-    bleachbit                             # cache cleaner
+    # bleachbit                             # cache cleaner
     cmatrix
-    pkgsBundle.pkgs-main.gparted          # partition manager
     ffmpeg
     fzf
     imv                                   # imageviewer

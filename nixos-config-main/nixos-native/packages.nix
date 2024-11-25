@@ -13,6 +13,7 @@
     pkgsBundle.pkgs-stable.distrobox
     firefox
     gamescope
+    pkgsBundle.pkgs-main.gparted          # partition manager
     kdenlive
     libheif
     # pkgsBundle.pkgs-main.lmstudio

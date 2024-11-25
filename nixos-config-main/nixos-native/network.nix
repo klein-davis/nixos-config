@@ -1,7 +1,7 @@
 { lib, pkgs, myOptions, ... }: 
 {
   # systemd.services.wpa_supplicant.environment.OPENSSL_CONF = 
-  #   if myOptions.enable-enterprise-wifi then { pkgs.writeText "openssl.cnf" 
+  #   if myOptions.enable-enterprise-wifi then { pkgs.writeText "openssl.cnf"
   #   "openssl_conf = openssl_init
   #   [openssl_init]
   #   ssl_conf = ssl_sect
