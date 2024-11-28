@@ -44,17 +44,18 @@
         #"DP-3, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
 
         # Rightmost monitor (1920x1080)
-        "DP-1, 1920x1200@60, 3840x0, 1"  # Landscape, Rightmost
+        # "DP-1, 1920x1200@60, 3840x0, 1"  # Landscape, Rightmost
         #"DP-1, 1920x1080@60, 1920x0, 1"  # Landscape, Rightmost
 
         # Center monitor
-        "DP-3, 1920x1080@120, 1920x92, 1"  # Landscape, Center
+        # "DP-3, 1920x1080@120, 1920x92, 1"  # Landscape, Center
 
         # Leftmost monitor
-        "DP-2, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
+        # "DP-2, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
 
         # TV (3840x2160)
-        "HDMI-A-2, 3840x2160@30, 5760x0, 1"  # Landscape, Rightmost
+        # "HDMI-A-2, 3840x2160@30, 5760x0, 1"  # Landscape, Rightmost
+        # "HDMI-A-2, 3840x2160@30, 3840x0, 1"  # Landscape, Rightmost
 
       ]
       ++ [ ",preferred,auto,1" ];

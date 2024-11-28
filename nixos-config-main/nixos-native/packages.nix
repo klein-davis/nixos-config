@@ -25,7 +25,7 @@
     powertop
     qpwgraph
     vim
-    vcv-rack
+    # vcv-rack
 
     # CLI utils
     #atuin
@@ -73,6 +73,6 @@
     font-awesome
     powerline-fonts
     powerline-symbols
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    # (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 }

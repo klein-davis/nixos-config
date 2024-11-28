@@ -1,16 +1,16 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, pkgsBundle, ... }:
 {
   fonts.fontconfig.enable = true;
   home.packages = [
-    pkgs.nerdfonts
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    pkgs.twemoji-color-font
-    pkgs.noto-fonts-emoji
+    pkgsBundle.pkgs-old.nerdfonts
+    (pkgsBundle.pkgs-old.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    pkgsBundle.pkgs-old.twemoji-color-font
+    pkgsBundle.pkgs-old.noto-fonts-emoji
   ];  
 
   
 
-  gtk = lib.mkForce {
+  gtk = {
     enable = true;
     
     iconTheme = lib.mkForce  {
