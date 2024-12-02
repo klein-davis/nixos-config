@@ -54,7 +54,7 @@
       myCOptions = {
         desktop = {
           enable-nvidia = true;
-          # enable-rgb-lights = true;
+          enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
         };
         laptop = {

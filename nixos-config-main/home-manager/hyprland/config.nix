@@ -33,19 +33,19 @@
       };
 
       monitor = [
-        # Rightmost monitor (1920x1080)
-        #"DP-1, 1920x1080@60, 3840x92, 1"  # Landscape, Rightmost
-        #"DP-1, 1920x1080@60, 1920x0, 1"  # Landscape, Rightmost
+        # Rightmost monitor (1920x1200)
+        # "DP-1, 1920x1080@60, 3840x92, 1"  # Landscape, Rightmost
+        # "DP-1, 1920x1200@60, 3840x0, 1"  # Landscape, Rightmost
 
         # Center monitor
-        #"DP-2, 1920x1200@60, 1920x0, 1"  # Landscape, Center
+        # "DP-2, 1920x1200@60, 1920x0, 1"  # Landscape, Center
 
         # Leftmost monitor
-        #"DP-3, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
+        # "DP-3, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
 
         # Rightmost monitor (1920x1080)
         # "DP-1, 1920x1200@60, 3840x0, 1"  # Landscape, Rightmost
-        #"DP-1, 1920x1080@60, 1920x0, 1"  # Landscape, Rightmost
+        # "DP-1, 1920x1080@60, 1920x0, 1"  # Landscape, Rightmost
 
         # Center monitor
         # "DP-3, 1920x1080@120, 1920x92, 1"  # Landscape, Center
@@ -55,7 +55,20 @@
 
         # TV (3840x2160)
         # "HDMI-A-2, 3840x2160@30, 5760x0, 1"  # Landscape, Rightmost
-        # "HDMI-A-2, 3840x2160@30, 3840x0, 1"  # Landscape, Rightmost
+        # "HDMI-A-2, 3840x2160@30, 3840x0, 2"  # Landscape, Rightmost
+
+
+        # Left Tall
+        "DP-3, 1920x1200@60, 0x0, 1"
+
+        # Middle
+        "DP-2, 1920x1080@120, 1920x120, 1"
+
+        # Right Tall
+        "DP-1, 1920x1200@60, 3840x0, 1"
+
+        # TV
+        "HDMI-A-1, 3840x2160@60, 5760x0, 2"
 
       ]
       ++ [ ",preferred,auto,1" ];

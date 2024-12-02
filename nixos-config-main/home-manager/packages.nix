@@ -5,6 +5,7 @@
     bitwise                               # cli tool for bit / hex manipulation
     # pkgsBundle.pkgs-super-old.cgminer
     # cgminer
+    cloc
     dust
     eza                                   # ls replacement
     entr                                  # perform action when file change
@@ -20,11 +21,13 @@
     pkgsBundle.pkgs-stable.libreoffice
     nemo-with-extensions                  # file manager
     nitch                                 # systhem fetch util
+    nmap
     nix-prefetch-github
     #(prismlauncher.override               # minecraft launcher
     #{ withWaylandGLFW = true; })
     prismlauncher
     ripgrep                               # grep replacement
+    rstudio
     soundwireserver                       # pass audio to android phone
     todo                                  # cli todo list
     toipe                                 # typing test in the terminal
