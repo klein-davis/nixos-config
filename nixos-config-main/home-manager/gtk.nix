@@ -28,12 +28,23 @@
     cursorTheme = {
       name = "Nordzy-cursors";
       package = pkgs.nordzy-cursor-theme;
-      #size = 22;
+      size = 22;
     };
-    theme = lib.mkForce { # Stupid stylix
-        name = "Breeze-Dark";
-        package = pkgs.libsForQt5.breeze-gtk;
+
+    theme = {
+      name = "Catppuccin-Macchiato-Compact-Pink-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "pink" ];
+        size = "compact";
+        tweaks = [ "rimless" "black" ];
+        variant = "macchiato";
+      };
     };
+
+    # theme = lib.mkForce { # Stupid stylix
+    #     name = "Breeze-Dark";
+    #     package = pkgs.libsForQt5.breeze-gtk;
+    # };
   };
   
   home.pointerCursor = {

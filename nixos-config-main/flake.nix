@@ -69,8 +69,8 @@
           system = "aarch64-linux";
           # system = "armv7l-linux"; # For 3B and older
         };
-	desktop2 = {
-          enable-nvidia = true;
+	      desktop2 = {
+          # enable-nvidia = true;
           # enable-rgb-lights = true;
           hostname = "DESKTOP-2";
         };

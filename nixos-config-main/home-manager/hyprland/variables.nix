@@ -30,6 +30,6 @@
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     #GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
-    #GTK_THEME = "Breeze-Dark";
+    GTK_THEME = "Breeze-Dark";
   };
 }
