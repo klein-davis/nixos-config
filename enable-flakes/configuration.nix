@@ -94,6 +94,7 @@
       git
       vscode
       sshfs
+      btop
     #  thunderbird
     ];
   };

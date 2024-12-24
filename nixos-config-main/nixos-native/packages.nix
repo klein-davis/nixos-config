@@ -6,8 +6,8 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino
-    pkgsBundle.pkgs-stable.blender
-    chromium
+    blender
+    pkgsBundle.pkgs-old.chromium
     clementine
     ddcutil
     pkgsBundle.pkgs-stable.distrobox
@@ -23,6 +23,7 @@
     obs-studio
     pkgsBundle.pkgs-unstable.obsidian
     powertop
+    qbittorrent
     qpwgraph
     vim
     # vcv-rack

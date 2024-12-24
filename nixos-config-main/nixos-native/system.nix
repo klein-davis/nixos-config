@@ -74,8 +74,8 @@
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      substituters = [ "https://nix-gaming.cachix.org" "https://nixpkgs-python.cachix.org" "https://devenv.cachix.org" ];
-      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU=" ];
+      # substituters = [ "https://nix-gaming.cachix.org" "https://nixpkgs-python.cachix.org" "https://devenv.cachix.org" ];
+      # trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU=" ];
     };
     gc = {
       automatic = false;
