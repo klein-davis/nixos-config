@@ -2,9 +2,9 @@
   description = "My system configuration";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-super-old.url = "github:nixos/nixpkgs/nixos-21.05";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -40,8 +40,8 @@
     };
   
     home-manager = {
-      # url = "github:nix-community/home-manager";
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
+      # url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -57,6 +57,7 @@
           enable-nvidia = true;
           enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
+          enable-auto-login = true;
         };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";
