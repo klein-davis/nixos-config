@@ -33,6 +33,7 @@
     #bluez
     #bluez-tools
     busybox
+    cloudflare-warp
     fastfetch
     file
     lux
@@ -40,6 +41,7 @@
     nix-index
     ntfs3g
     openssl
+    openvpn
     ranger
     scrot
     swww
@@ -47,6 +49,7 @@
     tree
     unzip
     w3m
+    wgcf
     wget
     yt-dlp
     zip

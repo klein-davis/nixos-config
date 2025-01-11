@@ -35,7 +35,7 @@
     libuuid
     libxkbcommon
     libxml2
-    mesa
+    # mesa
     ncurses5
     nspr
     nss
