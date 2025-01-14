@@ -57,7 +57,7 @@
           enable-nvidia = true;
           enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
-          enable-auto-login = true;
+          enable-auto-login = false;
         };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";
