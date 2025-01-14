@@ -7,7 +7,8 @@
       extraPackages = [ pkgs.vaapiVdpau pkgs.libvdpau-va-gl pkgs.vpl-gpu-rt ];
     };
     nvidia = if (myOptions.enable-nvidia) then {
-      open = true; # For stylix
+      # open = true; # For stylix
+      open = false;
       modesetting.enable = true;
       powerManagement.enable = true; # Fix sleep?
       nvidiaSettings = true;

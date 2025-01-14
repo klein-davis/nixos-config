@@ -30,7 +30,7 @@
     networkmanager.enable = true;
     nameservers = [ "1.1.1.1" ''8.8.8.8'' ];
     firewall = {
-      enable = true;
+      enable = false;
       #allowedTCPPorts = [ 22 80 443 59010 59011 ];
 
       # For steam network file transfer

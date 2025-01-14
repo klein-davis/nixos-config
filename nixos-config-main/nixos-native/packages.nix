@@ -9,14 +9,11 @@
     blender
     pkgsBundle.pkgs-old.chromium
     clementine
-    ddcutil
     pkgsBundle.pkgs-stable.distrobox
     firefox
     gamescope
     pkgsBundle.pkgs-main.gparted          # partition manager
     kdenlive
-    libheif
-    # pkgsBundle.pkgs-main.lmstudio
     lmstudio
     neverball
     nmap
@@ -25,30 +22,32 @@
     powertop
     qbittorrent
     qpwgraph
-    vim
     # vcv-rack
 
     # CLI utils
-    #atuin
-    #bluez
-    #bluez-tools
-    busybox
-    cloudflare-warp
-    fastfetch
-    file
-    lux
-    mediainfo
+    #atuin  # Sync shell history
+    bluez  # Bluetooth audio tools
+    bluez-tools  # Bluetooth audio tools
+    # busybox  # unused tools, remove if not needed for a while
+    ddcutil # screen brightness
+    fastfetch # fetch program
+    file  # show filetype
+    # lux  # Video Downloader
+    libheif  # Convert to and from HEIF files
+    # mediainfo  # Video file info
     nix-index
     ntfs3g
     openssl
     openvpn
-    ranger
-    scrot
+    # ranger # CLI File Manager
+    # scrot # CLI Screen Capture
     swww
     tmux
-    tree
+    tree  # Show file tree
     unzip
-    w3m
+    vim
+    w3m  
+    waypaper
     wgcf
     wget
     yt-dlp
@@ -61,11 +60,11 @@
     screenkey
 
     # CLI Toys
-    cowsay
-    kittysay
-    ponysay
-    pokemonsay
-    charasay
+    # cowsay
+    # kittysay
+    # ponysay
+    # pokemonsay
+    # charasay
     
   ];
 

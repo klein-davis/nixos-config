@@ -3,6 +3,7 @@
     ./bluetooth.nix
     ./bootloader.nix
     ./env.nix
+    ./gtk.nix
     ./hardware.nix
     ./hyprland.nix
     ./network.nix

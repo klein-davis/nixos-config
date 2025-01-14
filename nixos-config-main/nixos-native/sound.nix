@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   #sound.enable = true;
 
   services.pipewire = {
@@ -10,7 +10,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
 
-    # If you want to use JACK applications, uncomment this
     jack.enable = true;
   };
 
