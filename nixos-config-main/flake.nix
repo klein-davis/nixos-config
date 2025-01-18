@@ -7,7 +7,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-super-old.url = "github:nixos/nixpkgs/nixos-21.05";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-main.url = "github:NixOS/nixpkgs";
 
