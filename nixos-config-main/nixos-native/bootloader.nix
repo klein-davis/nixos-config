@@ -6,9 +6,7 @@
   boot.initrd.kernelModules = if (myOptions.enable-nvidia == true) then [ "nvidia" ] else [];
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
   (if (myOptions.enable-nvidia == true) then [ "nvidia-drm.fbdev=1" ] else []);
-  # boot.kernelPackages = pkgsBundle.pkgs-stable.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages;
-  
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   #boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_9;
   #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_4_19.override {
   #  argsOverride = rec {
@@ -20,15 +18,4 @@
   #    modDirVersion = "6.10.1";
   #    };
   #});
-
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_12.override {
-	argsOverride = rec {
-		src = pkgs.fetchurl {
-            	url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            	sha256 = "AZOx2G3TcuyJG655n22iDe7xb8GZ8wCApOqd6M7wxhk=";
-	};
-	version = "6.12.1";
-	modDirVersion = "6.12.1";
-	};
-});
 }
