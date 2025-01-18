@@ -6,7 +6,7 @@
   programs.nix-index.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    #xorg.libXrender
+    xorg.libXrender
     alsa-lib
     at-spi2-atk
     at-spi2-core
@@ -35,7 +35,7 @@
     libuuid
     libxkbcommon
     libxml2
-    # mesa
+    mesa
     ncurses5
     nspr
     nss

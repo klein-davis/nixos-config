@@ -14,5 +14,14 @@
   #   # don’t shutdown when power button is short-pressed
   #   HandlePowerKey=ignore
   # '';
+
+  # services.logind.extraConfig = ''
+  #   HandlePowerKey=suspend
+  #   IdleAction=suspend
+  #   IdleActionSec=30m
+  # '';
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+  '';
   
 }

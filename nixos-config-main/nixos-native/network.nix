@@ -28,9 +28,9 @@
   networking = {
     hostName = myOptions.hostname;
     networkmanager.enable = true;
-    nameservers = [ "1.1.1.1" ''8.8.8.8'' ];
+    nameservers = [ "8.8.8.8" "1.1.1.1" ];
     firewall = {
-      enable = false;
+      enable = true;
       #allowedTCPPorts = [ 22 80 443 59010 59011 ];
 
       # For steam network file transfer
