@@ -6,7 +6,8 @@
   boot.initrd.kernelModules = if (myOptions.enable-nvidia == true) then [ "nvidia" ] else [];
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
   (if (myOptions.enable-nvidia == true) then [ "nvidia-drm.fbdev=1" ] else []);
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
   #boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_9;
   #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_4_19.override {
   #  argsOverride = rec {

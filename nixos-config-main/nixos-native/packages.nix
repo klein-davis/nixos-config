@@ -18,6 +18,7 @@
     neverball
     nwg-look
     obs-studio
+    ollama
     pkgsBundle.pkgs-unstable.obsidian
     powertop
     qbittorrent
@@ -35,6 +36,7 @@
     # lux                                 # Video Downloader
     libheif                               # Convert to and from HEIF files
     # mediainfo                           # Video file info
+    nh
     nmap
     nix-index
     ntfs3g

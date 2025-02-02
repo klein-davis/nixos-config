@@ -7,13 +7,13 @@
       extraPackages = [ pkgs.vaapiVdpau pkgs.libvdpau-va-gl pkgs.vpl-gpu-rt ];
     };
     nvidia = if (myOptions.enable-nvidia) then {
-      # open = true; # For stylix
-      open = false;
+      open = true; # For stylix
+      # open = false;
       modesetting.enable = true;
       powerManagement.enable = true; # Fix sleep?
       nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.stable;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "555.58";
