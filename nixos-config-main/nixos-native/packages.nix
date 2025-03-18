@@ -13,7 +13,7 @@
     pkgsBundle.pkgs-stable.firefox
     gamescope
     pkgsBundle.pkgs-main.gparted          # partition manager
-    kdenlive
+    # kdenlive
     lmstudio
     neverball
     nwg-look

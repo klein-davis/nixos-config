@@ -236,6 +236,13 @@
         "$mainMod SHIFT, up,    swapwindow, u"
         "$mainMod SHIFT, down,  swapwindow, d"
 
+        # Audio clip hotkeys
+        "$mainMod ALT, 1, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"1*\") --no-video"
+        "$mainMod ALT, 2, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"2*\") --no-video"
+        "$mainMod ALT, 3, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"3*\") --no-video"
+        "$mainMod ALT, 4, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"4*\") --no-video"
+        "$mainMod ALT, 5, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"5*\") --no-video"
+
         # Window resizing                     X  Y
         "$mainMod CTRL, left,  resizeactive, -60 0"
         "$mainMod CTRL, right, resizeactive,  60 0"
