@@ -1,3 +1,4 @@
+
 Get stylix set up:
     Vscode theme to use
     "terminal.background":"#101010",

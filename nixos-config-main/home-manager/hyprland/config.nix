@@ -178,11 +178,6 @@
         disable_hyprland_logo = true;
       };
 
-      windowrule = [
-        "float, ^(imv)$"
-        "float, ^(mpv)$"
-      ];
-
       # autostart
       exec-once = [
         "systemctl --user import-environment &"

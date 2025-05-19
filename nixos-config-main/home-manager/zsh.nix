@@ -1,4 +1,4 @@
-{ hostname, config, pkgs, host, ...}: 
+{ hostname, config, pkgs, host, lib, ...}: 
 {
   programs.zsh = {
     enable = true;
@@ -10,7 +10,7 @@
       plugins = [ "git" "fzf" ];
       theme = "agnoster";
     };
-    initExtraFirst = ''
+    initContent = lib.mkBefore ''
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
     '';
