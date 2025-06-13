@@ -59,6 +59,11 @@
           hostname = "DESKTOP-GV1U8SC";
           enable-auto-login = false;
         };
+        framework1 = {
+          hostname = "LAPTOP-PDQ3S7";
+          power.mobile = true;
+          enable-enterprise-wifi = true;
+        };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";
           power.mobile = true;
@@ -125,6 +130,15 @@
           specialArgs = { host="desktop";
             myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.desktop).system;
+            inherit self inputs; 
+          };
+        };
+        framework1 = nixpkgs.lib.nixosSystem {
+          system = (mergeAttrs myCOptions.default myCOptions.framework1).system;
+          modules = [(import ./hosts/framework1)];
+          specialArgs = { host="framework1"; 
+            myOptions = mergeAttrs myCOptions.default myCOptions.framework1;
+            pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.framework1).system;
             inherit self inputs; 
           };
         };

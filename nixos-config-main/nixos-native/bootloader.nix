@@ -5,7 +5,7 @@
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.initrd.kernelModules = if (myOptions.enable-nvidia == true) then [ "nvidia" ] else [];
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
-  (if (myOptions.enable-nvidia == true) then [ "nvidia-drm.fbdev=1" ] else []);
+  (if (myOptions.enable-nvidia == true) then [ "nvidia-drm.fbdev=1" "nvidia-drm.modeset=1" ] else []);
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_6_12;
   #boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_9;
