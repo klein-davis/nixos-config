@@ -2,7 +2,7 @@
   
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {
-    backupFileExtension = "backup2";
+    backupFileExtension = "backup";
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs host pkgsBundle myOptions; };
@@ -23,7 +23,8 @@
     users.${myOptions.username} = {
       isNormalUser = true;
       description = "My Silly Name Here";
-      extraGroups = [ "networkmanager" "wheel" "video" "seat" "vboxusers"];
+      extraGroups = [ "networkmanager" "wheel" "video" "seat" "vboxusers"]
+      ++ (if myOptions.virtualization then ["libvirtd"] else []);
       packages = with pkgs; [];
       shell = pkgs.zsh;
       initialPassword = "${myOptions.default-passwd}";

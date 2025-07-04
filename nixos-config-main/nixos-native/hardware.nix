@@ -4,9 +4,21 @@
   hardware = {
     graphics = {
       enable = true;
-      extraPackages = [ pkgs.vaapiVdpau pkgs.libvdpau-va-gl pkgs.vpl-gpu-rt ];
+      # Some options for amdgpu
+      enable32Bit = true;
+      extraPackages = with pkgs; [ 
+        vaapiVdpau
+        libvdpau-va-gl 
+        vpl-gpu-rt
+      ] 
+      ++ (if myOptions.enable-amd-gpu then (with pkgs; 
+      [amdvlk mesa vulkan-tools]) else []);
+      # ++ (if myOptions.enable-amd-gpu then [ pkgs.mesa pkgs.mesa.drivers.radeonsi pkgs.mesa.drivers.amdvlk pkgs.libva-utils] else []);
+
+      # extraPackages32 = []
+      # ++ (if myOptions.enable-amd-gpu then [pkgs.pkgsi686Linux.mesa.drivers.radeonsi pkgs.pkgsi686Linux.mesa.drivers.radeonsi] else []);
     };
-    nvidia = if (myOptions.enable-nvidia) then {
+    nvidia = if (myOptions.enable-nvidia-gpu) then {
       open = true; # For stylix
       # open = false;
       modesetting.enable = true;

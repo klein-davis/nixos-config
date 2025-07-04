@@ -14,6 +14,7 @@
     ++ [(import ./kitty.nix)]                     # terminal
     ++ [(import ./mako.nix)]                      # notification deamon
     # ++ [(import ./micro.nix)]                     # nano replacement
+    ++ [(import ./nano.nix)]
     ++ [(import ./nvim.nix)]                      # neovim editor
     ++ [(import ./packages.nix)]                  # other packages
     ++ [(import ./preactivation.nix)]             # fix gtk rebuild error

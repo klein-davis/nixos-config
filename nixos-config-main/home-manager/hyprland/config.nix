@@ -1,4 +1,4 @@
-{ myOptions, ... }: 
+{ config, lib, myOptions, ... }: 
 {
   wayland.windowManager.hyprland = {
 
@@ -58,19 +58,10 @@
         # "HDMI-A-2, 3840x2160@30, 3840x0, 2"  # Landscape, Rightmost
 
 
-        # Left Tall
-        "DP-3, 1920x1200@60, 0x0, 1"
-
-        # Middle
-        "DP-2, 1920x1080@120, 1920x120, 1"
-
-        # Right Tall
-        "DP-1, 1920x1200@60, 3840x0, 1"
-
-        # TV
-        "HDMI-A-1, 3840x2160@59, 5760x0, 2"
+        
 
       ]
+      ++ myOptions.screens
       ++ [ ",preferred,auto,1" ];
 
       env = [
@@ -95,15 +86,17 @@
         follow_mouse = 1;
 
         touchpad = {
-          natural_scroll = false;
+          natural_scroll = true;
         };
 
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
       };
 
-      general = {
+      general = let
+        toHyprlandRGBA = colorHex: alpha: "${(builtins.substring 1 (builtins.stringLength colorHex - 1) colorHex)}${alpha}";
+        in {
         gaps_in = 5;
-        gaps_out = 20;
+        gaps_out = 18;
         border_size = 3;
         #
         #/* CSV */
@@ -112,8 +105,22 @@
         # /* Array */
         # ["050505","515151","b5b5b5","7c7c7c","3c3c3c","272727","848484","737474","343434","1c1c1c"]
         #
-        "col.active_border" = "rgba(ffffffee) rgba(1c1c1cee) rgba(ffffffee) 45deg";
-        "col.inactive_border" = "rgba(1c1c1cff)";
+        # "col.active_border" = "rgba(ffffffee) rgba(1c1c1cee) rgba(ffffffee) 45deg";
+        # "col.inactive_border" = "rgba(1c1c1cff)";
+
+        # Convert hex color to string without '#' and append alpha
+        # Function to clean color string and add alpha
+        
+        # Example: Using base0D (blue) for active, base00 (background) for inactive
+        "col.active_border" = let
+          accentColor1 = config.lib.stylix.colors.base0C; # Example: blue accent
+          accentColor2 = config.lib.stylix.colors.base02; # Example: blue accent
+        in lib.mkForce "rgb(${accentColor1}) rgb(${accentColor2}) rgb(${accentColor1}) 45deg";
+
+        "col.inactive_border" = let
+          inactiveColor = config.lib.stylix.colors.base02; # Example: background color
+        in lib.mkForce "rgb(${inactiveColor})";
+
 
         layout = "dwindle";
 

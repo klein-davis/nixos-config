@@ -5,11 +5,11 @@
     pkgsBundle.pkgs-old.nerdfonts
     (pkgsBundle.pkgs-old.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     pkgsBundle.pkgs-old.twemoji-color-font
-    pkgsBundle.pkgs-old.noto-fonts-emoji
-    pkgs.windows10-icons
-    pkgs.whitesur-icon-theme
-    pkgs.kdePackages.breeze
-    pkgs.kdePackages.breeze-icons
+    # pkgsBundle.pkgs-old.noto-fonts-emoji
+    # pkgs.windows10-icons
+    # pkgs.whitesur-icon-theme
+    # pkgs.kdePackages.breeze
+    # pkgs.kdePackages.breeze-icons
     pkgs.kdePackages.breeze-gtk
     pkgs.whitesur-icon-theme
   ];  
@@ -32,40 +32,40 @@
       package = pkgs.kdePackages.breeze-icons;
       # name = "Gruvbox-Plus-Dark";
       # package = pkgs.gruvbox-plus-icons;  
-    };
-    cursorTheme = {
-      name = "Nordzy-cursors";
-      package = pkgs.nordzy-cursor-theme;
-      size = 22;
-    };
-
-    # theme = {
-    #   name = "Catppuccin-Macchiato-Compact-Pink-Dark";
-    #   package = pkgs.catppuccin-gtk.override {
-    #     accents = [ "pink" ];
-    #     size = "compact";
-    #     tweaks = [ "rimless" "black" ];
-    #     variant = "macchiato";
-    #   };
+    }; 
+    # cursorTheme = {
+    #   name = "Nordzy-cursors";
+    #   package = pkgs.nordzy-cursor-theme;
+    #   size = 22;
     # };
 
-    theme = lib.mkForce { # Stupid stylix
-        name = "Breeze-Dark";
-        # package = pkgs.libsForQt5.breeze-gtk;
-        package = pkgs.kdePackages.breeze-gtk;
-    };
+  #   # theme = {
+  #   #   name = "Catppuccin-Macchiato-Compact-Pink-Dark";
+  #   #   package = pkgs.catppuccin-gtk.override {
+  #   #     accents = [ "pink" ];
+  #   #     size = "compact";
+  #   #     tweaks = [ "rimless" "black" ];
+  #   #     variant = "macchiato";
+  #   #   };
+  #   # };
+
+  #   theme = lib.mkForce { # Stupid stylix
+  #       name = "Breeze-Dark";
+  #       # package = pkgs.libsForQt5.breeze-gtk;
+  #       package = pkgs.kdePackages.breeze-gtk;
+  #   };
   };
 
-  dconf.settings."org/gnome/desktop/interface" = {
-    gtk-theme = lib.mkForce "Breeze-Dark";
-    color-scheme = "prefer-dark";
-  };
+  # dconf.settings."org/gnome/desktop/interface" = {
+  #   gtk-theme = lib.mkForce "Breeze-Dark";
+  #   color-scheme = "prefer-dark";
+  # };
   
-  home.pointerCursor = {
-    name = "Nordzy-cursors";
-    package = pkgs.nordzy-cursor-theme;
-    #size = 22;
-  };
+  # home.pointerCursor = {
+  #   name = "Nordzy-cursors";
+  #   package = pkgs.nordzy-cursor-theme;
+  #   #size = 22;
+  # };
 }
 
 # { lib, pkgs, pkgsBundle, ... }:

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, myOptions, ... }: {
 
   environment.variables = {
     EDITOR = "code";
@@ -13,16 +13,35 @@
     # Hint electron apps to use wayland
     #NIXOS_OZONE_WL = "1";
   #};
-  environment.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-  }
-  // lib.optionalAttrs config.programs.hyprland.enable (
+  # Conditional Environment Variables for GPU and Wayland
+  # This section sets environment variables based on the enabled GPU type.
+  environment.sessionVariables = lib.mkMerge [
+    # Variables that should always be set (e.g., for general Wayland compatibility)
     {
-      LIBVA_DRIVER_NAME = "nvidia";
-      GBM_BACKEND = "nvidia-drm";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      NIXOS_OZONE_WL = "1"; # Helps with Electron/Chromium-based apps on Wayland
     }
-  );
+
+    # NVIDIA-specific environment variables, applied only if enable-nvidia-gpu is true
+    (lib.mkIf myOptions.enable-nvidia-gpu {
+      LIBVA_DRIVER_NAME = "nvidia"; # Tells libva to use NVIDIA's VA-API driver
+      GBM_BACKEND = "nvidia-drm";   # Specifies NVIDIA's Generic Buffer Management backend
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia"; # Directs GLX to use NVIDIA's implementation
+    })
+
+    # AMD-specific environment variables, applied only if enable-amd-gpu is true
+    (lib.mkIf myOptions.enable-amd-gpu {
+      LIBVA_DRIVER_NAME = "radeonsi"; # Tells libva to use the Mesa 'radeonsi' driver for AMD
+      # For AMD, 'GBM_BACKEND' and '__GLX_VENDOR_LIBRARY_NAME' are typically
+      # handled implicitly by the 'amdgpu' kernel module and 'mesa' userspace drivers.
+      # Explicitly setting them might be redundant or even cause issues if not
+      # precisely correct for all AMD setups. It's generally best to let the
+      # system auto-configure these for AMD unless you have a specific reason to force them.
+      # If you *were* to set them, they would typically be:
+      # GBM_BACKEND = "amdgpu";
+      # __GLX_VENDOR_LIBRARY_NAME = "mesa";
+    })
+  ];
+
 
   nix.settings = {
     substituters = [ "https://cuda-maintainers.cachix.org" ];

@@ -16,6 +16,7 @@
     cups
     curl
     dbus
+    e2fsprogs
     expat
     fontconfig
     freetype
@@ -28,6 +29,7 @@
     libappindicator-gtk3
     libdrm
     libglvnd
+    libkrb5
     libnotify
     libpulseaudio
     libunwind
@@ -44,6 +46,7 @@
     pipewire
     saw-tools
     stdenv.cc.cc
+    stdenv.cc.libc
     systemd
     vulkan-loader
     xorg.libX11
@@ -63,17 +66,13 @@
     zlib
   ];
 
-  environment.sessionVariables = {
-    #NIX_LD = lib.mkForce lib.mkIf (myOptions.system == "x86_64-linux") "${pkgs.glibc}/lib64/ld-linux-x86-64.so.2";
-    #NIX_LD_LIBRARY_PATH = impureLibraryPath;
-  };
-
   virtualisation.podman.enable = true;
 
   nix = {
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [ "root" "${myOptions.username}" ];
       # substituters = [ "https://nix-gaming.cachix.org" "https://nixpkgs-python.cachix.org" "https://devenv.cachix.org" ];
       # trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU=" ];
     };
@@ -82,9 +81,6 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    extraOptions = ''
-        trusted-users = root ${myOptions.username};
-        '';
   };
   nixpkgs = {
     overlays = [

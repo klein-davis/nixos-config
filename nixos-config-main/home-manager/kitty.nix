@@ -5,14 +5,14 @@
 
     #theme = "Catppuccin-Mocha";
     
-    font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 10;
-    };
+    # font = {
+    #   name = "JetBrainsMono Nerd Font";
+    #   size = 10;
+    # };
 
     settings = {
       confirm_os_window_close = 0;
-      background_opacity = "0";  
+      # background_opacity = "0";  
       background_blur = "1";
       window_padding_width = 10;
       scrollback_lines = 10000;

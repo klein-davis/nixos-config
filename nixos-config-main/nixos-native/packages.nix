@@ -23,6 +23,7 @@
     powertop
     qbittorrent
     qpwgraph
+    viewnior
     # vcv-rack
 
     # CLI utils
@@ -39,6 +40,7 @@
     nh
     nmap
     nix-index
+    nixos-generators
     ntfs3g
     openssl
     openvpn

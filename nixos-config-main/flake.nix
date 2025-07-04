@@ -10,6 +10,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-main.url = "github:NixOS/nixpkgs";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
 
@@ -49,20 +50,37 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, nixpkgs-super-old, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, nixpkgs-super-old, home-manager, nixos-hardware, ... } @ inputs:
     let
       system = "x86_64-linux";
       myCOptions = {
         desktop = {
-          enable-nvidia = true;
+          enable-nvidia-gpu = true;
           enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
           enable-auto-login = false;
+          screens = [
+            # Left Tall
+            "DP-3, 1920x1200@60, 0x0, 1"
+
+            # Middle
+            "DP-2, 1920x1080@120, 1920x120, 1"
+
+            # Right Tall
+            "DP-1, 1920x1200@60, 3840x0, 1"
+
+            # TV
+            "HDMI-A-1, 3840x2160@59, 5760x0, 2"
+          ];
         };
         framework1 = {
           hostname = "LAPTOP-PDQ3S7";
           power.mobile = true;
-          enable-enterprise-wifi = true;
+          enable-amd-cpu = true;
+          enable-amd-gpu = true;
+          # enable-enterprise-wifi = true;
+          # enable-auto-login = true;
+          screens = [ "eDP-2, 2560x1600@165, 0x0, 1"];
         };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";
@@ -77,7 +95,7 @@
           # system = "armv7l-linux"; # For 3B and older
         };
 	      desktop2 = {
-          # enable-nvidia = true;
+          # enable-nvidia-gpu = true;
           # enable-rgb-lights = true;
           hostname = "DESKTOP-2";
         };
@@ -87,11 +105,16 @@
           username = "nixuser";
           default-passwd = "password";
           system = "x86_64-linux";
-          enable-nvidia = false;
+          enable-intel-cpu = true;
+          enable-amd-cpu = false;
+          enable-nvidia-gpu = false;
+          enable-amd-gpu = false;
           enable-rgb-lights = false;
           enable-auto-login = false;
           enable-ssh-access = true;
           enable-enterprise-wifi = false;
+          virtualization = true;
+          screens = [ ];
           power = {
             mobile = false;
           };
@@ -135,7 +158,7 @@
         };
         framework1 = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.framework1).system;
-          modules = [(import ./hosts/framework1)];
+          modules = [(import ./hosts/framework1)  nixos-hardware.nixosModules.framework-16-7040-amd];
           specialArgs = { host="framework1"; 
             myOptions = mergeAttrs myCOptions.default myCOptions.framework1;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.framework1).system;

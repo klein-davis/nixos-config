@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 let custom = {
     font = "JetBrainsMono Nerd Font";
     font_size = "15px";
@@ -7,11 +7,17 @@ let custom = {
     #secondary_accent= "89b4fa";
     #tertiary_accent = "f5f5f5";
     #background = "53d6d3";
-    text_color = "ffffff";
-    secondary_accent= "53d6d3";
-    tertiary_accent = "53d6d3";
-    background = "2c2c2c";
-    background_highlight = "4c4c4c";
+
+    # text_color = "ffffff";
+    # secondary_accent= "53d6d3";
+    # tertiary_accent = "53d6d3";
+    # background = "2c2c2c";
+    # background_highlight = "4c4c4c";
+
+    text_color = config.lib.stylix.colors.base08;
+    background = config.lib.stylix.colors.base0D;
+    background_highlight = config.lib.stylix.colors.base0C;
+
     opacity = "0.5";
 };
 in 

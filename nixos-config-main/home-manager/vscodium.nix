@@ -28,9 +28,9 @@
       "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
       "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
       "editor.fontSize" = 16;
-      "workbench.colorTheme" = "Catppuccin Mocha";
-      "workbench.iconTheme" = "catppuccin-mocha";
-      "catppuccin.accentColor" = "lavender";
+      # "workbench.colorTheme" = "Catppuccin Mocha";
+      # "workbench.iconTheme" = "catppuccin-mocha";
+      # "catppuccin.accentColor" = "lavender";
       "vsicons.dontShowNewVersionMessage" = true;
       "explorer.confirmDragAndDrop" = false;
       "editor.fontLigatures" = true;
