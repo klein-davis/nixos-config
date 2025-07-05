@@ -12,7 +12,10 @@
     nixpkgs-main.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url =  "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
 
     #nur.url = "github:nix-community/NUR";
   
@@ -89,6 +92,7 @@
         };
         vm = {
           hostname = "NIXVM";
+          enable-auto-login = true;
         };
         pi = {
           system = "aarch64-linux";

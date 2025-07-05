@@ -1,4 +1,4 @@
-{ pkgs, inputs, host, pkgsBundle, myOptions, split-monitor-workspaces, ... }: {
+{ pkgs, config, inputs, host, pkgsBundle, myOptions, split-monitor-workspaces, ... }: {
   
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   home-manager = {
@@ -10,7 +10,7 @@
       imports = [ ./../home-manager ];
       home.username = "${myOptions.username}";
       home.homeDirectory = "/home/${myOptions.username}";
-      home.stateVersion = "24.05";
+      home.stateVersion = config.system.stateVersion ;
       programs.home-manager.enable = true;
     };
   };

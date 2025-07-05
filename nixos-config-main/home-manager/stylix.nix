@@ -8,7 +8,9 @@
       mako.enable = true;
       swaylock.enable = false;
       waybar.enable = false;
-      kde.enable = false;
+      kde.enable = true;
     };
+
+    
   };
 }

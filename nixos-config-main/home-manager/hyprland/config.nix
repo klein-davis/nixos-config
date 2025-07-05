@@ -32,37 +32,7 @@
         };
       };
 
-      monitor = [
-        # Rightmost monitor (1920x1200)
-        # "DP-1, 1920x1080@60, 3840x92, 1"  # Landscape, Rightmost
-        # "DP-1, 1920x1200@60, 3840x0, 1"  # Landscape, Rightmost
-
-        # Center monitor
-        # "DP-2, 1920x1200@60, 1920x0, 1"  # Landscape, Center
-
-        # Leftmost monitor
-        # "DP-3, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
-
-        # Rightmost monitor (1920x1080)
-        # "DP-1, 1920x1200@60, 3840x0, 1"  # Landscape, Rightmost
-        # "DP-1, 1920x1080@60, 1920x0, 1"  # Landscape, Rightmost
-
-        # Center monitor
-        # "DP-3, 1920x1080@120, 1920x92, 1"  # Landscape, Center
-
-        # Leftmost monitor
-        # "DP-2, 1920x1200@60, 0x0, 1"  # Landscape, Leftmost
-
-        # TV (3840x2160)
-        # "HDMI-A-2, 3840x2160@30, 5760x0, 1"  # Landscape, Rightmost
-        # "HDMI-A-2, 3840x2160@30, 3840x0, 2"  # Landscape, Rightmost
-
-
-        
-
-      ]
-      ++ myOptions.screens
-      ++ [ ",preferred,auto,1" ];
+      monitor = [] ++ myOptions.screens ++ [ ",preferred,auto,1" ];
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -205,7 +175,7 @@
       bind = [
         "$mainMod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
-        "$mainMod, Return, exec, alacritty"
+        "$mainMod, Return, exec, kitty"
         "$mainMod, Q, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, R, exec, obsidian"
@@ -215,6 +185,7 @@
         "$mainMod, F, fullscreenstate, 2"
         "$mainMod, D, exec, wofi --show drun"
         "$mainMod, P, pseudo, # dwindle"
+        "$mainMod SHIFT, P, pin"
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
         "$mainMod, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"

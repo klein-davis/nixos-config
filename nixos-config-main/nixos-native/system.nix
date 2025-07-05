@@ -11,6 +11,7 @@
     at-spi2-atk
     at-spi2-core
     atk
+    boost
     cairo
     cmake
     cups
@@ -27,6 +28,7 @@
     icu
     libGL
     libappindicator-gtk3
+    libcap
     libdrm
     libglvnd
     libkrb5
@@ -47,6 +49,7 @@
     saw-tools
     stdenv.cc.cc
     stdenv.cc.libc
+    # stdenv.cc.cc.glibc
     systemd
     vulkan-loader
     xorg.libX11
@@ -111,5 +114,5 @@
     LC_TIME = "en_US.UTF-8";
   };
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

@@ -11,7 +11,6 @@
     clementine
     pkgsBundle.pkgs-stable.distrobox
     pkgsBundle.pkgs-stable.firefox
-    gamescope
     pkgsBundle.pkgs-main.gparted          # partition manager
     # kdenlive
     lmstudio
@@ -24,16 +23,16 @@
     qbittorrent
     qpwgraph
     viewnior
-    # vcv-rack
 
     # CLI utils
-    #atuin                                # Sync shell history
     bluez                                 # Bluetooth audio tools
     bluez-tools                           # Bluetooth audio tools
     # busybox                             # unused tools, remove if not needed for a while
     ddcutil                               # screen brightness
     fastfetch                             # fetch program
     file                                  # show filetype
+    gamescope
+    gettext
     # lux                                 # Video Downloader
     libheif                               # Convert to and from HEIF files
     # mediainfo                           # Video file info
