@@ -50,11 +50,17 @@
 
     targets = {
       gtk.enable = true;
-      qt.platform = "qtct";
+      # qt.platform = "qtct";
     };
+
+    fonts.monospace = {
+      package = pkgs.jetbrains-mono; # Specify the package for Jetbrains Mono
+      name = "JetBrainsMono Nerd Font"; # The exact font name within the package, including "Nerd Font" if you installed the Nerd Font version
+    };
+
     fonts.sizes = {
       applications = 12;
-      terminal = 10;
+      terminal = 8;
       desktop = 10;
       popups = 10;
     };

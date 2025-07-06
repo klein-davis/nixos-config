@@ -3,7 +3,6 @@
   # imports = [ inputs.nix-gaming.nixosModules.default ];
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];
   boot.tmp.cleanOnBoot = true;
-  programs.nix-index.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     xorg.libXrender
@@ -27,6 +26,7 @@
     gtk3
     icu
     libGL
+    libGLU
     libappindicator-gtk3
     libcap
     libdrm
@@ -52,6 +52,7 @@
     # stdenv.cc.cc.glibc
     systemd
     vulkan-loader
+    webkitgtk_6_0
     xorg.libX11
     xorg.libXScrnSaver
     xorg.libXcomposite
@@ -68,6 +69,8 @@
     xorg.libxshmfence
     zlib
   ];
+
+  services.envfs.enable = true;
 
   virtualisation.podman.enable = true;
 

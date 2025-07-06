@@ -13,13 +13,13 @@
     settings = {
       # This defines the [global] section
       global = { # No quotes around 'global' here, as it's a valid Nix attribute name
-        security = "user"; # Corresponds to the global 'security' option in smb.conf
-        workgroup = "WORKGROUP";
-        "server string" = "NixOS Public Share Server"; # Needs quotes if contains spaces
+        "security" = "user"; # Corresponds to the global 'security' option in smb.conf
+        "workgroup" = "WORKGROUP";
+        "server string" = "smbnix"; # Needs quotes if contains spaces
         "netbios name" = "smbnix"; # Needs quotes if contains spaces
 
         "guest account" = "nobody";
-        "map to guest" = "Bad User";
+        "map to guest" = "bad user";
         "browseable" = "yes"; # Global browseable setting (allows Browse the server for shares)
 
         "hosts allow" = "192.168.0. 127.0.0.1 localhost";
@@ -28,20 +28,20 @@
 
       # This defines the [Public-Folder] share section directly under 'settings'
       # The key "Public-Folder" becomes the share name in smb.conf
-      "Public-Folder" = { # Double quotes needed for share names if they contain special chars or spaces
+      "public" = { # Double quotes needed for share names if they contain special chars or spaces
         comment = "Public folder for anyone to access";
-        path = "/home/nixuser/Public"; # Hardcoding the user for simplicity
+        "path" = "/home/nixuser/Public"; # Hardcoding the user for simplicity
 
-        browseable = "yes"; # Allows Browse this specific share
+        "browseable" = "yes"; # Allows Browse this specific share
         "read only" = "no";
         "guest ok" = "yes"; # Crucial for anonymous access
 
         "force user" = "nobody";
-        "force group" = "nogroup";
+        "force group" = "WORKGROUP";
         "writable" = "yes";
 
-        "create mask" = "0666";
-        "directory mask" = "0777";
+        "create mask" = "0644";
+        "directory mask" = "0755";
       };
 
       # Example for a [homes] share (if you wanted one):

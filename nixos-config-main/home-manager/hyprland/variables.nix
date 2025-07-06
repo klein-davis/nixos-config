@@ -32,4 +32,17 @@
     #GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
     GTK_THEME = "Breeze-Dark";
   };
+
+  xdg.mimeApps = {
+    enable = true; # Enable XDG MIME applications management
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "application/xhtml+xml" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/ftp" = "firefox.desktop";
+      "x-scheme-handler/mailto" = "firefox.desktop";
+      "application/pdf" = "firefox.desktop"; # If you want Firefox to open PDFs
+    };
+  };
 }

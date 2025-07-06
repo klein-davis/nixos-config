@@ -7,7 +7,7 @@
     ++ [(import ./hyprland.nix)]                    # Hyprland Wayland compositor
     ++ [(import ./network.nix)]                     # Network configurations
     ++ [(import ./openrgb.nix)]                     # OpenRGB for lighting control
-    ++ [(import ./packages.nix)]                    # System-wide packages
+    ++ [(import ./packages/default.nix)]                    # System-wide packages
     ++ [(import ./power.nix)]                       # Power management settings
     # ++ [(import ./samba.nix)]                       # Samba file sharing (currently disabled)
     ++ [(import ./security.nix)]                    # Security configurations
@@ -22,6 +22,7 @@
     ++ [(import ./virtmanager.nix)]                 # Virt-Manager for VMs
     ++ [(import ./xserver.nix)]                     # X server configuration
     ++ [(import ./zram.nix)];                       # Zram for compressed swap
-  # if (host != "desktop") then
-  #         ++ [./distribute-builds]; # Conditional import for non-desktop hosts
+
+    # ++ (if (host != "desktop") then
+    #      [inputs.nix-index-database.nixosModules.nix-index] else []); # Conditional import for non-desktop hosts
 }

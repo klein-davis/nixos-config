@@ -2,8 +2,6 @@
 {
   home.packages = with pkgs;[
     ## Utils
-    # gamemode
-    # gamescope
     # winetricks
     # inputs.nix-gaming.packages.${pkgs.system}.wine-ge
 
@@ -15,7 +13,7 @@
     ## Emulation
     sameboy
     snes9x
-    # cemu
+    cemu
     dolphin-emu
   ];
 }

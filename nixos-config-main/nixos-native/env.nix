@@ -6,6 +6,7 @@
     #QT_QPA_PLATFORMTHEME = "qt5ct";
     GSETTINGS_BACKEND = "keyfile";
     LIBSEAT_BACKEND = "seatd";
+    WAYLAND_DISPLAY = "wayland-1";
   };
 
   # Hyperland Nvidia configuration
@@ -39,6 +40,10 @@
       # If you *were* to set them, they would typically be:
       # GBM_BACKEND = "amdgpu";
       # __GLX_VENDOR_LIBRARY_NAME = "mesa";
+    })
+    
+    (lib.mkIf myOptions.prefered-gpu.enable {
+      MESA_DRM_RENDER_NODE = myOptions.prefered-gpu.path;
     })
   ];
 

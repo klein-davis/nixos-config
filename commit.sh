@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # Check for uncommitted changes (both staged and unstaged)
 git diff --quiet --exit-code HEAD > /dev/null 2>&1

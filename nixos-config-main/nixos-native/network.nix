@@ -31,6 +31,7 @@
     nameservers = [ "8.8.8.8" "1.1.1.1" ];
     firewall = {
       enable = true;
+      allowPing = true;
       #allowedTCPPorts = [ 22 80 443 59010 59011 ];
 
       # For steam network file transfer

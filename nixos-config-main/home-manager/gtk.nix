@@ -6,6 +6,8 @@
     (pkgsBundle.pkgs-old.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     pkgsBundle.pkgs-old.twemoji-color-font
 
+    pkgs.libsForQt5.qt5ct
+    pkgs.qt6ct
     pkgs.kdePackages.breeze-gtk
     pkgs.kdePackages.breeze-icons
     pkgs.kdePackages.breeze.qt5

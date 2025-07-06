@@ -1,19 +1,24 @@
 { config, pkgs, myOptions, ... }:
-{  
+rec {  
+  environment.systemPackages = with pkgs; [
+    libva-utils
+    vdpauinfo
+    vulkan-tools
+  ];
+
   #Most wayland compositors need this
   hardware = {
     graphics = {
       enable = true;
       # Some options for amdgpu
       enable32Bit = true;
-      extraPackages = with pkgs; [ 
+      extraPackages = with pkgs; [
+        libvdpau-va-gl
+        mesa
         vaapiVdpau
-        libvdpau-va-gl 
         vpl-gpu-rt
-      ] 
-      ++ (if myOptions.enable-amd-gpu then (with pkgs; 
-      [amdvlk mesa vulkan-tools]) else []);
-      # ++ (if myOptions.enable-amd-gpu then [ pkgs.mesa pkgs.mesa.drivers.radeonsi pkgs.mesa.drivers.amdvlk pkgs.libva-utils] else []);
+      ]
+      ++ (if myOptions.enable-amd-gpu then [ pkgs.amdvlk rocmPackages.clr.icd ] else []);
 
       # extraPackages32 = []
       # ++ (if myOptions.enable-amd-gpu then [pkgs.pkgsi686Linux.mesa.drivers.radeonsi pkgs.pkgsi686Linux.mesa.drivers.radeonsi] else []);
@@ -22,7 +27,9 @@
       open = true; # For stylix
       # open = false;
       modesetting.enable = true;
-      powerManagement.enable = true; # Fix sleep?
+      powerManagement.enable = true;
+      # powerManagement.finegrained = true;
+      # prime.offload.enable = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       # package = config.boot.kernelPackages.nvidiaPackages.beta;

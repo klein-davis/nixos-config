@@ -3,10 +3,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 15;
+
   boot.initrd.kernelModules = if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [];
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
   (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia-drm.fbdev=1" "nvidia-drm.modeset=1" ] else []) ++
   (if (myOptions.enable-amd-gpu == true) then [ "amdgpu.abmlevel=0" ] else []);
+  # boot.blacklistedKernelModules = [ "nouveau" ];
+
+  # Kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_6_12;
   # boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_12;

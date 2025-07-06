@@ -61,7 +61,7 @@
           enable-nvidia-gpu = true;
           enable-rgb-lights = true;
           hostname = "DESKTOP-GV1U8SC";
-          enable-auto-login = false;
+          enable-auto-login = true;
           screens = [
             # Left Tall
             "DP-3, 1920x1200@60, 0x0, 1"
@@ -82,8 +82,10 @@
           enable-amd-cpu = true;
           enable-amd-gpu = true;
           # enable-enterprise-wifi = true;
-          # enable-auto-login = true;
+          enable-auto-login = true;
           screens = [ "eDP-2, 2560x1600@165, 0x0, 1"];
+          prefered-gpu.enable = true;
+          prefered-gpu.path = "/dev/dri/by-path/renderD129";
         };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";
@@ -119,6 +121,13 @@
           enable-enterprise-wifi = false;
           virtualization = true;
           screens = [ ];
+          prefered-gpu = {
+            enable = false;
+            # Found with 
+            # lspci -k | grep -E '0300:|0380:|0302:' -B1 -A2
+            # ls -l /dev/dri/by-path/ looking for render for dGPU
+            path = "";
+          };
           power = {
             mobile = false;
           };

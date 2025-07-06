@@ -1,4 +1,4 @@
-{ ... }: 
+{ pkgs, ... }: 
 {
   services = {
     seatd.enable = true;
@@ -7,6 +7,7 @@
     dbus.enable = true;
     fstrim.enable = true;
   };
+  environment.systemPackages = with pkgs; [gvfs];
   services.udev.extraRules = ''
     KERNEL=="ttyACM[0-9]*",MODE="0666"
   '';

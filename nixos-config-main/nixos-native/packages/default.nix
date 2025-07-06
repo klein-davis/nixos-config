@@ -1,4 +1,8 @@
-{ pkgs, pkgsBundle, ... }: {
+{ pkgs, pkgsBundle, lib, ... }: {
+
+  imports = []
+    ++[(import ./blender.nix)];
+
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -6,11 +10,11 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino
-    blender
     pkgsBundle.pkgs-old.chromium
     clementine
     pkgsBundle.pkgs-stable.distrobox
-    pkgsBundle.pkgs-stable.firefox
+    # pkgsBundle.pkgs-stable.firefox
+    firefox
     pkgsBundle.pkgs-main.gparted          # partition manager
     # kdenlive
     lmstudio
@@ -27,18 +31,17 @@
     # CLI utils
     bluez                                 # Bluetooth audio tools
     bluez-tools                           # Bluetooth audio tools
-    # busybox                             # unused tools, remove if not needed for a while
+    busybox                               # unused tools, remove if not needed for a while
     ddcutil                               # screen brightness
     fastfetch                             # fetch program
     file                                  # show filetype
-    gamescope
+    foot
     gettext
     # lux                                 # Video Downloader
     libheif                               # Convert to and from HEIF files
     # mediainfo                           # Video file info
     nh
     nmap
-    nix-index
     nixos-generators
     ntfs3g
     openssl
@@ -52,6 +55,7 @@
     vim
     w3m  
     waypaper
+    waypipe
     wgcf
     wget
     yt-dlp
@@ -74,5 +78,5 @@
     powerline-fonts
     powerline-symbols
     # (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-  ];
+  ] ++ (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts));
 }
