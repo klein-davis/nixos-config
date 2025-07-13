@@ -29,7 +29,6 @@
     XDG_SESSION_TYPE = "wayland";
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
-    #GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
     GTK_THEME = "Breeze-Dark";
   };
 
@@ -42,7 +41,14 @@
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/ftp" = "firefox.desktop";
       "x-scheme-handler/mailto" = "firefox.desktop";
-      "application/pdf" = "firefox.desktop"; # If you want Firefox to open PDFs
+      "application/pdf" = "firefox.desktop";
+      # Image viewing
+      "image/jpeg" = "viewnior.desktop";
+      "image/png" = "viewnior.desktop";
+      "image/gif" = "viewnior.desktop";
+      "image/bmp" = "viewnior.desktop";
+      "image/tiff" = "viewnior.desktop";
+      "image/webp" = "viewnior.desktop";
     };
   };
 }

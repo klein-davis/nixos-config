@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ lib, config, pkgs, ... }: 
 {
   programs.vscode = {
     enable = true;
@@ -12,8 +12,11 @@
       # ms-python.python
       # C/C++
       ms-vscode.cpptools
+      # Pytjon
+      ms-python.python
+      ms-python.debugpy
       # OCaml
-      ocamllabs.ocaml-platform
+      # ocamllabs.ocaml-platform
 
       # Color theme
       # catppuccin.catppuccin-vsc
@@ -24,39 +27,61 @@
       "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
       "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
 
-      "window.menuBarVisibility" = "toggle";
-      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
-      "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
-      "editor.fontSize" = 16;
-      # "workbench.colorTheme" = "Catppuccin Mocha";
-      # "workbench.iconTheme" = "catppuccin-mocha";
-      # "catppuccin.accentColor" = "lavender";
+      # "window.menuBarVisibility" = "toggle";
+      # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
+      # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
+      "editor.fontSize" = lib.mkForce 16;
+      
+      "workbench.colorCustomizations" = {
+        "[Stylix]" = {
+          "button.background" = "#${config.lib.stylix.colors.base0D}BB";
+          "button.foreground" = "#${config.lib.stylix.colors.base06}";
+          "button.secondaryBackground" = "#${config.lib.stylix.colors.base0E}BB";
+          "button.secondaryForeground" = "#${config.lib.stylix.colors.base06}";
+          "editor.selectionHighlightBackground" = "#${config.lib.stylix.colors.base04}EE";
+          "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base01}00";
+          "scrollbarSlider.activeBackground" = "#${config.lib.stylix.colors.base04}55";
+          "scrollbarSlider.background" = "#${config.lib.stylix.colors.base03}55";
+          "scrollbarSlider.hoverBackground" = "#${config.lib.stylix.colors.base04}99";
+          "statusBar.background" = "#${config.lib.stylix.colors.base00}";
+          "statusBar.noFolderBackground" = "#${config.lib.stylix.colors.base00}";
+          "statusBar.noFolderForeground" = "#${config.lib.stylix.colors.base06}";
+          "statusBarItem.remoteBackground" = "#${config.lib.stylix.colors.base00}";
+        };
+      };
+
+
+
       "vsicons.dontShowNewVersionMessage" = true;
       "explorer.confirmDragAndDrop" = false;
       "editor.fontLigatures" = true;
-      "editor.minimap.enabled" = false;
+      # "editor.minimap.enabled" = false;
       "workbench.startupEditor" = "none";
 
-      "editor.formatOnSave" = true;
-      "editor.formatOnType" = true;
-      "editor.formatOnPaste" = true;
+      # "editor.formatOnSave" = true;
+      # "editor.formatOnType" = true;
+      # "editor.formatOnPaste" = true;
 
-      "workbench.layoutControl.type" = "menu";
-      "workbench.editor.limit.enabled" = true;
-      "workbench.editor.limit.value" = 10;
-      "workbench.editor.limit.perEditorGroup" = true;
-      "workbench.editor.showTabs" = "single";
-      "files.autoSave" = "onWindowChange";
-      "explorer.openEditors.visible" = 0;
-      "breadcrumbs.enabled" = false;
+      # "workbench.layoutControl.type" = "menu";
+      # "workbench.editor.limit.enabled" = true;
+      # "workbench.editor.limit.value" = 10;
+      # "workbench.editor.limit.perEditorGroup" = true;
+      # "workbench.editor.showTabs" = "single";
+      "workbench.editor.showTabs" = "multiple";
+      # "files.autoSave" = "onWindowChange";
+      "files.autoSave" = "afterDelay";
+      "files.autoSaveDelay" = 500;
+      # "explorer.openEditors.visible" = 0;
+      # "breadcrumbs.enabled" = false;
       "editor.renderControlCharacters" = false;
-      "workbench.activityBar.location" = "hidden";
-      "workbench.statusBar.visible" = false;
-      "editor.scrollbar.verticalScrollbarSize" = 2;
-      "editor.scrollbar.horizontalScrollbarSize" = 2;
-      "editor.scrollbar.vertical" = "hidden";
-      "editor.scrollbar.horizontal" = "hidden";
-      "workbench.layoutControl.enabled" = false;
+      # "workbench.activityBar.location" = "hidden";
+      # "workbench.statusBar.visible" = false;
+      "workbench.sideBar.location" = "right";
+      # "editor.scrollbar.verticalScrollbarSize" = 2;
+      # "editor.scrollbar.horizontalScrollbarSize" = 2;
+      # "editor.scrollbar.vertical" = "hidden";
+      # "editor.scrollbar.horizontal" = "hidden";
+      # "workbench.layoutControl.enabled" = false;
 
       "editor.mouseWheelZoom" = true;
 

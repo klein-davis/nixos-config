@@ -32,29 +32,28 @@
     firewall = {
       enable = true;
       allowPing = true;
-      #allowedTCPPorts = [ 22 80 443 59010 59011 ];
+
+      trustedInterfaces = ["p2p-wl+"];
 
       # For steam network file transfer
-      allowedTCPPorts = [ 27031 27032 27033 27034 27035 27036 27037 27038 27039 27040 ]; 
+      allowedTCPPorts = ([ 27031 27032 27033 27034 27035 27036 27037 27038 27039 27040
+      # For gnome-network-displays
+      ] ++ [7236 7250]); 
 
-      #allowedUDPPorts = [ 59010 59011 ];
-      allowedUDPPorts = [ 13407 ];
+      allowedUDPPorts = [ 13407 ]
+      # For gnome-network-displays
+      ++ [7236 5353];
       allowedUDPPortRanges = [
         # { from = 2000; to = 3000; }
         { from = 4000; to = 4007; }
         { from = 8000; to = 8010; }
         # { from = 13000; to = 14000; }
       ];
-      # allowedUDPPortRanges = [
-      #   { from = 10; to = 65000; }
-      # ];
-      # allowedTCPPortRanges = [
-      #   { from = 10; to = 65000; }
-      # ];
     };
   };
 
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
+    gnome-network-displays
   ];
 }

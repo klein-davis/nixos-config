@@ -19,10 +19,10 @@
   # services.logind.extraConfig = ''
   #   HandlePowerKey=suspend
   #   IdleAction=suspend
-  #   IdleActionSec=30m
+  #   IdleActionSec=1
   # '';
   services.logind.extraConfig = ''
     HandlePowerKey=suspend
-  '';
+  '';  
   
 }

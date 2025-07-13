@@ -2,6 +2,6 @@
 {
   programs.tmux = {
     enable = true;
-    shortcut = "C-Space";
-  }
+    prefix = "C-f";
+  };
 }

@@ -1,5 +1,4 @@
-{ config, pkgs, inputs, myOptions, ... }:
-
+{ myOptions, ... }: 
 {
   stylix = {
     targets = {
@@ -9,6 +8,12 @@
       swaylock.enable = false;
       waybar.enable = false;
       kde.enable = true;
+      vscode.enable = true;
+      gnome.enable = false;
+      firefox = {
+        enable = true; # Make sure this is here!
+        profileNames = [ myOptions.username ];
+      };
     };
 
     

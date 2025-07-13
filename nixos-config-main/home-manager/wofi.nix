@@ -20,12 +20,12 @@
       gtk_dark = true;
     };
     style = lib.mkForce ''
-    @define-color accent #${config.lib.stylix.colors.base02}; /* Selected color */
-    @define-color border #${config.lib.stylix.colors.base01}; /* Uh, border     */
-    @define-color txt    #${config.lib.stylix.colors.base05}; /* Default Text   */
-    @define-color txt2   #${config.lib.stylix.colors.base04}; /* Selected Text  */
+    @define-color accent #${config.lib.stylix.colors.base0C}; /* Selected color */
+    @define-color border #${config.lib.stylix.colors.base0D}; /* Uh, border     */
+    @define-color txt    #${config.lib.stylix.colors.base06}; /* Default Text   */
+    @define-color txt2   #${config.lib.stylix.colors.base03}; /* Selected Text  */
     @define-color bg     #${config.lib.stylix.colors.base00}; /* Main bg        */
-    @define-color bg2    #${config.lib.stylix.colors.base02}; /* Searchbar      */
+    @define-color bg2    #${config.lib.stylix.colors.base01}; /* Searchbar      */
 
     * {
         font-family: 'JetBrains Mono Nerd Font', monospace;

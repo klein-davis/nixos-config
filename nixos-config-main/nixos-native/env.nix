@@ -7,6 +7,12 @@
     GSETTINGS_BACKEND = "keyfile";
     LIBSEAT_BACKEND = "seatd";
     WAYLAND_DISPLAY = "wayland-1";
+    # XDG_USER_DIR = "/home/${myOptions.username}";
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   # Hyperland Nvidia configuration

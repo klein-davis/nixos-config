@@ -10,7 +10,6 @@
     swappy
     wl-clip-persist
     wf-recorder
-    # glib
     wayland
     direnv
   ];

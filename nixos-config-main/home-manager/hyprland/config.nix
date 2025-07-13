@@ -70,29 +70,21 @@
         gaps_in = 5;
         gaps_out = 18;
         border_size = 3;
-        #
-        #/* CSV */
-        # 050505,515151,b5b5b5,7c7c7c,3c3c3c,272727,848484,737474,343434,1c1c1c
-
-        # /* Array */
-        # ["050505","515151","b5b5b5","7c7c7c","3c3c3c","272727","848484","737474","343434","1c1c1c"]
-        #
-        # "col.active_border" = "rgba(ffffffee) rgba(1c1c1cee) rgba(ffffffee) 45deg";
-        # "col.inactive_border" = "rgba(1c1c1cff)";
+        
+        # "col.inactive_border" = "rgba(00000000)";
 
         # Convert hex color to string without '#' and append alpha
         # Function to clean color string and add alpha
         
         # Example: Using base0D (blue) for active, base00 (background) for inactive
         "col.active_border" = let
-          accentColor1 = config.lib.stylix.colors.base0C; # Example: blue accent
-          accentColor2 = config.lib.stylix.colors.base02; # Example: blue accent
+          accentColor1 = config.lib.stylix.colors.base0D;
+          accentColor2 = config.lib.stylix.colors.base0B;
         in lib.mkForce "rgb(${accentColor1}) rgb(${accentColor2}) rgb(${accentColor1}) 45deg";
 
         "col.inactive_border" = let
-          inactiveColor = config.lib.stylix.colors.base02; # Example: background color
+          inactiveColor = config.lib.stylix.colors.base03; # D # Example: background color
         in lib.mkForce "rgb(${inactiveColor})";
-
 
         layout = "dwindle";
 
@@ -153,8 +145,9 @@
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
         enable_swallow = true;
-        render_ahead_of_time = false;
+        # render_ahead_of_time = false;
         disable_hyprland_logo = true;
+        enable_anr_dialog = false;
       };
 
       # autostart
@@ -181,7 +174,7 @@
         "$mainMod, Q, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, R, exec, obsidian"
-        "$mainMod, C, exec, code"
+        "$mainMod, C, exec, codium"
         "$mainMod, E, exec, nemo ~"
         "$mainMod, G, togglefloating,"
         "$mainMod, F, fullscreenstate, 2"
@@ -275,11 +268,11 @@
         ", XF86MonBrightnessUp, exec, brightnessctl set +5% "
 
         # Configuration files
-        ''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
-        ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
-        ''$mainMod SHIFT, H, exec, alacritty -e sh -c "code ~/nix/home-manager/modules/wms/hyprland.nix"''
-        ''$mainMod SHIFT, W, exec, alacritty -e sh -c "code ~/nix/home-manager/modules/wms/waybar.nix''
-        '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
+        # ''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
+        # ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
+        # ''$mainMod SHIFT, H, exec, alacritty -e sh -c "codium ~/nix/home-manager/modules/wms/hyprland.nix"''
+        # ''$mainMod SHIFT, W, exec, alacritty -e sh -c "codium ~/nix/home-manager/modules/wms/waybar.nix''
+        # '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
 
         # Waybar
         "$mainMod, B, exec, pkill -SIGUSR1 waybar"
@@ -294,9 +287,9 @@
         #CTRL SHIFT, print, exec, $HOME/.config/hypr/scripts/screenshots/captureArea.sh
 
         # Screenshots
-        ", print, exec, grim $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
-        "CTRL, print, exec, grim -g \"$(slurp -o)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
-        "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
+        ", print, exec, $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
+        "CTRL, print, exec, grim -g \"$(slurp -o)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
+        "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
 
       ];
 

@@ -56,6 +56,7 @@
     w3m  
     waypaper
     waypipe
+    wayvnc
     wgcf
     wget
     yt-dlp

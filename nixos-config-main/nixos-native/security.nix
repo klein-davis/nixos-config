@@ -12,7 +12,7 @@
           #users = [ "nixuser" ];
           commands = [
               {
-                  command = "/run/current-system/sw/bin/nixos-rebuild";
+                  command = "nixos-rebuild";
                   options = ["NOPASSWD"];
               }
           ];

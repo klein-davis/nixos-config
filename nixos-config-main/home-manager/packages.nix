@@ -19,7 +19,7 @@
     jdk17                                 # java
     lazygit
     pkgsBundle.pkgs-stable.libreoffice
-    nemo-with-extensions                  # file manager
+    nemo                                  # file manager
     nitch                                 # systhem fetch util
     nmap
     nix-prefetch-github
@@ -49,10 +49,10 @@
     # cmake
     # gnumake
     # python3
-    vscode
+    # vscode
     # devenv
-    pkgsBundle.pkgs-unstable.devenv
-    direnv
+    # pkgsBundle.pkgs-unstable.devenv
+    # direnv
 
     # bleachbit                             # cache cleaner
     cmatrix

@@ -3,27 +3,15 @@ let custom = {
     font = "JetBrainsMono Nerd Font";
     font_size = "15px";
     font_weight = "bold";
-    #text_color = "#cdd6f4";
-    #secondary_accent= "89b4fa";
-    #tertiary_accent = "f5f5f5";
-    #background = "53d6d3";
-
-    # text_color = "ffffff";
-    # secondary_accent= "53d6d3";
-    # tertiary_accent = "53d6d3";
-    # background = "2c2c2c";
-    # background_highlight = "4c4c4c";
-
-    text_color = config.lib.stylix.colors.base08;
-    background = config.lib.stylix.colors.base0D;
-    background_highlight = config.lib.stylix.colors.base0C;
-
+    text_color = config.lib.stylix.colors.base07;
+    background = config.lib.stylix.colors.base03;
+    background_highlight = config.lib.stylix.colors.base03;
+    active_workspace_color = config.lib.stylix.colors.base0C;
     opacity = "0.5";
 };
-in 
+in
 {
   programs.waybar.style = ''
-
     * {
         border: none;
         border-radius: 0;
@@ -58,7 +46,7 @@ in
     }
 
     #workspaces button.persistent {
-        color: #00ff00;
+        color: #${custom.active_workspace_color};
         font-size: ${custom.font_size};
     }
 
@@ -72,8 +60,8 @@ in
     }
 
     #workspaces button.active {
-        background: #${custom.background_highlight};
-        color: #${custom.text_color};
+        background: #${custom.active_workspace_color};
+        color: #ffffff; /* Use pure white for high contrast on the active workspace */
         border-radius: inherit;
     }
 
@@ -210,7 +198,7 @@ in
 
     #battery.charging {
         color: #${custom.text_color};
-        background-color: #26A65B;
+        background-color: #${custom.active_workspace_color};
     }
 
     #battery.warning:not(.charging) {

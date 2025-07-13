@@ -24,9 +24,9 @@
       #c = "clear";
       #cd = "z";
       #tt = "gtrash put";
-      cat = "bat";
+      # cat = "bat";
       #nano = "micro";
-      #code = "codium";
+      code = "codium";
       py = "python";
       #icat = "kitten icat";
       #dsize = "du -hs";

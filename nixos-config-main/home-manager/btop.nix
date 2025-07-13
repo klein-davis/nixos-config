@@ -1,4 +1,4 @@
-{ config, pkgs, myOptions, ... }:
+{ pkgs, myOptions, ... }:
 
 let
   # Override btop to enable GPU support
@@ -25,11 +25,5 @@ in
 
   home.packages = (with pkgs; [ 
     nvtopPackages.intel
-    # If you have an AMD GPU, you might need to ensure ROCm is available for btop,
-    # though with static linking, it might be less critical here than in a system-wide NixOS config.
-    # pkgs.rocmPackages.rocm-smi # This is generally for the system, but might be useful for other tools.
   ]);
-
-  # If you're managing NVIDIA drivers through Home Manager (less common, usually in NixOS config)
-  # Refer to your NixOS configuration for GPU driver setup.
 }

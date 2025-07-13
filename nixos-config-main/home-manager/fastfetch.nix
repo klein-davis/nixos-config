@@ -1,5 +1,4 @@
 { config, pkgs, lib, ... }:
-
 {
   # Ensure fastfetch program is enabled
   programs.fastfetch = {
@@ -38,7 +37,7 @@
         }
         {
             "type" = "packages";
-            "format" = "{} (pacman)";
+            "format" = "{} (nixpkgs)";
             "key" = " ├ 󰏖 ";
             "keyColor" = "31";  
         }
