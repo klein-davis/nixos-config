@@ -4,7 +4,7 @@
   imports = [ inputs.stylix.nixosModules.stylix ];
   stylix = {
     enable = true;
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/edge-light.yaml";
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/edge-dark.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/solarized-dark.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/deep-oceanic-next.yaml";
@@ -85,7 +85,7 @@
     #   package = pkgs.nordzy-cursor-theme;
     #   # size = 15;
     # };
-    image = /home/nixuser/Pictures/wallpapers/zen-gruvbox.png;
+    # image = /home/nixuser/Pictures/wallpapers/zen-gruvbox.png;
     
   };
 }

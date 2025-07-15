@@ -11,6 +11,7 @@
     nethack
 
     ## Emulation
+    dosbox-x
     sameboy
     snes9x
     cemu

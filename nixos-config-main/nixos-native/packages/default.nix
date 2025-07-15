@@ -14,7 +14,7 @@
     clementine
     pkgsBundle.pkgs-stable.distrobox
     # pkgsBundle.pkgs-stable.firefox
-    firefox
+    # firefox
     pkgsBundle.pkgs-main.gparted          # partition manager
     # kdenlive
     lmstudio
@@ -48,6 +48,7 @@
     openvpn
     # ranger                              # CLI File Manager
     # scrot                               # CLI Screen Capture
+    stress
     swww
     tmux
     tree                                  # Show file tree

@@ -3,124 +3,177 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions; [
-      # nix language
-      bbenoist.nix
-      # nix-shell suport 
-      arrterian.nix-env-selector
-      # python
-      # ms-python.python
-      # C/C++
-      ms-vscode.cpptools
-      # Pytjon
-      ms-python.python
-      ms-python.debugpy
-      # OCaml
-      # ocamllabs.ocaml-platform
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        # nix language
+        bbenoist.nix
+        # nix-shell suport 
+        arrterian.nix-env-selector
+        # python
+        # ms-python.python
+        # C/C++
+        ms-vscode.cpptools
+        # Pytjon
+        ms-python.python
+        ms-python.debugpy
+        # OCaml
+        # ocamllabs.ocaml-platform
 
-      # Color theme
-      # catppuccin.catppuccin-vsc
-      # catppuccin.catppuccin-vsc-icons
-    ];
-    userSettings = {
-      "update.mode" = "none";
-      "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
-      "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
-
-      # "window.menuBarVisibility" = "toggle";
-      # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
-      # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
-      "editor.fontSize" = lib.mkForce 16;
-      
-      "workbench.colorCustomizations" = {
-        "[Stylix]" = {
-          "button.background" = "#${config.lib.stylix.colors.base0D}BB";
-          "button.foreground" = "#${config.lib.stylix.colors.base06}";
-          "button.secondaryBackground" = "#${config.lib.stylix.colors.base0E}BB";
-          "button.secondaryForeground" = "#${config.lib.stylix.colors.base06}";
-          "editor.selectionHighlightBackground" = "#${config.lib.stylix.colors.base04}EE";
-          "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base01}00";
-          "scrollbarSlider.activeBackground" = "#${config.lib.stylix.colors.base04}55";
-          "scrollbarSlider.background" = "#${config.lib.stylix.colors.base03}55";
-          "scrollbarSlider.hoverBackground" = "#${config.lib.stylix.colors.base04}99";
-          "statusBar.background" = "#${config.lib.stylix.colors.base00}";
-          "statusBar.noFolderBackground" = "#${config.lib.stylix.colors.base00}";
-          "statusBar.noFolderForeground" = "#${config.lib.stylix.colors.base06}";
-          "statusBarItem.remoteBackground" = "#${config.lib.stylix.colors.base00}";
-        };
-      };
-
-
-
-      "vsicons.dontShowNewVersionMessage" = true;
-      "explorer.confirmDragAndDrop" = false;
-      "editor.fontLigatures" = true;
-      # "editor.minimap.enabled" = false;
-      "workbench.startupEditor" = "none";
-
-      # "editor.formatOnSave" = true;
-      # "editor.formatOnType" = true;
-      # "editor.formatOnPaste" = true;
-
-      # "workbench.layoutControl.type" = "menu";
-      # "workbench.editor.limit.enabled" = true;
-      # "workbench.editor.limit.value" = 10;
-      # "workbench.editor.limit.perEditorGroup" = true;
-      # "workbench.editor.showTabs" = "single";
-      "workbench.editor.showTabs" = "multiple";
-      # "files.autoSave" = "onWindowChange";
-      "files.autoSave" = "afterDelay";
-      "files.autoSaveDelay" = 500;
-      # "explorer.openEditors.visible" = 0;
-      # "breadcrumbs.enabled" = false;
-      "editor.renderControlCharacters" = false;
-      # "workbench.activityBar.location" = "hidden";
-      # "workbench.statusBar.visible" = false;
-      "workbench.sideBar.location" = "right";
-      # "editor.scrollbar.verticalScrollbarSize" = 2;
-      # "editor.scrollbar.horizontalScrollbarSize" = 2;
-      # "editor.scrollbar.vertical" = "hidden";
-      # "editor.scrollbar.horizontal" = "hidden";
-      # "workbench.layoutControl.enabled" = false;
-
-      "editor.mouseWheelZoom" = true;
-
-      "C_Cpp.autocompleteAddParentheses" = true;
-      "C_Cpp.formatting" = "vcFormat";
-      "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction" = true;
-      "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType" = true;
-      "C_Cpp.vcFormat.space.beforeEmptySquareBrackets" = true;
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.block" = "sameLine";
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.function" = "sameLine";
-      "C_Cpp.vcFormat.newLine.beforeElse" = false;
-      "C_Cpp.vcFormat.newLine.beforeCatch" = false;
-      "C_Cpp.vcFormat.newLine.beforeOpenBrace.type" = "sameLine";
-      "C_Cpp.vcFormat.space.betweenEmptyBraces" = true;
-      "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets" = true;
-      "C_Cpp.vcFormat.indent.caseLabels" = true;
-      "C_Cpp.intelliSenseCacheSize" = 2048;
-      "C_Cpp.intelliSenseMemoryLimit" = 2048;
-      "C_Cpp.default.browse.path" = [
-        ''''${workspaceFolder}/**''
+        # Color theme
+        # catppuccin.catppuccin-vsc
+        # catppuccin.catppuccin-vsc-icons
       ];
-      "C_Cpp.default.cStandard" = "gnu11";
-      "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores" = false;
-      "C_Cpp.intelliSenseUpdateDelay" = 500;
-      "C_Cpp.workspaceParsingPriority" = "medium";
-      "C_Cpp.clang_format_sortIncludes" = true;
-      "C_Cpp.doxygen.generatedStyle" = "/**";
+      userSettings = {
+        "update.mode" = "none";
+        "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
+        # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
+        "window.titleBarStyle" = "custom"; 
+
+        # "window.menuBarVisibility" = "toggle";
+        # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
+        # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
+        "editor.fontSize" = lib.mkForce 16;
+        
+        "workbench.colorCustomizations" = {
+            "[Stylix]" = {
+                "button.background" = "#${config.lib.stylix.colors.base0D}BB";
+                "button.foreground" = "#${config.lib.stylix.colors.base06}";
+                "button.secondaryBackground" = "#${config.lib.stylix.colors.base0E}BB";
+                "button.secondaryForeground" = "#${config.lib.stylix.colors.base06}";
+                "editor.selectionHighlightBackground" = "#${config.lib.stylix.colors.base04}EE";
+                "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base01}00";
+                "scrollbarSlider.activeBackground" = "#${config.lib.stylix.colors.base04}55";
+                "scrollbarSlider.background" = "#${config.lib.stylix.colors.base03}55";
+                "scrollbarSlider.hoverBackground" = "#${config.lib.stylix.colors.base04}99";
+                "statusBar.background" = "#${config.lib.stylix.colors.base00}";
+                "statusBar.noFolderBackground" = "#${config.lib.stylix.colors.base00}";
+                "statusBar.noFolderForeground" = "#${config.lib.stylix.colors.base06}";
+                "statusBarItem.remoteBackground" = "#${config.lib.stylix.colors.base00}";
+
+                "editorBracketHighlight.foreground1" = "#${config.lib.stylix.colors.base0D}";
+                "editorBracketHighlight.foreground2" = "#${config.lib.stylix.colors.base0B}";
+                "editorBracketHighlight.foreground3" = "#${config.lib.stylix.colors.base0E}";
+                "editorBracketHighlight.foreground4" = "#${config.lib.stylix.colors.base0D}";
+                "editorBracketHighlight.foreground5" = "#${config.lib.stylix.colors.base0B}";
+                "editorBracketHighlight.foreground6" = "#${config.lib.stylix.colors.base0E}";
+
+                # # ADD ONE OR MORE OF THESE LINES
+                # # Change the color of error text
+                "editorError.foreground" = "#${config.lib.stylix.colors.base0D}"; 
+                # # Change the color of warning text
+                "editorWarning.foreground" = "#${config.lib.stylix.colors.base0B}"; 
+                # # Change the color of the squiggly underline for errors
+                "editorError.border" = "#${config.lib.stylix.colors.base0D}"; 
+            };
+        };
+
+
+        "glassit.alpha" = 0.1;
+
+
+        "vsicons.dontShowNewVersionMessage" = true;
+        "explorer.confirmDragAndDrop" = false;
+        "editor.fontLigatures" = true;
+        # "editor.minimap.enabled" = false;
+        "workbench.startupEditor" = "none";
+
+        # "editor.formatOnSave" = true;
+        # "editor.formatOnType" = true;
+        # "editor.formatOnPaste" = true;
+
+        # "workbench.layoutControl.type" = "menu";
+        # "workbench.editor.limit.enabled" = true;
+        # "workbench.editor.limit.value" = 10;
+        # "workbench.editor.limit.perEditorGroup" = true;
+        # "workbench.editor.showTabs" = "single";
+        "workbench.editor.showTabs" = "multiple";
+        # "files.autoSave" = "onWindowChange";
+        "files.autoSave" = "afterDelay";
+        "files.autoSaveDelay" = 500;
+        # "explorer.openEditors.visible" = 0;
+        # "breadcrumbs.enabled" = false;
+        "editor.renderControlCharacters" = false;
+        # "workbench.activityBar.location" = "hidden";
+        # "workbench.statusBar.visible" = false;
+        "workbench.sideBar.location" = "right";
+        # "editor.scrollbar.verticalScrollbarSize" = 2;
+        # "editor.scrollbar.horizontalScrollbarSize" = 2;
+        # "editor.scrollbar.vertical" = "hidden";
+        # "editor.scrollbar.horizontal" = "hidden";
+        # "workbench.layoutControl.enabled" = false;
+
+        "editor.mouseWheelZoom" = true;
+
+        "C_Cpp.autocompleteAddParentheses" = true;
+        "C_Cpp.formatting" = "vcFormat";
+        "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction" = true;
+        "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType" = true;
+        "C_Cpp.vcFormat.space.beforeEmptySquareBrackets" = true;
+        "C_Cpp.vcFormat.newLine.beforeOpenBrace.block" = "sameLine";
+        "C_Cpp.vcFormat.newLine.beforeOpenBrace.function" = "sameLine";
+        "C_Cpp.vcFormat.newLine.beforeElse" = false;
+        "C_Cpp.vcFormat.newLine.beforeCatch" = false;
+        "C_Cpp.vcFormat.newLine.beforeOpenBrace.type" = "sameLine";
+        "C_Cpp.vcFormat.space.betweenEmptyBraces" = true;
+        "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets" = true;
+        "C_Cpp.vcFormat.indent.caseLabels" = true;
+        "C_Cpp.intelliSenseCacheSize" = 2048;
+        "C_Cpp.intelliSenseMemoryLimit" = 2048;
+        "C_Cpp.default.browse.path" = [
+          ''''${workspaceFolder}/**''
+        ];
+        "C_Cpp.default.cStandard" = "gnu11";
+        "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores" = false;
+        "C_Cpp.intelliSenseUpdateDelay" = 500;
+        "C_Cpp.workspaceParsingPriority" = "medium";
+        "C_Cpp.clang_format_sortIncludes" = true;
+        "C_Cpp.doxygen.generatedStyle" = "/**";
+
+        "editor.tokenColorCustomizations" = lib.mkForce {
+          "[Stylix]" = {
+            textMateRules = [
+              {
+                scope = [
+                  "punctuation.section.embedded"
+                  "variable.interpolation"
+                ];
+                settings = {
+                  foreground = "#${config.lib.stylix.colors.base09}";
+                };
+              }
+              {
+                scope = [
+                    "variable.parameter"
+
+                    # Other related scopes inside the expression:
+                    "entity.other.attribute-name.nix"
+                    "punctuation.accessor.nix"
+
+                    # The interpolation punctuation itself:
+                    "punctuation.section.embedded.nix"
+                ];
+                settings = {
+                    foreground = "#d65d0e";
+                };
+            }
+            ];
+          };
+        };
+
+      };
+      
+      # Keybindings
+      keybindings = [
+        {
+          key = "ctrl+q";
+          command = "editor.action.commentLine";
+          when = "editorTextFocus && !editorReadonly";
+        }
+        {
+          key = "ctrl+s";
+          command = "workbench.action.files.saveFiles";
+        }
+      ];
     };
-    # Keybindings
-    keybindings = [
-      {
-        key = "ctrl+q";
-        command = "editor.action.commentLine";
-        when = "editorTextFocus && !editorReadonly";
-      }
-      {
-        key = "ctrl+s";
-        command = "workbench.action.files.saveFiles";
-      }
-    ];
   };
 }

@@ -50,7 +50,7 @@
     # gnumake
     # python3
     # vscode
-    # devenv
+    devenv
     # pkgsBundle.pkgs-unstable.devenv
     # direnv
 

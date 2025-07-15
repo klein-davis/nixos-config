@@ -5,7 +5,7 @@
       kitty.enable = true;
       hyprland.enable = false;
       mako.enable = true;
-      swaylock.enable = false;
+      swaylock.enable = true;
       waybar.enable = false;
       kde.enable = true;
       vscode.enable = true;

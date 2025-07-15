@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-super-old.url = "github:nixos/nixpkgs/nixos-21.05";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -12,15 +10,7 @@
     nixpkgs-main.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    stylix = {
-      url =  "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    #nur.url = "github:nix-community/NUR";
-  
-    hypr-contrib.url = "github:hyprwm/contrib";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -29,11 +19,16 @@
         flake-utils.follows = "flake-utils";
       };
     };
-  
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-  
-    #nix-gaming.url = "github:fufexan/nix-gaming";
-  
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      # url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Hyprland Inputs
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,23 +37,30 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
-    };
+    hypr-contrib.url = "github:hyprwm/contrib";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
     # hyprgrass = {
     #     url = "github:horriblename/hyprgrass";
     #     inputs.hyprland.follows = "hyprland"; # IMPORTANT
     # };
-  
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      # url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";
     };
 
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    stylix = {
+      url =  "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    nur.url = "github:nix-community/NUR";
+
+    #nix-gaming.url = "github:fufexan/nix-gaming";
+      
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, nixpkgs-super-old, home-manager, nixos-hardware, ... } @ inputs:

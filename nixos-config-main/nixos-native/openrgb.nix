@@ -21,6 +21,7 @@
 
   # If you're encountering issues with OpenRGB not detecting devices
   # you may also need to ensure i2c-dev is loaded.
-  boot.kernelModules = [ "i2c-dev" ];
+  # AMD : "i2c-piix4" Intel : "i2c-i801"
+  boot.kernelModules = [ "i2c-dev" "i2c-i801" ];
   hardware.i2c.enable = true;
 }
