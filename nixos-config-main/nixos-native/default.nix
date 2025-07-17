@@ -20,6 +20,7 @@
     ++ [(import ./trim.nix)]                        # SSD TRIM operations
     ++ [(import ./user.nix)]                        # User-specific settings
     ++ [(import ./virtmanager.nix)]                 # Virt-Manager for VMs
+    ++ [(import ./vpn.nix)]                         # Virt-Manager for VMs
     ++ [(import ./xserver.nix)]                     # X server configuration
     ++ [(import ./zram.nix)];                       # Zram for compressed swap
 

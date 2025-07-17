@@ -171,7 +171,8 @@
         }
         {
           key = "ctrl+s";
-          command = "workbench.action.files.saveFiles";
+          # command = "workbench.action.files.saveFiles"; # Save all
+          command = "workbench.action.files.save"; # Save current file
         }
       ];
     };
