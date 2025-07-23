@@ -242,8 +242,8 @@
         "$mainMod SHIFT, 0, split-movetoworkspacesilent, 10"
 
         # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+        # "$mainMod, mouse_down, workspace, e+1"
+        # "$mainMod, mouse_up, workspace, e-1"
         "$mainMod, mouse:276, workspace, e+1"
         "$mainMod, mouse:275, workspace, e-1"
         #"$mainMod SHIFT, mouse:276, workspace, e+5"
@@ -257,11 +257,17 @@
         ", XF86AudioRaiseVolume, exec, pamixer -i 5 "
         ", XF86AudioLowerVolume, exec, pamixer -d 5 "
         ", XF86AudioMute, exec, pamixer -t"
-        ", XF86AudioMicMute, exec, pamixer --default-source -m"
+        ", XF86AudioMicMute, exec, pamixer --default-source --toggle-mute"
+        ", XF86AudioPlayPause, exec, playerctl --all-players play-pause"
+        ", XF86AudioPlay, exec, playerctl --all-players play-pause"
+        ", XF86AudioPause, exec, playerctl --all-players play-pause"
+        "$mainMod ALT, right, exec, pamixer -t"
         "$mainMod ALT, up, exec, pamixer -i 5"
         "$mainMod ALT, down, exec, pamixer -d 5"
-        #"$mainMod, S, mouse_up, exec, pamixer -i 5"
-        #"$mainMod, S, mouse_up, exec, pamixer -i 5"
+        "$mainMod ALT, left, exec, playerctl --all-players play-pause"
+        "$mainMod ALT, m, exec, pamixer --default-source --toggle-mute"
+        "$mainMod S, mouse_up, exec, pamixer -i 5"
+        "$mainMod S, mouse_down, exec, pamixer -d 5"
         
         # Brightness control
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%- "

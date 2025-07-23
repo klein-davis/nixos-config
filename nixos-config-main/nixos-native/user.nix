@@ -23,7 +23,7 @@
     users.${myOptions.username} = {
       isNormalUser = true;
       description = "My Silly Name Here";
-      extraGroups = [ "networkmanager" "wheel" "video" "seat" "vboxusers"]
+      extraGroups = [ "networkmanager" "wheel" "video" "seat" ]
       ++ (if myOptions.virtualization then ["libvirtd"] else []);
       packages = with pkgs; [];
       shell = pkgs.zsh;

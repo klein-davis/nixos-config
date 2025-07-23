@@ -71,7 +71,7 @@
     wl-clipboard                          # clipoard utils for wayland (wl-copy, wl-paste)
     cliphist                              # clipboard manager
     poweralertd
-    qalculate-gtk                         # calculato
+    qalculate-gtk                         # calculator
     unzip
     wget
     xdg-utils

@@ -12,6 +12,10 @@
     pkgs.kdePackages.breeze-icons
     pkgs.kdePackages.breeze.qt5
     pkgs.kdePackages.breeze
+
+    # For compatability
+    pkgs.adwaita-icon-theme
+    # pkgs.gnome-themes-standard
   ];  
 
   dconf.enable = lib.mkForce true;

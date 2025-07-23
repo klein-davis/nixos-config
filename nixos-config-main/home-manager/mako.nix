@@ -5,6 +5,7 @@
       package = pkgs.mako;
       enable = true;
       settings = {
+        actions = lib.mkForce "1";
         anchor = "bottom-right";
         # font = "JetBrainsMono Nerd Font 12";
         padding = "15";
@@ -15,8 +16,7 @@
         # border-color = "#b5b5b5";
         # progress-color = "over #313244";
         # text-color = "#ffffff";
-        icons = true;
-        actions = lib.mkForce true;
+        icons = "1";
 
         text-alignment = "center";
         "urgency=high" = {

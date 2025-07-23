@@ -9,6 +9,6 @@
       };
     };
   };
-
+  boot.kernelModules = [ "uinput" ];
   services.blueman.enable = true;
 }

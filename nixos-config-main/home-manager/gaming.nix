@@ -4,6 +4,7 @@
     ## Utils
     # winetricks
     # inputs.nix-gaming.packages.${pkgs.system}.wine-ge
+    protonplus
 
     ## Cli games
     _2048-in-terminal
