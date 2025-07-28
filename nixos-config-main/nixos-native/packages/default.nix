@@ -13,16 +13,13 @@
     pkgsBundle.pkgs-old.chromium
     clementine
     pkgsBundle.pkgs-stable.distrobox
-    # pkgsBundle.pkgs-stable.firefox
-    # firefox
     pkgsBundle.pkgs-main.gparted          # partition manager
-    # kdenlive
-    lmstudio
-    neverball
-    nwg-look
-    obs-studio
-    ollama
-    pkgsBundle.pkgs-unstable.obsidian
+    # kdenlive                              # Video editor
+    lmstudio                              # GUI LLM interface
+    nwg-look                              # GTK Config editor
+    obs-studio                            # Screen recording and streaming
+    ollama                                # LLM Backend
+    pkgsBundle.pkgs-unstable.obsidian     # Notetaking software
     powertop
     qbittorrent
     qpwgraph
@@ -37,6 +34,7 @@
     file                                  # show filetype
     foot
     gettext
+    jq jqp                                # JSON Tools
     # lux                                 # Video Downloader
     libheif                               # Convert to and from HEIF files
     # mediainfo                           # Video file info
@@ -53,7 +51,6 @@
     tmux
     tree                                  # Show file tree
     unzip
-    vim
     w3m  
     waypaper
     waypipe
@@ -75,7 +72,7 @@
     jetbrains-mono
     noto-fonts
     noto-fonts-emoji
-    twemoji-color-font
+    # twemoji-color-font
     font-awesome
     powerline-fonts
     powerline-symbols

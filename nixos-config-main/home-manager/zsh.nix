@@ -7,7 +7,11 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "fzf" ];
+      plugins = [ "git" "fzf" "fzf-tab" ]; # Add "fzf-tab" to the plugins list
+      # customPlugins = [{
+      #   name = "fzf-tab";
+      #   src = pkgs.zsh-fzf-tab; # Directly use the Nix package as the source
+      # }];
       theme = "agnoster";
     };
     initContent = lib.mkBefore ''
@@ -40,7 +44,8 @@
       #cdnix = "cd ~/nixos-config && codium ~/nixos-config";
       ns = "nix-shell --run zsh";
       #nix-shell = "nix-shell --run zsh";
-      nix-switch = "sudo nixos-rebuild switch --flake #${host}";
+      nix-switch = "sudo nixos-rebuild switch --flake .#${host}";
+      nix-list-hosts = "nix flake show --json 2>/dev/null | jq -r '.nixosConfigurations | keys[]'";
       #nix-switchu = "sudo nixos-rebuild switch --upgrade --flake ~/nixos-config#${host}";
       #nix-flake-update = "sudo nix flake update ~/nixos-config#";
       #nix-clean = "sudo nix-collect-garbage && sudo nix-collect-garbage -d && sudo rm /nix/var/nix/gcroots/auto/* && nix-collect-garbage && nix-collect-garbage -d";

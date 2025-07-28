@@ -2,7 +2,9 @@
 {
   home.packages = (with pkgs; [
     # atop
+    audio-recorder
     bitwise                               # cli tool for bit / hex manipulation
+    (pkgs.bottles.override { removeWarningPopup = true; })
     # pkgsBundle.pkgs-super-old.cgminer
     # cgminer
     cloc
@@ -34,8 +36,7 @@
     ttyper
     udiskie
     valgrind                              # c memory analyzer
-    # yazi                                  # terminal file manager
-    #youtube-dl
+    yazi                                  # terminal file manager
     #zenity
     wdisplays
     # writedisk
@@ -58,6 +59,7 @@
     cmatrix
     ffmpeg
     fzf
+    zsh-fzf-tab
     imv                                   # imageviewer
     killall
     libnotify

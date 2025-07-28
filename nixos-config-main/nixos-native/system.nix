@@ -23,8 +23,10 @@
     fuse3
     gdk-pixbuf
     glib
+    glibc
     gtk3
     icu
+    krb5
     libGL
     libGLU
     libappindicator-gtk3
@@ -49,7 +51,6 @@
     saw-tools
     stdenv.cc.cc
     stdenv.cc.libc
-    # stdenv.cc.cc.glibc
     systemd
     vulkan-loader
     webkitgtk_6_0
@@ -76,6 +77,7 @@
 
   nix = {
     settings = {
+      warn-dirty = false;
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "root" "${myOptions.username}" ];

@@ -118,6 +118,7 @@
 
 
         default = {
+          # config-name = "default";
           username = "nixuser";
           default-passwd = "password";
           system = "x86_64-linux";

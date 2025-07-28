@@ -4,7 +4,7 @@
   home.packages = [
     pkgsBundle.pkgs-old.nerdfonts
     (pkgsBundle.pkgs-old.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    pkgsBundle.pkgs-old.twemoji-color-font
+    # pkgsBundle.pkgs-old.twemoji-color-font
 
     pkgs.libsForQt5.qt5ct
     pkgs.qt6ct
@@ -19,6 +19,18 @@
   ];  
 
   dconf.enable = lib.mkForce true;
+
+  # xdg.configFile = {
+  #   # 1. Main Kvantum configuration file, pointing to your theme
+  #   "Kvantum/kvantum.kvconfig".text = ''
+  #     [General]
+  #     # The 'theme' option tells Kvantum which theme to load
+  #     theme=${kvantumThemeName}
+  #     # Other general Kvantum settings can go here if needed
+  #     # e.g., animations, translucency settings
+  #   '';
+
+  # };
 
   gtk = {
     enable = true;

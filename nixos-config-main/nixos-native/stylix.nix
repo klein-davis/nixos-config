@@ -1,7 +1,20 @@
-{ config, pkgs, inputs, myOptions, ... }:
+{ lib, config, pkgs, inputs, myOptions, ... }:
 
 {
   imports = [ inputs.stylix.nixosModules.stylix ];
+
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = lib.mkForce "breeze";
+  };
+
+  environment.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "qt5ct"; # Or "qt6ct"
+    # QT_STYLE_OVERRIDE = "qt5ct-style"; # Explicitly set Breeze style
+  };
+
+
   stylix = {
     enable = true;
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/edge-dark.yaml";
@@ -58,6 +71,16 @@
     fonts.monospace = {
       package = pkgs.jetbrains-mono; # Specify the package for Jetbrains Mono
       name = "JetBrainsMono Nerd Font"; # The exact font name within the package, including "Nerd Font" if you installed the Nerd Font version
+    };
+
+    fonts.sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "Dejavu Sans";
+    };
+
+    fonts.serif = {
+      package = pkgs.dejavu_fonts;
+      name = "Dejavu Serif";
     };
 
     fonts.sizes = {
