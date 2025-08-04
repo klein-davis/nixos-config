@@ -23,8 +23,8 @@
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/deep-oceanic-next.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/twilight.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/oxocarbon-dark.yaml";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
-    # base16Scheme = {
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
+    base16Scheme = {
     # #   # base00 = "101010";
     # #   # base01 = "686868";
     # #   # base02 = "525252";
@@ -58,8 +58,25 @@
     #   # base0D = "1565C0";
     #   # base0E = "AED6F1";
     #   # base0F = "5D85B2";
-
-    # };
+    
+      # Blue Prince
+      base00 = "1C293D";
+      base01 = "3E4A5B";
+      base02 = "606B7A";
+      base03 = "818C99";
+      base04 = "A3ACB7";
+      base05 = "C5CDD6";
+      base06 = "CED5DC";
+      base07 = "D6DCE2";
+      base08 = "555FFF";
+      base09 = "717B76";
+      base0A = "407FA1";
+      base0B = "3974E3";
+      base0C = "5B7AA2";
+      base0D = "4B8BC9";
+      base0E = "87B7E3";
+      base0F = "718CAA";
+    };
 
     # polarity = "light";
 
@@ -108,7 +125,7 @@
     #   package = pkgs.nordzy-cursor-theme;
     #   # size = 15;
     # };
-    # image = /home/nixuser/Pictures/wallpapers/zen-gruvbox.png;
+    # image = /home/nixuser/Pictures/Herbie.png;
     
   };
 }

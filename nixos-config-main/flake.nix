@@ -22,6 +22,11 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
+      follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       # url = "github:nix-community/home-manager/release-24.11";

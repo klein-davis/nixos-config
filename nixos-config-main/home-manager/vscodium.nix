@@ -153,7 +153,7 @@
                     "punctuation.section.embedded.nix"
                 ];
                 settings = {
-                    foreground = "#d65d0e";
+                    foreground = "#${config.lib.stylix.colors.base09}";
                 };
             }
             ];

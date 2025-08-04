@@ -7,7 +7,7 @@
     ++ [(import ./hyprland.nix)]                    # Hyprland Wayland compositor
     ++ [(import ./network.nix)]                     # Network configurations
     ++ [(import ./openrgb.nix)]                     # OpenRGB for lighting control
-    ++ [(import ./packages/default.nix)]                    # System-wide packages
+    ++ [(import ./packages/default.nix)]             # System-wide packages
     ++ [(import ./power.nix)]                       # Power management settings
     # ++ [(import ./samba.nix)]                       # Samba file sharing (currently disabled)
     ++ [(import ./security.nix)]                    # Security configurations

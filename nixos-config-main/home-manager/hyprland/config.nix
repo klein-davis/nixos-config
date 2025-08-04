@@ -156,14 +156,15 @@
         "hash dbus-update-activation-environment 2>/dev/null &"
         "dbus-update-activation-environment --systemd &"
         "nm-applet &"
-        "wl-clip-persist --clipboard both"
         "swaybg -m fill -i $(find ~/Pictures/wallpapers/ -maxdepth 1 -type f) &"
         "sleep 1 && swaylock"
-        "hyprctl setcursor Nordzy-cursors 22 &"
+        # "hyprctl setcursor Nordzy-cursors 22 &"
         "poweralertd &"
         "waybar &"
         "mako &"
-        "wl-paste --watch cliphist store &"
+        "wl-paste -t text --watch cliphist store &"
+        "wl-paste -p -t text --watch cliphist store &"
+        "wl-paste -p --watch xclip -i -selection primary &"
       ] ++ (if myOptions.enable-rgb-lights then ["(sleep 6 && openrgb --startminimized) &"] else []);
 
 
@@ -241,7 +242,7 @@
         "$mainMod SHIFT, 9, split-movetoworkspacesilent, 9"
         "$mainMod SHIFT, 0, split-movetoworkspacesilent, 10"
 
-        # Scroll through existing workspaces with mainMod + scroll
+        # Scroll through existing workspaces with mainMod + side buttons
         # "$mainMod, mouse_down, workspace, e+1"
         # "$mainMod, mouse_up, workspace, e-1"
         "$mainMod, mouse:276, workspace, e+1"
@@ -261,13 +262,17 @@
         ", XF86AudioPlayPause, exec, playerctl --all-players play-pause"
         ", XF86AudioPlay, exec, playerctl --all-players play-pause"
         ", XF86AudioPause, exec, playerctl --all-players play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl prev"
         "$mainMod ALT, right, exec, pamixer -t"
         "$mainMod ALT, up, exec, pamixer -i 5"
         "$mainMod ALT, down, exec, pamixer -d 5"
         "$mainMod ALT, left, exec, playerctl --all-players play-pause"
         "$mainMod ALT, m, exec, pamixer --default-source --toggle-mute"
-        "$mainMod S, mouse_up, exec, pamixer -i 5"
-        "$mainMod S, mouse_down, exec, pamixer -d 5"
+        "$mainMod ALT SHIFT, right, exec, playerctl next"
+        "$mainMod ALT SHIFT, left, exec, playerctl prev"
+        "$mainMod S, mouse_down, exec, pamixer -i 5"
+        "$mainMod S, mouse_up, exec, pamixer -d 5"
         
         # Brightness control
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%- "

@@ -4,7 +4,7 @@
     # atop
     audio-recorder
     bitwise                               # cli tool for bit / hex manipulation
-    (pkgs.bottles.override { removeWarningPopup = true; })
+    # (pkgs.bottles.override { removeWarningPopup = true; })
     # pkgsBundle.pkgs-super-old.cgminer
     # cgminer
     cloc
@@ -18,8 +18,8 @@
     gimp
     gtrash                                # rm replacement, put deleted files in system trash
     hexdump
-    jdk17                                 # java
-    lazygit
+    # lazygit
+    linux-wallpaperengine
     pkgsBundle.pkgs-stable.libreoffice
     nemo                                  # file manager
     nitch                                 # systhem fetch util
@@ -47,6 +47,7 @@
     # clang
     gcc
     gdb
+    jdk17                                 # java
     # cmake
     # gnumake
     # python3
@@ -55,6 +56,7 @@
     # pkgsBundle.pkgs-unstable.devenv
     # direnv
 
+    # CLI
     # bleachbit                             # cache cleaner
     cmatrix
     ffmpeg
@@ -62,6 +64,7 @@
     zsh-fzf-tab
     imv                                   # imageviewer
     killall
+    libcaca
     libnotify
 	  man-pages					            	      # extra man pages
     mpv                                   # vide player

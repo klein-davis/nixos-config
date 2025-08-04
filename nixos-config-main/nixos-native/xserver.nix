@@ -22,7 +22,11 @@
   };
 
   # To prevent getting stuck at shutdown
-  systemd.extraConfig = "DefaultTimeoutStopSec=5s";
+  systemd.settings = {
+    Manager = {
+      DefaultTimeoutStopSec = "5s";
+    };
+  };
 
   # Enable the KDE Plasma Desktop Environment
   #services.displayManager.sddm.enable = true;

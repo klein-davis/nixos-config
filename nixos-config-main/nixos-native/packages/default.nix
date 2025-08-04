@@ -44,6 +44,7 @@
     ntfs3g
     openssl
     openvpn
+    osc                                   # Remote clipboard
     # ranger                              # CLI File Manager
     # scrot                               # CLI Screen Capture
     stress
@@ -51,6 +52,7 @@
     tmux
     tree                                  # Show file tree
     unzip
+    usbip-ssh                             # USB Port over SSH
     w3m  
     waypaper
     waypipe

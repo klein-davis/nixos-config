@@ -7,11 +7,8 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "fzf" "fzf-tab" ]; # Add "fzf-tab" to the plugins list
-      # customPlugins = [{
-      #   name = "fzf-tab";
-      #   src = pkgs.zsh-fzf-tab; # Directly use the Nix package as the source
-      # }];
+      plugins = [ "git" "fzf" ]; # Add "fzf-tab" to the plugins list
+
       theme = "agnoster";
     };
     initContent = lib.mkBefore ''
@@ -19,6 +16,16 @@
       export "MICRO_TRUECOLOR=1"
       fastfetch
     '';
+    plugins = [
+    # {
+    #   name = "zsh-vi-mode";
+    #   src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
+    # }
+    {
+      name = "fzf-tab";
+      src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+    }
+    ];
 
     # shopt -s dotglob
     shellAliases = {
@@ -26,7 +33,7 @@
 
       # Utils
       #c = "clear";
-      #cd = "z";
+      cd = "z";
       #tt = "gtrash put";
       # cat = "bat";
       #nano = "micro";
@@ -34,7 +41,7 @@
       py = "python";
       #icat = "kitten icat";
       #dsize = "du -hs";
-      #findw = "grep -rl";
+      findw = "grep -rl";
 
       #l = "eza --icons  -a --group-directories-first -1"; #EZA_ICON_SPACING=2
       #ll = "eza --icons  -a --group-directories-first -1 --no-user --long";
