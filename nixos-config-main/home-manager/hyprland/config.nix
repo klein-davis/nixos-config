@@ -263,14 +263,14 @@
         ", XF86AudioPlay, exec, playerctl --all-players play-pause"
         ", XF86AudioPause, exec, playerctl --all-players play-pause"
         ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl prev"
+        ", XF86AudioPrev, exec, playerctl previous"
         "$mainMod ALT, right, exec, pamixer -t"
         "$mainMod ALT, up, exec, pamixer -i 5"
         "$mainMod ALT, down, exec, pamixer -d 5"
         "$mainMod ALT, left, exec, playerctl --all-players play-pause"
         "$mainMod ALT, m, exec, pamixer --default-source --toggle-mute"
-        "$mainMod ALT SHIFT, right, exec, playerctl next"
-        "$mainMod ALT SHIFT, left, exec, playerctl prev"
+        "$mainMod ALT CTRL, right, exec, playerctl next"
+        "$mainMod ALT CTRL, left, exec, playerctl previous"
         "$mainMod S, mouse_down, exec, pamixer -i 5"
         "$mainMod S, mouse_up, exec, pamixer -d 5"
         
@@ -301,7 +301,10 @@
         ", print, exec, $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
         "CTRL, print, exec, grim -g \"$(slurp -o)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
         "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
-
+        
+        
+        
+        "$mainMod SHIFT, V, submap, vnc"
       ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging
@@ -310,5 +313,15 @@
         "$mainMod, mouse:273, resizewindow"
       ];
     };
+    # Use extraConfig to define the submaps with raw Hyprland syntax
+    # This is a string, not a Nix attribute set.
+    extraConfig = ''
+      submap = vnc
+      # Only this keybind works while in the VNC submap.
+      # Press Super+V again to exit the submap.
+      bind = $mainMod SHIFT, V, submap, reset
+
+      submap = reset
+    '';
   };
 }

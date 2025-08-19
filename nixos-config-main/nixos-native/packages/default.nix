@@ -10,6 +10,7 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino
+    # bambu-studio
     pkgsBundle.pkgs-old.chromium
     clementine
     pkgsBundle.pkgs-stable.distrobox
@@ -34,6 +35,7 @@
     file                                  # show filetype
     foot
     gettext
+    iperf3
     jq jqp                                # JSON Tools
     # lux                                 # Video Downloader
     libheif                               # Convert to and from HEIF files
@@ -41,12 +43,14 @@
     nh
     nmap
     nixos-generators
+    nixpkgs-review
     ntfs3g
     openssl
     openvpn
     osc                                   # Remote clipboard
     # ranger                              # CLI File Manager
     # scrot                               # CLI Screen Capture
+    speedtest-cli
     stress
     swww
     tmux

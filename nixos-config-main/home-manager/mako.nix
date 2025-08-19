@@ -1,7 +1,16 @@
 { config, pkgs, lib, ... }:
+
+let
+  # Define the variable makoMenuScript here, at the top level
+  makoMenuScript = pkgs.writeShellScript "mako-menu" ''
+    ${pkgs.wofi}/bin/wofi --show dmenu
+  '';
+
+in
 {
   services = {
-    mako = {
+    mako = 
+    {
       package = pkgs.mako;
       enable = true;
       settings = {
@@ -19,18 +28,28 @@
         icons = "1";
 
         text-alignment = "center";
-        "urgency=high" = {
-          default-timeout = 1000;
-          # border-color = "#fab387";
-          # background-color = "#2c2c2c";
-          background-color = lib.mkForce "#${config.lib.stylix.colors.base00}";
-        };
-        "urgency=low" = {
-          # border-color = "#fab387";
-          # background-color = "#2c2c2c";
-          background-color = lib.mkForce "#${config.lib.stylix.colors.base00}";
-        };
+        
+        # Mako mouse action settings
+        on-button-left = "dismiss";
+        on-button-middle = "invoke-default-action";
+        on-button-right = "invoke-default-action";
+
+        # "urgency=high" = {
+        #   default-timeout = 1000;
+        #   # border-color = "#fab387";
+        #   # background-color = "#2c2c2c";
+        #   background-color = lib.mkForce "#${config.lib.stylix.colors.base00}";
+        # };
+        # "urgency=low" = {
+        #   # border-color = "#fab387";
+        #   # background-color = "#2c2c2c";
+        #   background-color = lib.mkForce "#${config.lib.stylix.colors.base00}";
+        # };
       };
+      # Add this extraConfig block
+      extraConfig = ''
+        menu-command=${makoMenuScript}
+      '';
     };
   };
 }
