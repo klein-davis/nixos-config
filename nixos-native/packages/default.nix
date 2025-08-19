@@ -10,7 +10,7 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino
-    bambu-studio
+    # bambu-studio
     pkgsBundle.pkgs-old.chromium
     clementine
     pkgsBundle.pkgs-stable.distrobox
