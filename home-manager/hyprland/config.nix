@@ -184,7 +184,6 @@
         "$mainMod SHIFT, P, pin"
         "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
-        "$mainMod, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"
         "$mainMod, L, exec, swaylock"
         "$mainMod, S, exec, firefox"
 
@@ -211,6 +210,9 @@
         "$mainMod ALT, 3, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"3*\") --no-video"
         "$mainMod ALT, 4, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"4*\") --no-video"
         "$mainMod ALT, 5, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"5*\") --no-video"
+        "$mainMod ALT, 6, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"6*\") --no-video"
+        "$mainMod ALT, 7, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"7*\") --no-video"
+        "$mainMod ALT, 0, exec, pkill mpv"
 
         # Window resizing                     X  Y
         "$mainMod CTRL, left,  resizeactive, -60 0"
@@ -298,9 +300,13 @@
         #CTRL SHIFT, print, exec, $HOME/.config/hypr/scripts/screenshots/captureArea.sh
 
         # Screenshots
-        ", print, exec, $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
-        "CTRL, print, exec, grim -g \"$(slurp -o)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
-        "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
+        # ", print, exec, $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
+        # "CTRL, print, exec, grim -g \"$(slurp -o)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
+        # "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
+        ", print, exec, grim $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
+        # ", print, exec, kitty"
+        "CTRL, print, exec, grim -g \"$(slurp -o)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
+        "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
         
         
         
@@ -311,6 +317,13 @@
       bindm = [
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
+      ];
+
+      bindl = [
+        # Screen and sleep hotkeys
+        "$mainMod SHIFT CTRL, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"
+        "$mainMod, O, exec,  hyprctl dispatch dpms off"
+        "$mainMod SHIFT, O, exec,  hyprctl dispatch dpms on"
       ];
     };
     # Use extraConfig to define the submaps with raw Hyprland syntax

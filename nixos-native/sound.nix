@@ -2,6 +2,9 @@
 {
   services.pulseaudio.enable = false;
   #sound.enable = true;
+  
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
 
   services.pipewire = {
     enable = true;

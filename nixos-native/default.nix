@@ -20,10 +20,9 @@
     ++ [(import ./trim.nix)]                        # SSD TRIM operations
     ++ [(import ./user.nix)]                        # User-specific settings
     ++ [(import ./virtmanager.nix)]                 # Virt-Manager for VMs
-    # ++ [(import ./vpn.nix)]                         # Virt-Manager for VMs
+    ++ (if (host == "desktop") then
+       [(import ./vpn.nix)]
+       else [])                                     # Virt-Manager for VMs
     ++ [(import ./xserver.nix)]                     # X server configuration
     ++ [(import ./zram.nix)];                       # Zram for compressed swap
-
-    # ++ (if (host != "desktop") then
-    #      [inputs.nix-index-database.nixosModules.nix-index] else []); # Conditional import for non-desktop hosts
 }

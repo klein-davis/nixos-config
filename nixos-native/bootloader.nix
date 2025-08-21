@@ -6,8 +6,11 @@
 
   boot.initrd.kernelModules = if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [];
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
+  # Nvidia GPU Param
   (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia-drm.fbdev=1" "nvidia-drm.modeset=1" ] else []) ++
+  # AMD GPU Param
   (if (myOptions.enable-amd-gpu == true) then [ "amdgpu.abmlevel=0" ] else []);
+  
   # boot.blacklistedKernelModules = [ "nouveau" ];
 
   # Kernel

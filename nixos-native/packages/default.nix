@@ -35,6 +35,7 @@
     file                                  # show filetype
     foot
     gettext
+    git
     iperf3
     jq jqp                                # JSON Tools
     # lux                                 # Video Downloader

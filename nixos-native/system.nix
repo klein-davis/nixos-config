@@ -1,15 +1,19 @@
 { self, pkgs, lib, inputs, myOptions, ...}: 
 {
-  # imports = [ inputs.nix-gaming.nixosModules.default ];
-  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
+  imports = [ 
+    # inputs.nix-gaming.nixosModules.default
+    inputs.nix-index-database.nixosModules.nix-index 
+  ];
+
   boot.tmp.cleanOnBoot = true;
+
+  # Nix Shared Libraires
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    xorg.libXrender
     alsa-lib
+    atk
     at-spi2-atk
     at-spi2-core
-    atk
     boost
     cairo
     cmake
@@ -27,11 +31,11 @@
     gtk3
     icu
     krb5
-    libGL
-    libGLU
     libappindicator-gtk3
     libcap
     libdrm
+    libGL
+    libGLU
     libglvnd
     libkrb5
     libnotify
@@ -55,23 +59,21 @@
     vulkan-loader
     webkitgtk_6_0
     xorg.libX11
-    xorg.libXScrnSaver
+    xorg.libxcb
     xorg.libXcomposite
     xorg.libXcursor
     xorg.libXdamage
     xorg.libXext
     xorg.libXfixes
     xorg.libXi
+    xorg.libxkbfile
     xorg.libXrandr
     xorg.libXrender
-    xorg.libXtst
-    xorg.libxcb
-    xorg.libxkbfile
+    xorg.libXScrnSaver
     xorg.libxshmfence
+    xorg.libXtst
     zlib
   ];
-
-  services.envfs.enable = true;
 
   virtualisation.podman.enable = true;
 
@@ -85,7 +87,7 @@
       # trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU=" ];
     };
     gc = {
-      automatic = false;
+      automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
@@ -93,18 +95,10 @@
   nixpkgs = {
     overlays = [
       #self.overlays.default
-      #inputs.nur.overlay
+      inputs.nur.overlays.default
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-    wget
-    git
-  ];
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
+  
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -118,6 +112,6 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  nixpkgs.config.allowUnfree = true;
+
   system.stateVersion = "25.05";
 }

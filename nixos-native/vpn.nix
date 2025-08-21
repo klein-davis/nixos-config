@@ -11,26 +11,28 @@
     # client server both
     useRoutingFeatures = "client";
   };
-  networking.firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
-  # Needed if useRoutingFeatures == server or both
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1; # Enable IPv4 forwarding
-    "net.ipv6.conf.all.forwarding" = 1; # Enable IPv6 forwarding
-  };
-  networking.firewall.checkReversePath = "loose";
+  # networking.firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
+  # # Needed if useRoutingFeatures == server or both
+  # boot.kernel.sysctl = {
+  #   "net.ipv4.ip_forward" = 1; # Enable IPv4 forwarding
+  #   "net.ipv6.conf.all.forwarding" = 1; # Enable IPv6 forwarding
+  # };
+  # networking.firewall.checkReversePath = "loose";
 
-  # Enable Headscale service
+  # Enable Headscale servicean
   services.headscale = {
     enable = true;
     address = "0.0.0.0"; # Back here, directly under services.headscale
     port = 8080;         # Back here, directly under services.headscale
     user = "headscale"; # Use your configured user
+    group = "headscale";
 
     settings = {
       server_url = "https://head.kleindavis.xyz"; # Using the variable here
+
       web_ui = {
         enabled = true;
-        # path = "/web"; # sometimes it's on a subpath
+        path = "/web"; # sometimes it's on a subpath
       };
 
       # DNS configuration now named dns_config, and inside settings
@@ -40,12 +42,13 @@
         search_domains = ["head.kleindavis.xyz"]; # Recommended by the example
         nameservers.global = [
           "1.1.1.1"
-          "9.9.9.9" # Good default public DNS servers
+          "8.8.8.8"
         ];
       };
 
       ip_prefixes = [ # Essential for Tailscale IPs
         "100.64.0.0/10"
+        "fd7a:115c:a1e0::/48"
       ];
 
       # Logtail simplified syntax
@@ -57,17 +60,12 @@
 
     # Define the user and group Headscale runs as (defaults are usually fine)
     # user = "headscale"; # Already defined above
-    group = "headscale";
+    
   };
-
-  # Open the Headscale port in the firewall
-  networking.firewall.allowedTCPPorts = [
-    config.services.headscale.port
-  ];
-
-
+  # https://github.com/cloudflare/cloudflared/issues/990
   # nix run nixpkgs#cloudflared -- tunnel login
   # nix run nixpkgs#cloudflared -- tunnel create <your-tunnel-name>
+  # cloudflared tunnel route dns TUNNEL_UUID prefix.my-website.com
   # sudo cp ~/.cloudflared/YOUR_TUNNEL_ID.json /var/lib/cloudflared/YOUR_TUNNEL_ID.json
   # sudo chown cloudflared:cloudflared /var/lib/cloudflared/YOUR_TUNNEL_ID.json
   # sudo chmod 600 /var/lib/cloudflared/YOUR_TUNNEL_ID.json
@@ -86,10 +84,8 @@
       credentialsFile = "/var/lib/cloudflared/6207a673-e90b-431b-a686-14d347fae860.json";
 
       ingress = {
-        "head.kleindavis.xyz" = "http://localhost:8080";
-        "silly.kleindavis.xyz" = "https://google.com";
-        # The default rule is just another key in the attribute set
-        
+        "head.kleindavis.xyz" = "http://10.31.0.9:8080";
+        "silly.kleindavis.xyz" = "https://google.com";        
       };
 
       default = "http_status:404";

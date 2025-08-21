@@ -1,9 +1,14 @@
 { pkgs, config, myOptions, ... }: {
 
-  # mobile = false
-  powerManagement = if ! myOptions.power.mobile then {
-    cpuFreqGovernor = "performance";
-  } else {};
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = if ! myOptions.power.mobile then
+      "performance"
+    else 
+      # cpuFreqGovernor = lib.mkDefault "ondemand";
+      "ondemand";
+  };
   
   # mobile = true
   environment = if myOptions.power.mobile then {
@@ -42,7 +47,7 @@
       brightnessctl
       cpupower-gui
       light
-      powertop
+      # powertop
     ];
   } else {};
 
