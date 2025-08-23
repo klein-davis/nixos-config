@@ -127,7 +127,7 @@
           username = "nixuser";
           default-passwd = "password";
           system = "x86_64-linux";
-          enable-intel-cpu = true;
+          enable-intel-cpu = false;
           enable-amd-cpu = false;
           enable-nvidia-gpu = false;
           enable-amd-gpu = false;

@@ -27,7 +27,7 @@
     #WLR_RENDERER = "vulkan";
     WLR_NO_HARDWARE_CURSORS = "1";
     XDG_SESSION_TYPE = "wayland";
-    SDL_VIDEODRIVER = "wayland";
+    SDL_VIDEODRIVER = "wayland,x11";
     CLUTTER_BACKEND = "wayland";
     GTK_THEME = "Breeze-Dark";
   };

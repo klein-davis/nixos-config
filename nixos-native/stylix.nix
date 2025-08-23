@@ -5,12 +5,12 @@
 
   qt = {
     enable = true;
-    platformTheme = "qt5ct";
-    style = lib.mkForce "breeze";
+    # platformTheme = "qt5ct"; # kde6
   };
 
   environment.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt5ct"; # Or "qt6ct"
+    # QT_QPA_PLATFORMTHEME = "qt5ct"; # Or "qt6ct"
+    # QT_QPA_PLATFORMTHEME = "kde6";
     # QT_STYLE_OVERRIDE = "qt5ct-style"; # Explicitly set Breeze style
   };
 

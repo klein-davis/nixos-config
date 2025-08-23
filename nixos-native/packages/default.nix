@@ -20,6 +20,7 @@
     nwg-look                              # GTK Config editor
     obs-studio                            # Screen recording and streaming
     ollama                                # LLM Backend
+    orca-slicer
     pkgsBundle.pkgs-unstable.obsidian     # Notetaking software
     powertop
     qbittorrent

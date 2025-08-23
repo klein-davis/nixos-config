@@ -6,7 +6,7 @@
     GSETTINGS_BACKEND = "keyfile";
     LIBSEAT_BACKEND = "seatd";
     WAYLAND_DISPLAY = "wayland-1";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
+    # QT_QPA_PLATFORMTHEME = "qt5ct";
   };
 
   programs.direnv = {
@@ -17,7 +17,7 @@
   environment.sessionVariables = lib.mkMerge [
     {
       # >NIXOS_OZONE_WL = "1"; # Helps with Electron/Chromium-based apps on Wayland
-      QT_QPA_PLATFORMTHEME = "qt5ct";
+      # QT_QPA_PLATFORMTHEME = "qt5ct";
     }
 
     # NVIDIA-specific environment variables, applied only if enable-nvidia-gpu is true

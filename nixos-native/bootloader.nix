@@ -5,6 +5,10 @@
   boot.loader.systemd-boot.configurationLimit = 15;
 
   boot.initrd.kernelModules = if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [];
+
+  boot.kernelModules = [] ++
+  (if (myOptions.enable-nvidia-gpu == true) then ["nvidia-uvm"] else []);
+
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ] ++
   # Nvidia GPU Param
   (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia-drm.fbdev=1" "nvidia-drm.modeset=1" ] else []) ++

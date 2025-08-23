@@ -173,7 +173,8 @@
 
         "$mainMod, Return, exec, kitty"
         "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
+        # "$mainMod, M, exit,"
+        "$mainMod, A, exec, hyprctl reload"
         "$mainMod, R, exec, obsidian"
         "$mainMod, C, exec, codium"
         "$mainMod, E, exec, nemo ~"

@@ -18,21 +18,29 @@ rec {
         vaapiVdpau
         vpl-gpu-rt
       ]
-      ++ (if myOptions.enable-amd-gpu then [ pkgs.amdvlk rocmPackages.clr.icd ] else []);
+      ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
+        amdvlk 
+        rocmPackages.clr.icd
+        mesa
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-media-driver
+      ] else []);
 
       # extraPackages32 = []
       # ++ (if myOptions.enable-amd-gpu then [pkgs.pkgsi686Linux.mesa.drivers.radeonsi pkgs.pkgsi686Linux.mesa.drivers.radeonsi] else []);
     };
     nvidia = if (myOptions.enable-nvidia-gpu) then {
-      open = true; # For stylix
-      # open = false;
+      # open = true; # For stylix
+      open = false;
       modesetting.enable = true;
       powerManagement.enable = true;
       # powerManagement.finegrained = true;
       # prime.offload.enable = true;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      nvidiaSettings = false;
+      # package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "555.58";
