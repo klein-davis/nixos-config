@@ -9,7 +9,7 @@
       swaylock.enable = true;
       waybar.enable = false;
       kde.enable = true;
-      vscode.enable = true;
+      vscode.enable = false;
       gnome.enable = false;
       firefox = {
         enable = true; # Make sure this is here!

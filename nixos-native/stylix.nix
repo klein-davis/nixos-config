@@ -5,8 +5,10 @@
 
   qt = {
     enable = true;
-    # platformTheme = "qt5ct"; # kde6
+    platformTheme = lib.mkForce "kde"; # kde6 qt5ct
   };
+
+  # programs.dconf.enable = true;
 
   environment.sessionVariables = {
     # QT_QPA_PLATFORMTHEME = "qt5ct"; # Or "qt6ct"
@@ -25,22 +27,22 @@
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/oxocarbon-dark.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
     base16Scheme = {
-    # #   # base00 = "101010";
-    # #   # base01 = "686868";
-    # #   # base02 = "525252";
-    # #   # base03 = "686868";
-    # #   # base04 = "868686";
-    # #   # base05 = "8E8E8E";
-    # #   # base06 = "747474";
-    # #   # base07 = "7C7C7C";
-    # #   # base08 = "F7F7F7";
-    # #   # base09 = "A0A0A0";
-    # #   # base0A = "868686";
-    # #   # base0B = "8E8E8E";
-    # #   # base0C = "747474";
-    # #   # base0D = "7C7C7C";
-    # #   # base0E = "B9B9B9";
-    # #   # base0F = "A0A0A0";
+    #   # base00 = "101010";
+    #   # base01 = "686868";
+    #   # base02 = "525252";
+    #   # base03 = "686868";
+    #   # base04 = "868686";
+    #   # base05 = "8E8E8E";
+    #   # base06 = "747474";
+    #   # base07 = "7C7C7C";
+    #   # base08 = "F7F7F7";
+    #   # base09 = "A0A0A0";
+    #   # base0A = "868686";
+    #   # base0B = "8E8E8E";
+    #   # base0C = "747474";
+    #   # base0D = "7C7C7C";
+    #   # base0E = "B9B9B9";
+    #   # base0F = "A0A0A0";
       
     #   # base00 = "1A1E24";
     #   # base01 = "4C566A";
@@ -59,23 +61,40 @@
     #   # base0E = "AED6F1";
     #   # base0F = "5D85B2";
     
-      # Blue Prince
-      base00 = "1C293D";
-      base01 = "3E4A5B";
-      base02 = "606B7A";
-      base03 = "818C99";
-      base04 = "A3ACB7";
-      base05 = "C5CDD6";
-      base06 = "CED5DC";
-      base07 = "D6DCE2";
-      base08 = "555FFF";
-      base09 = "717B76";
-      base0A = "407FA1";
-      base0B = "3974E3";
-      base0C = "5B7AA2";
-      base0D = "4B8BC9";
-      base0E = "87B7E3";
-      base0F = "718CAA";
+    #   # Blue Prince
+    #   base00 = "1C293D";
+    #   base01 = "3E4A5B";
+    #   base02 = "606B7A";
+    #   base03 = "818C99";
+    #   base04 = "A3ACB7";
+    #   base05 = "C5CDD6";
+    #   base06 = "CED5DC";
+    #   base07 = "D6DCE2";
+    #   base08 = "555FFF";
+    #   base09 = "717B76";
+    #   base0A = "407FA1";
+    #   base0B = "3974E3";
+    #   base0C = "5B7AA2";
+    #   base0D = "4B8BC9";
+    #   base0E = "87B7E3";
+    #   base0F = "718CAA";
+
+      base00 = "5A4E51";
+      base01 = "50172C";
+      base02 = "444D62";
+      base03 = "C4425E";
+      base04 = "9192A7";
+      base05 = "E8A59F";
+      base06 = "F2E6C6";
+      base07 = "F0EADA";
+      base08 = "A8A499";
+      base09 = "50172C";
+      base0A = "444D62";
+      base0B = "C4425E";
+      base0C = "9192A7";
+      base0D = "E8A59F";
+      base0E = "F2E6C6";
+      base0F = "F0EADA";
     };
 
     # polarity = "light";
@@ -125,7 +144,7 @@
     #   package = pkgs.nordzy-cursor-theme;
     #   # size = 15;
     # };
-    # image = /home/nixuser/Pictures/Herbie.png;
+    # image = /home/nixuser/Pictures/wallpapers/wallpaper.png;
     
   };
 }

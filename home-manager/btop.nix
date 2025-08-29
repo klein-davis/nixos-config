@@ -3,7 +3,7 @@
 let
   # Override btop to enable GPU support
   btopWithGpu = pkgs.btop.override {
-    rocmSupport = myOptions.enable-amd-gpu;
+    # rocmSupport = myOptions.enable-amd-gpu;
     cudaSupport = myOptions.enable-nvidia-gpu;
   };
 in

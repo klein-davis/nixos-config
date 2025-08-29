@@ -28,6 +28,8 @@ rec {
         intel-media-driver
       ] else []);
 
+
+
       # extraPackages32 = []
       # ++ (if myOptions.enable-amd-gpu then [pkgs.pkgsi686Linux.mesa.drivers.radeonsi pkgs.pkgsi686Linux.mesa.drivers.radeonsi] else []);
     };
@@ -50,6 +52,11 @@ rec {
       #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
       #   persistencedSha256 = "sha256-lyYxDuGDTMdGxX3CaiWUh1IQuQlkI2hPEs5LI20vEVw=";
       # };
+    } else {};
+
+    amdgpu.amdvlk = if (myOptions.enable-amd-gpu) then {
+      enable = true;
+      support32Bit.enable = true;
     } else {};
   };
 }

@@ -29,6 +29,9 @@
       active_tab_background = "#cba6f7";
       inactive_tab_foreground = "#bac2de";
       inactive_tab_background = "#313244";
+      
+      color0 = lib.mkForce "#000000";
+      background = lib.mkForce "#000000";
     };
 
     keybindings = {  

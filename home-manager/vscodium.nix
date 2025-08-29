@@ -7,17 +7,20 @@
       extensions = with pkgs.vscode-extensions; [
         # nix language
         bbenoist.nix
+        jnoortheen.nix-ide
         # nix-shell suport 
         arrterian.nix-env-selector
-        # python
-        # ms-python.python
+        
         # C/C++
         ms-vscode.cpptools
-        # Pytjon
+        # Python
         ms-python.python
         ms-python.debugpy
         # OCaml
         # ocamllabs.ocaml-platform
+
+        # toto tree
+        gruntfuggly.todo-tree
 
         # Color theme
         # catppuccin.catppuccin-vsc
@@ -36,34 +39,30 @@
         
         "workbench.colorCustomizations" = {
             "[Stylix]" = {
-                "button.background" = "#${config.lib.stylix.colors.base0D}BB";
-                "button.foreground" = "#${config.lib.stylix.colors.base06}";
-                "button.secondaryBackground" = "#${config.lib.stylix.colors.base0E}BB";
-                "button.secondaryForeground" = "#${config.lib.stylix.colors.base06}";
-                "editor.selectionHighlightBackground" = "#${config.lib.stylix.colors.base04}EE";
-                "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base01}00";
-                "scrollbarSlider.activeBackground" = "#${config.lib.stylix.colors.base04}55";
-                "scrollbarSlider.background" = "#${config.lib.stylix.colors.base03}55";
-                "scrollbarSlider.hoverBackground" = "#${config.lib.stylix.colors.base04}99";
-                "statusBar.background" = "#${config.lib.stylix.colors.base00}";
-                "statusBar.noFolderBackground" = "#${config.lib.stylix.colors.base00}";
-                "statusBar.noFolderForeground" = "#${config.lib.stylix.colors.base06}";
-                "statusBarItem.remoteBackground" = "#${config.lib.stylix.colors.base00}";
+                # "button.background" = "#${config.lib.stylix.colors.base0B}BB";
+                # "button.foreground" = "#${config.lib.stylix.colors.base06}";
+                # "button.secondaryBackground" = "#${config.lib.stylix.colors.base01}BB";
+                # "button.secondaryForeground" = "#${config.lib.stylix.colors.base05}";
+                # "editor.selectionHighlightBackground" = "#${config.lib.stylix.colors.base0E}EE";
+                # "editor.wordHighlightBackground" = "#${config.lib.stylix.colors.base0A}00";
+                # "scrollbarSlider.activeBackground" = "#${config.lib.stylix.colors.base04}55";
+                # "scrollbarSlider.background" = "#${config.lib.stylix.colors.base03}55";
+                # "scrollbarSlider.hoverBackground" = "#${config.lib.stylix.colors.base04}99";
+                # "statusBar.background" = "#${config.lib.stylix.colors.base00}";
+                # "statusBar.noFolderBackground" = "#${config.lib.stylix.colors.base00}";
+                # "statusBar.noFolderForeground" = "#${config.lib.stylix.colors.base06}";
+                # "statusBarItem.remoteBackground" = "#${config.lib.stylix.colors.base0D}";
 
-                "editorBracketHighlight.foreground1" = "#${config.lib.stylix.colors.base0D}";
-                "editorBracketHighlight.foreground2" = "#${config.lib.stylix.colors.base0B}";
-                "editorBracketHighlight.foreground3" = "#${config.lib.stylix.colors.base0E}";
-                "editorBracketHighlight.foreground4" = "#${config.lib.stylix.colors.base0D}";
-                "editorBracketHighlight.foreground5" = "#${config.lib.stylix.colors.base0B}";
-                "editorBracketHighlight.foreground6" = "#${config.lib.stylix.colors.base0E}";
+                # "editorBracketHighlight.foreground1" = "#${config.lib.stylix.colors.base0D}";
+                # "editorBracketHighlight.foreground2" = "#${config.lib.stylix.colors.base0B}";
+                # "editorBracketHighlight.foreground3" = "#${config.lib.stylix.colors.base0E}";
+                # "editorBracketHighlight.foreground4" = "#${config.lib.stylix.colors.base0A}";
+                # "editorBracketHighlight.foreground5" = "#${config.lib.stylix.colors.base0F}";
+                # "editorBracketHighlight.foreground6" = "#${config.lib.stylix.colors.base0C}";
 
-                # # ADD ONE OR MORE OF THESE LINES
-                # # Change the color of error text
-                "editorError.foreground" = "#${config.lib.stylix.colors.base0D}"; 
-                # # Change the color of warning text
-                "editorWarning.foreground" = "#${config.lib.stylix.colors.base0B}"; 
-                # # Change the color of the squiggly underline for errors
-                "editorError.border" = "#${config.lib.stylix.colors.base0D}"; 
+                # "editorError.foreground" = "#${config.lib.stylix.colors.base08}";
+                # "editorWarning.foreground" = "#${config.lib.stylix.colors.base0A}";
+                # "editorError.border" = "#${config.lib.stylix.colors.base08}";
             };
         };
 

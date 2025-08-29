@@ -39,8 +39,8 @@
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "XCURSOR_SIZE,36"
-        "QT_QPA_PLATFORM,wayland"
-        "XDG_SCREENSHOTS_DIR,~/screens"
+        # "QT_QPA_PLATFORM,wayland"
+        "XDG_SCREENSHOTS_DIR,~/Pictures/Screenshots"
       ];
 
       debug = {
@@ -286,7 +286,6 @@
         # ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
         # ''$mainMod SHIFT, H, exec, alacritty -e sh -c "codium ~/nix/home-manager/modules/wms/hyprland.nix"''
         # ''$mainMod SHIFT, W, exec, alacritty -e sh -c "codium ~/nix/home-manager/modules/wms/waybar.nix''
-        # '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
 
         # Waybar
         "$mainMod, B, exec, pkill -SIGUSR1 waybar"
@@ -301,16 +300,17 @@
         #CTRL SHIFT, print, exec, $HOME/.config/hypr/scripts/screenshots/captureArea.sh
 
         # Screenshots
+        '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
+        ''CTRL, Print, exec, grim -g "$(slurp)" - | wl-copy''
+        ''SHIFT, Print, exec, grim -g "$(slurp)" - $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')''
         # ", print, exec, $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
         # "CTRL, print, exec, grim -g \"$(slurp -o)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
         # "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
-        ", print, exec, grim $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
-        # ", print, exec, kitty"
-        "CTRL, print, exec, grim -g \"$(slurp -o)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
-        "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
-        
-        
-        
+        # ", print, exec, grim ~/Screenshots/$(date +'%s_grim.png')"
+        # # ", print, exec, kitty"
+        # "CTRL, print, exec, grim -g \"$(slurp -o)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
+        # "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(xdg-user-dir Pictures)/Screenshots/$(date +'%s_grim.png')"
+
         "$mainMod SHIFT, V, submap, vnc"
       ];
 

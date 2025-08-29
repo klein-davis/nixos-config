@@ -14,7 +14,7 @@
     pkgs.kdePackages.breeze
 
     # For compatability
-    pkgs.adwaita-icon-theme
+    # pkgs.adwaita-icon-theme
     # pkgs.gnome-themes-standard
   ];  
 

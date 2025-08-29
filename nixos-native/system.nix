@@ -7,6 +7,10 @@
 
   boot.tmp.cleanOnBoot = true;
 
+  nix.registry = {
+    nixpkgs.flake = inputs.nixpkgs-unstable;
+  };
+
   # Nix Shared Libraires
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

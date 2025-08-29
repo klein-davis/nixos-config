@@ -99,8 +99,8 @@
           # enable-enterprise-wifi = true;
           enable-auto-login = true;
           screens = [ "eDP-2, 2560x1600@165, 0x0, 1.25"];
-          prefered-gpu.enable = true;
-          prefered-gpu.path = "/dev/dri/by-path/renderD129";
+          # prefered-gpu.enable = true;
+          # prefered-gpu.path = "/dev/dri/by-path/renderD129";
         };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";

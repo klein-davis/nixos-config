@@ -18,8 +18,10 @@
     KERNEL=="ttyACM[0-9]*",MODE="0666"
   '';
   
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';  
+  services.logind.settings = {
+    Login = {
+      HandlePowerKey = "suspend";
+    };
+  };
   
 }

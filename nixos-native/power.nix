@@ -1,12 +1,12 @@
 { pkgs, config, myOptions, ... }: {
 
   powerManagement = {
-    enable = true;
-    powertop.enable = true;
+    enable = myOptions.power.mobile;
+    # powertop.enable = true;
     cpuFreqGovernor = if ! myOptions.power.mobile then
       "performance"
     else 
-      # cpuFreqGovernor = lib.mkDefault "ondemand";
+      #TODO cpuFreqGovernor = lib.mkDefault "ondemand";
       "ondemand";
   };
 
@@ -20,21 +20,26 @@
       # CPU_GOVERNOR_ON_AC = "performance";
       
       # Additional settings for AC vs Battery
-      # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      # CPU_ENERGY_PERF_POLICY_ON_AC = "performance"
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
       
       # You can also configure other aspects like USB autosuspend
       # USB_AUTOSUSPEND_ON_BAT = 1;
 
       # USB_AUTOSUSPEND_ON_AC = 0;
 
+      USB_AUTOSUSPEND_ON_BAT = 0;
+      USB_AUTOSUSPEND_ON_AC = 0;
+
+
 
       CPU_DRIVER_OPMODE_ON_AC = "active";
       CPU_DRIVER_OPMODE_ON_BAT = "active";
-      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      
+      # CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+      # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
     };
   } else {};
   
@@ -42,12 +47,12 @@
   environment = if myOptions.power.mobile then {
 
   #   Handle laptop lid
-  #   logind = {
-  #     lidSwitch = "ignore";
-  #     extraConfig = ''
-  #       HandlePowerKey=ignore
-  #     '';
-  #   };
+    # logind = {
+      # lidSwitch = "ignore";
+      # extraConfig = ''
+      #   HandlePowerKey=ignore
+      # '';
+    # };
   #   acpid = {
   #     enable = true;
   #     lidEventCommands =
@@ -72,7 +77,7 @@
 
     systemPackages = with pkgs; [
       acpi
-      brightnessctl
+      # brightnessctl
       cpupower-gui
       light
       # powertop
