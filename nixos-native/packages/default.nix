@@ -22,7 +22,6 @@
     ollama                                # LLM Backend
     orca-slicer
     pkgsBundle.pkgs-unstable.obsidian     # Notetaking software
-    powertop
     qbittorrent
     qpwgraph
     viewnior

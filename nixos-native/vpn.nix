@@ -21,7 +21,7 @@
 
   # Enable Headscale servicean
   services.headscale = {
-    enable = true;
+    enable = false;
     address = "0.0.0.0"; # Back here, directly under services.headscale
     port = 8080;         # Back here, directly under services.headscale
     user = "headscale"; # Use your configured user

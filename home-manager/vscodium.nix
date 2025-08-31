@@ -1,31 +1,42 @@
-{ lib, config, pkgs, ... }: 
-{
+{ lib, config, pkgs, inputs, ... }:
+{    
+  nixpkgs.overlays = [
+    inputs.nix-vscode-extensions.overlays.default
+  ];
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
     profiles.default = {
+      # extensions = with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
       extensions = with pkgs.vscode-extensions; [
         # nix language
-        bbenoist.nix
-        jnoortheen.nix-ide
+        # bbenoist.nix
         # nix-shell suport 
-        arrterian.nix-env-selector
+
+        jnoortheen.nix-ide #
+        arrterian.nix-env-selector #
+        mkhl.direnv
         
         # C/C++
-        ms-vscode.cpptools
+        #TODO Replce with C/C++ extension pack
+        # ms-vscode.cpptools-extension-pack
+        # ms-vscode.cpptools
+
+        # Cmake
+        twxs.cmake #
+
         # Python
-        ms-python.python
-        ms-python.debugpy
-        # OCaml
-        # ocamllabs.ocaml-platform
+        # ms-python.python
+        # ms-python.debugpy
 
         # toto tree
         gruntfuggly.todo-tree
 
-        # Color theme
-        # catppuccin.catppuccin-vsc
-        # catppuccin.catppuccin-vsc-icons
+        # rust-lang.rust-analyzer
+        # github.copilot
       ];
+      
       userSettings = {
         "update.mode" = "none";
         "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update

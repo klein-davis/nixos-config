@@ -61,9 +61,14 @@
     nur.url = "github:nix-community/NUR";
 
     #nix-gaming.url = "github:fufexan/nix-gaming";
-      
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-vscode-extensions = { 
+      url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -182,6 +187,7 @@
           specialArgs = { host="desktop";
             myOptions = mergeAttrs myCOptions.default myCOptions.desktop;
             pkgsBundle = pkgsBundle (mergeAttrs myCOptions.default myCOptions.desktop).system;
+            # pkgsBundle = myOptions.system;
             inherit self inputs; 
           };
         };
@@ -221,7 +227,7 @@
             inherit self inputs; 
           };
         };
-	desktop2 = nixpkgs.lib.nixosSystem {
+	      desktop2 = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.desktop2).system;
           modules = [(import ./hosts/desktop2)];
           specialArgs = { host="desktop2";

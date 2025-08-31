@@ -1,6 +1,6 @@
 { self, pkgs, lib, inputs, myOptions, ...}: 
 {
-  imports = [ 
+  imports = [
     # inputs.nix-gaming.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index 
   ];
@@ -43,7 +43,7 @@
     libglvnd
     libkrb5
     libnotify
-    libpulseaudio
+    # libpulseaudio
     libunwind
     libusb1
     libuuid
@@ -100,6 +100,7 @@
     overlays = [
       #self.overlays.default
       inputs.nur.overlays.default
+      # inputs.nix-vscode-extensions.overlays.default
     ];
   };
   

@@ -19,7 +19,7 @@ rec {
         vpl-gpu-rt
       ]
       ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
-        amdvlk 
+        # amdvlk
         rocmPackages.clr.icd
         mesa
         vaapiIntel

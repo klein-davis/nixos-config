@@ -23,7 +23,6 @@
     pkgsBundle.pkgs-stable.libreoffice
     nemo                                  # file manager
     nitch                                 # systhem fetch util
-    nmap
     nix-prefetch-github
     #(prismlauncher.override               # minecraft launcher
     #{ withWaylandGLFW = true; })
@@ -43,15 +42,15 @@
     wineWowPackages.wayland
 
     # Coding stuff
-    clang-tools
+    # These should be added on a per-project basis with flakes
+    # clang-tools
     # clang
-    gcc
-    gdb
-    jdk17                                 # java
+    # gcc
+    # gdb
+    # jdk17                                 # java
     # cmake
     # gnumake
     # python3
-    # vscode
     devenv
     # pkgsBundle.pkgs-unstable.devenv
     # direnv
@@ -69,8 +68,8 @@
 	  man-pages					            	      # extra man pages
     mpv                                   # vide player
     ncdu                                  # disk space
+    nmap
     openssl
-    pamixer                               # pulseaudo command line mixer
     pavucontrol                           # pulseaudio volume controle (GUI)
     playerctl                             # controller for media players
     wl-clipboard                          # clipoard utils for wayland (wl-copy, wl-paste)
