@@ -45,8 +45,8 @@
     # These should be added on a per-project basis with flakes
     # clang-tools
     # clang
-    # gcc
-    # gdb
+    gcc
+    gdb
     # jdk17                                 # java
     # cmake
     # gnumake

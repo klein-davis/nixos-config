@@ -37,6 +37,7 @@
       #tt = "gtrash put";
       # cat = "bat";
       #nano = "micro";
+      #TODO Change this back
       code = "codium";
       py = "python";
       #icat = "kitten icat";

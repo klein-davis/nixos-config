@@ -1,15 +1,16 @@
 { lib, config, pkgs, inputs, ... }:
 {    
-  nixpkgs.overlays = [
-    inputs.nix-vscode-extensions.overlays.default
-  ];
-
   programs.vscode = {
     enable = true;
+    #TODO Remove telemetry
+    # package = pkgs.vscodium;
     package = pkgs.vscodium;
     profiles.default = {
-      # extensions = with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; [
-      extensions = with pkgs.vscode-extensions; [
+      extensions =
+      # with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; 
+      # with pkgs.vscode-extensions; 
+      with pkgs.vscode-marketplace; 
+      [
         # nix language
         # bbenoist.nix
         # nix-shell suport 
@@ -20,11 +21,14 @@
         
         # C/C++
         #TODO Replce with C/C++ extension pack
+        twxs.cmake # Cmake
+        # vadimcn.vscode-lldb
+        # jeff-hykin.better-c-syntax
+        jeff-hykin.better-cpp-syntax
         # ms-vscode.cpptools-extension-pack
         # ms-vscode.cpptools
-
-        # Cmake
-        twxs.cmake #
+        llvm-vs-code-extensions.vscode-clangd
+        
 
         # Python
         # ms-python.python
@@ -79,6 +83,10 @@
 
 
         "glassit.alpha" = 0.1;
+
+
+        # Telemetry Stuff
+        "github.copilot.enable" = false;
 
 
         "vsicons.dontShowNewVersionMessage" = true;

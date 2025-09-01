@@ -101,6 +101,7 @@
       #self.overlays.default
       inputs.nur.overlays.default
       # inputs.nix-vscode-extensions.overlays.default
+      inputs.nix-vscode-extensions.overlays.default
     ];
   };
   
