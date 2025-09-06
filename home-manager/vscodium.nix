@@ -18,6 +18,8 @@
         jnoortheen.nix-ide #
         arrterian.nix-env-selector #
         mkhl.direnv
+
+        formulahendry.code-runner
         
         # C/C++
         #TODO Replce with C/C++ extension pack

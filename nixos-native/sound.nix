@@ -11,7 +11,7 @@
 
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = false;
+    pulse.enable = true;
 
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
@@ -20,6 +20,6 @@
   environment.systemPackages = with pkgs; [
     pamixer
     pipewire
-    # pulseaudio
+    pulseaudio
   ];
 }

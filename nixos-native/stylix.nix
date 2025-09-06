@@ -27,6 +27,15 @@
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/oxocarbon-dark.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
     base16Scheme = {
+      # https://colorhunt.co/palettes/popular
+      # https://styles.ulysses.app/themes?page=6
+      # https://styles.ulysses.app/themes/architectural-YGR
+      # https://styles.ulysses.app/themes/bearish-K9G
+      # https://styles.ulysses.app/themes/simple-terminal-e7v
+      # https://styles.ulysses.app/themes/redshift-Lzo
+      # https://styles.ulysses.app/themes/two-blue-kWY
+      
+
     #   # base00 = "101010";
     #   # base01 = "686868";
     #   # base02 = "525252";

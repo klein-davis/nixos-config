@@ -19,7 +19,7 @@
   # };
   # networking.firewall.checkReversePath = "loose";
 
-  # Enable Headscale servicean
+  # Enable Headscale service
   services.headscale = {
     enable = false;
     address = "0.0.0.0"; # Back here, directly under services.headscale
@@ -86,6 +86,8 @@
       ingress = {
         "head.kleindavis.xyz" = "http://10.31.0.9:8080";
         "silly.kleindavis.xyz" = "https://google.com";        
+        "www.roboticcardinals.org" = "http://localhost:5000";    
+        "api.roboticcardinals.org" = "http://localhost:5001";        
       };
 
       default = "http_status:404";

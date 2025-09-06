@@ -45,8 +45,8 @@
     # These should be added on a per-project basis with flakes
     # clang-tools
     # clang
-    gcc
-    gdb
+    # gcc
+    # gdb
     # jdk17                                 # java
     # cmake
     # gnumake
@@ -70,6 +70,7 @@
     ncdu                                  # disk space
     nmap
     openssl
+    pamixer
     pavucontrol                           # pulseaudio volume controle (GUI)
     playerctl                             # controller for media players
     wl-clipboard                          # clipoard utils for wayland (wl-copy, wl-paste)

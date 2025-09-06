@@ -38,10 +38,10 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyprland-plugins";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     # hyprgrass = {
@@ -73,7 +73,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixpkgs-main, nixpkgs-old, nixpkgs-super-old, home-manager, nixos-hardware, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, ... } @ inputs:
     let
       system = "x86_64-linux";
       myCOptions = {
@@ -158,23 +158,23 @@
       mergeAttrs = lhs: rhs: nixpkgs.lib.attrsets.recursiveUpdate lhs rhs;
 
       pkgsBundle = sys : {
-        pkgs-super-old = import nixpkgs-super-old {
+        pkgs-super-old = import inputs.nixpkgs-super-old {
           system = sys;
           config.allowUnfree = true;
         };
-        pkgs-old = import nixpkgs-old {
+        pkgs-old = import inputs.nixpkgs-old {
           system = sys;
           config.allowUnfree = true;
         };
-        pkgs-stable = import nixpkgs-stable {
+        pkgs-stable = import inputs.nixpkgs-stable {
           system = sys;
           config.allowUnfree = true;
         };
-        pkgs-unstable = import nixpkgs-unstable {
+        pkgs-unstable = import inputs.nixpkgs-unstable {
           system = sys;
           config.allowUnfree = true;
         };
-        pkgs-main = import nixpkgs-main {
+        pkgs-main = import inputs.nixpkgs-main {
           system = sys;
           config.allowUnfree = true;
         };

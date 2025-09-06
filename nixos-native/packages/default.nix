@@ -36,6 +36,7 @@
     foot
     gettext
     git
+    google-chrome
     iperf3
     jq jqp                                # JSON Tools
     # lux                                 # Video Downloader

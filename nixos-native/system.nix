@@ -43,7 +43,7 @@
     libglvnd
     libkrb5
     libnotify
-    # libpulseaudio
+    libpulseaudio
     libunwind
     libusb1
     libuuid
