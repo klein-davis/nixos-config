@@ -8,6 +8,7 @@
     # pkgsBundle.pkgs-super-old.cgminer
     # cgminer
     cloc
+    deskflow
     dust
     eza                                   # ls replacement
     entr                                  # perform action when file change

@@ -77,7 +77,7 @@
 
     systemPackages = with pkgs; [
       acpi
-      # brightnessctl
+      brightnessctl
       cpupower-gui
       light
       # powertop

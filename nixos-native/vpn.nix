@@ -10,7 +10,7 @@
     useRoutingFeatures = "both";
   };
 
-  networking = lib.mkForce {
+  networking = {
     nameservers = [ "100.100.100.100" "8.8.8.8" "1.1.1.1" ];
     search = [ "tailf1460c.ts.net" ];
   };

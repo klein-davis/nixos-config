@@ -2,7 +2,7 @@
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 15;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   boot.initrd.kernelModules = if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [];
 
@@ -18,8 +18,8 @@
   # boot.blacklistedKernelModules = [ "nouveau" ];
 
   # Kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_6_16;
   # boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_12;
   #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_4_19.override {
   #  argsOverride = rec {

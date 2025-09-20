@@ -16,10 +16,12 @@
     pkgsBundle.pkgs-stable.distrobox
     pkgsBundle.pkgs-main.gparted          # partition manager
     # kdenlive                              # Video editor
+    linux-wifi-hotspot
     lmstudio                              # GUI LLM interface
     nwg-look                              # GTK Config editor
     obs-studio                            # Screen recording and streaming
     ollama                                # LLM Backend
+    openrocket
     orca-slicer
     pkgsBundle.pkgs-unstable.obsidian     # Notetaking software
     qbittorrent

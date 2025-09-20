@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
 # Enable Headscale service
   services.headscale = {
@@ -83,4 +83,10 @@
     cloudflared
     tailscale
   ];
+
+  services.immich.enable = true;
+  services.immich.package = pkgs.immich;
+  services.immich.port = 2283;
+  services.immich.host = "0.0.0.0";
+  services.immich.openFirewall = true;
 }

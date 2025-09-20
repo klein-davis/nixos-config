@@ -29,7 +29,6 @@ rec {
       ] else []);
 
 
-
       # extraPackages32 = []
       # ++ (if myOptions.enable-amd-gpu then [pkgs.pkgsi686Linux.mesa.drivers.radeonsi pkgs.pkgsi686Linux.mesa.drivers.radeonsi] else []);
     };
@@ -58,5 +57,8 @@ rec {
       enable = true;
       support32Bit.enable = true;
     } else {};
+
+
+    opengl.enable = true;
   };
 }

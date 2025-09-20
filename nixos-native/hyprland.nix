@@ -3,6 +3,7 @@
     enable = true;
     xwayland.enable = true;
   };
+  # services.desktop-portal.enable = true;
   xdg.portal = {
     enable = true;
     # wlr.enable = true;

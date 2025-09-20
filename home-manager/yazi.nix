@@ -16,8 +16,6 @@ programs.yazi = {
       "toggle-pane.yazi" = pkgs.yaziPlugins.toggle-pane;
     };
 
-    # You will also need to add a keybinding for the mount plugin,
-    # as discussed previously.
     keymap.manager.prepend_keymap = [
       {
         on = "M";
