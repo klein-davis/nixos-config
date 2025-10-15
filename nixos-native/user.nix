@@ -22,8 +22,8 @@
 
     users.${myOptions.username} = {
       isNormalUser = true;
-      description = "My Silly Name Here";
-      extraGroups = [ "networkmanager" "wheel" "video" "seat" ]
+      # description = "My Silly Name Here";
+      extraGroups = [ "networkmanager" "wheel" "video" "seat" "dialout" "tty" ]
       ++ (if myOptions.virtualization then ["libvirtd"] else []);
       packages = with pkgs; [];
       shell = pkgs.zsh;

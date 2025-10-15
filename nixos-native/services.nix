@@ -1,11 +1,12 @@
 { pkgs, ... }: 
 {
   services = {
-    seatd.enable = true;
-    gvfs.enable = true;
-    gnome.gnome-keyring.enable = false;
     dbus.enable = true;
     fstrim.enable = true;
+    fwupd.enable = true;
+    gnome.gnome-keyring.enable = false;
+    gvfs.enable = true;
+    seatd.enable = true;
 
     # Enable CUPS to print documents.
     printing.enable = true;

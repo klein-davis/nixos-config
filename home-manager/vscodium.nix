@@ -33,6 +33,7 @@
         
 
         # Python
+        magicstack.magicpython
         # ms-python.python
         # ms-python.debugpy
 

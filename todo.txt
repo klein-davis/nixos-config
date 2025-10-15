@@ -58,7 +58,3 @@ Get stylix set up:
     "terminal.ansiRed": "base08",
     "terminal.ansiWhite": "base01",
     "terminal.ansiYellow": "base0A"
-
-
-Theme VS code declaratively
-    https://discourse.nixos.org/t/home-manager-vscode-extension-settings-mutableextensionsdir-false/33878

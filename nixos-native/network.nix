@@ -30,7 +30,7 @@
     networkmanager.enable = true;
     nameservers = [ "8.8.8.8" "1.1.1.1" ];
     firewall = {
-      enable = false;
+      enable = true;
       allowPing = true;
 
       trustedInterfaces = ["p2p-wl+"];
@@ -52,8 +52,19 @@
     };
   };
 
+  services.openssh = {
+      enable = myOptions.enable-ssh-access;
+      ports = [22];
+      settings = {
+        PasswordAuthentication = true;
+        AllowUsers = null;
+        PermitRootLogin = "yes";
+      };
+  };
+
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
     gnome-network-displays
+    pkgs.sshfs
   ];
 }

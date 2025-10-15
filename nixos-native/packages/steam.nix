@@ -3,8 +3,11 @@
     enable = true;
     gamescopeSession.enable = true;
     package = pkgsBundle.pkgs-main.steam;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    extraPackages = with pkgs; [
+      steam-run
+    ];
   }; 
   environment.systemPackages = with pkgs; [
     mangohud

@@ -7,7 +7,6 @@
     ++ [(import ./cava.nix)]                      # audio visualizer
     ++ [(import ./discord.nix)]                   # discord with catppuccin theme
     ++ [(import ./fastfetch.nix)]                 # fastfetch config
-    # ++ [(import ./floorp/floorp.nix)]             # firefox based browser
     ++ [(import ./gaming.nix)]                    # packages related to gaming
     ++ [(import ./git.nix)]                       # version control
     ++ [(import ./gtk.nix)]                       # gtk theme
@@ -21,7 +20,6 @@
     ++ [(import ./packages.nix)]                  # other packages
     ++ [(import ./preactivation.nix)]             # fix gtk rebuild error
     ++ [(./rclone.nix)]
-    # ++ [(import ./scripts/scripts.nix)]           # personal scripts
     ++ [(import ./stylix.nix)]
     ++ [(import ./swaylock.nix)]                  # lock screen
     ++ [(import ./tmux.nix)]                      #

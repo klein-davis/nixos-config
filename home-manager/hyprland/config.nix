@@ -1,4 +1,4 @@
-{ config, lib, myOptions, ... }: 
+{ config, lib, myOptions, pkgs, ... }: 
 {
   wayland.windowManager.hyprland = {
 
@@ -214,6 +214,8 @@
         "$mainMod ALT, 5, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"5*\") --no-video"
         "$mainMod ALT, 6, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"6*\") --no-video"
         "$mainMod ALT, 7, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"7*\") --no-video"
+        "$mainMod ALT, 8, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"8*\") --no-video"
+        "$mainMod ALT, 9, exec, mpv $(find ~/Music/clips -maxdepth 1 -type f -name \"9*\") --no-video"
         "$mainMod ALT, 0, exec, pkill mpv"
 
         # Window resizing                     X  Y
@@ -304,6 +306,10 @@
         '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
         ''CTRL, Print, exec, grim -g "$(slurp)" - | wl-copy''
         ''SHIFT, Print, exec, grim -g "$(slurp)" - $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')''
+        "$mainMod CTRL, C, exec, grim \"/home/nixuser/Pictures/Cheat/$(date +'%Y-%m-%d_%H-%M-%S_full.png')\""
+        "$mainMod SHIFT, C, exec, LATEST_FILE=$(ls -1 /home/nixuser/tmp/laptop/Pictures/Cheat/*.png 2>/dev/null | tail -n 1) && cat \"$LATEST_FILE\" | wl-copy --type \"$(file -b --mime-type \"$LATEST_FILE\")\""
+        "$mainMod SHIFT CTRL, C, exec, (mkdir -p /home/nixuser/Pictures/Cheat && while true; do grim \"/home/nixuser/Pictures/Cheat/$(date +'%Y-%m-%d_%H-%M-%S_full.png')\"; sleep 30; done) &"
+        "$mainMod SHIFT, T, exec, pkill -f 'grim /home/nixuser/Pictures/Cheat'"
         # ", print, exec, $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
         # "CTRL, print, exec, grim -g \"$(slurp -o)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
         # "CTRL SHIFT, print, exec, grim -g \"$(slurp)\" $(find $HOME -name Pictures -maxdepth 1)/Screenshots/$(date +'%s_grim.png')"
@@ -324,6 +330,14 @@
       bindl = [
         # Screen and sleep hotkeys
         "$mainMod SHIFT CTRL, O, exec, (swaylock & (sleep 0.01 && systemctl suspend))"
+        # "$mainMod, O, exec,  hyprctl dispatch dpms off"
+        # "$mainMod SHIFT, O, exec,  hyprctl dispatch dpms on"
+        # "$mainMod, O, exec, ${
+        #   pkgs.writeShellScriptBin "dpms-toggle-ephemeral" (
+        #     # 1. Read the script content from the external file
+        #     builtins.readFile ../scripts/dpms_toggle.sh
+        #   )
+        # }/bin/dpms-toggle-ephemeral"
         "$mainMod, O, exec,  hyprctl dispatch dpms off"
         "$mainMod SHIFT, O, exec,  hyprctl dispatch dpms on"
       ];

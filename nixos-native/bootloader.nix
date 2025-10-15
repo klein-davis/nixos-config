@@ -4,7 +4,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
 
-  boot.initrd.kernelModules = if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [];
+  boot.initrd.kernelModules = []
+  ++ (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [])
+  ++ (if (myOptions.enable-amd-gpu == true) then [ "amdgpu" ] else []);
 
   boot.kernelModules = [] ++
   (if (myOptions.enable-nvidia-gpu == true) then ["nvidia-uvm"] else []);
@@ -13,7 +15,9 @@
   # Nvidia GPU Param
   (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia-drm.fbdev=1" "nvidia-drm.modeset=1" ] else []) ++
   # AMD GPU Param
-  (if (myOptions.enable-amd-gpu == true) then [ "amdgpu.abmlevel=0" ] else []);
+  (if (myOptions.enable-amd-gpu == true) then [ "amdgpu.abmlevel=0" ] else []) ++
+  
+  ( ["usbcore.autosuspend=-1"] );
   
   # boot.blacklistedKernelModules = [ "nouveau" ];
 
@@ -31,4 +35,21 @@
   #    modDirVersion = "6.10.1";
   #    };
   #});
+
+  
+  # To prevent getting stuck at shutdown
+  systemd.settings = {
+    Manager = {
+      DefaultTimeoutStopSec = "5s";
+    };
+  };
+
+  # Enable zram compressed swap space support
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    memoryPercent = 100;
+    priority = 999;
+  };
+
 }

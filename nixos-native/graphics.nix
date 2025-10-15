@@ -1,4 +1,4 @@
-{ config, pkgs, myOptions, ... }:
+{ config, pkgs, myOptions, lib, ... }:
 rec {  
   environment.systemPackages = with pkgs; [
     libva-utils
@@ -14,18 +14,22 @@ rec {
       enable32Bit = true;
       extraPackages = with pkgs; [
         libvdpau-va-gl
-        mesa
         vaapiVdpau
         vpl-gpu-rt
       ]
       ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
-        # amdvlk
+        amdvlk
         rocmPackages.clr.icd
-        mesa
         vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
         intel-media-driver
+      ] else []);
+
+
+      extraPackages32 = [] 
+      ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
+        driversi686Linux.amdvlk
       ] else []);
 
 
@@ -57,8 +61,29 @@ rec {
       enable = true;
       support32Bit.enable = true;
     } else {};
-
-
-    opengl.enable = true;
   };
+
+  # Environment variables related to graphics
+  environment.sessionVariables = lib.mkMerge [
+    {
+      # >NIXOS_OZONE_WL = "1"; # Helps with Electron/Chromium-based apps on Wayland
+      # QT_QPA_PLATFORMTHEME = "qt5ct";
+    }
+
+    # NVIDIA-specific environment variables, applied only if enable-nvidia-gpu is true
+    (lib.mkIf myOptions.enable-nvidia-gpu {
+      LIBVA_DRIVER_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    })
+
+    # AMD-specific environment variables, applied only if enable-amd-gpu is true
+    (lib.mkIf myOptions.enable-amd-gpu {
+      LIBVA_DRIVER_NAME = "radeonsi";
+    })
+    
+    (lib.mkIf myOptions.prefered-gpu.enable {
+      MESA_DRM_RENDER_NODE = myOptions.prefered-gpu.path;
+    })
+  ];
 }
