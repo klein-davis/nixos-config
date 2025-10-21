@@ -23,8 +23,8 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nix-flatpak = {
-      url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
-      follows = "nixpkgs";
+      url = "github:gmodena/nix-flatpak";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {

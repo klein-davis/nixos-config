@@ -44,6 +44,8 @@
     };
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Enable zram compressed swap space support
   zramSwap = {
     enable = true;

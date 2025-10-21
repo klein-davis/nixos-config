@@ -57,10 +57,11 @@ rec {
       # };
     } else {};
 
-    amdgpu.amdvlk = if (myOptions.enable-amd-gpu) then {
-      enable = true;
-      support32Bit.enable = true;
-    } else {};
+    # Removed
+    # amdgpu.amdvlk = if (myOptions.enable-amd-gpu) then {
+    #   enable = true;
+    #   support32Bit.enable = true;
+    # } else {};
   };
 
   # Environment variables related to graphics

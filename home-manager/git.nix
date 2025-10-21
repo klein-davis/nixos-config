@@ -2,14 +2,14 @@
 {
   programs.git = {
     enable = true;
-    
-    userName  = "klein-davis";
-    userEmail = "49421694+klein-davis@users.noreply.github.com";
-    
-    extraConfig = { 
+    settings = {
+      user = {
+        name  = "klein-davis";
+        email = "49421694+klein-davis@users.noreply.github.com";
+      };
       init.defaultBranch = "main";
       credential.helper = "store";
-    };
+    }
   };
 
   home.packages = [ pkgs.gh pkgs.git-lfs ];
