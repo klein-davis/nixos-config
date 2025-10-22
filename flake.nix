@@ -38,16 +38,12 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland-plugins = {
-    #   url = "github:hyprwm/hyprland-plugins";
-    #   inputs.hyprland.follows = "hyprland";
-    # };
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
-    # hyprgrass = {
-    #     url = "github:horriblename/hyprgrass";
-    #     inputs.hyprland.follows = "hyprland"; # IMPORTANT
-    # };
+    hyprgrass = {
+        url = "github:horriblename/hyprgrass";
+        inputs.hyprland.follows = "hyprland"; # IMPORTANT
+    };
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
@@ -59,8 +55,6 @@
     };
 
     nur.url = "github:nix-community/NUR";
-
-    #nix-gaming.url = "github:fufexan/nix-gaming";
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -125,8 +119,6 @@
           # enable-rgb-lights = true;
           hostname = "DESKTOP-2";
         };
-
-
         default = {
           # config-name = "default";
           username = "nixuser";

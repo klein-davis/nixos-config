@@ -18,7 +18,7 @@ rec {
         vpl-gpu-rt
       ]
       ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
-        amdvlk
+        # amdvlk
         rocmPackages.clr.icd
         vaapiIntel
         vaapiVdpau
@@ -29,7 +29,7 @@ rec {
 
       extraPackages32 = [] 
       ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
-        driversi686Linux.amdvlk
+        # driversi686Linux.amdvlk
       ] else []);
 
 

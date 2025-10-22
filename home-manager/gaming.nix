@@ -3,7 +3,6 @@
   home.packages = with pkgs;[
     ## Utils
     # winetricks
-    # inputs.nix-gaming.packages.${pkgs.system}.wine-ge
     protonplus
 
     ## Cli games

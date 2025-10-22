@@ -1,10 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, pkgsBundle, inputs, ... }:
 {    
   programs.vscode = {
     enable = true;
     #TODO Remove telemetry
     # package = pkgs.vscodium;
-    package = pkgs.vscodium;
+    package = pkgsBundle.pkgs-stable.vscodium;
     profiles.default = {
       extensions =
       # with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; 
@@ -25,7 +25,6 @@
         #TODO Replce with C/C++ extension pack
         twxs.cmake # Cmake
         # vadimcn.vscode-lldb
-        # jeff-hykin.better-c-syntax
         jeff-hykin.better-cpp-syntax
         # ms-vscode.cpptools-extension-pack
         # ms-vscode.cpptools

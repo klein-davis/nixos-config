@@ -1,7 +1,6 @@
 { self, pkgs, lib, inputs, myOptions, ...}: 
 {
   imports = [
-    # inputs.nix-gaming.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index 
   ];
 
@@ -87,12 +86,16 @@
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "root" "${myOptions.username}" ];
-      substituters = [ "https://cuda-maintainers.cachix.org" ];
+      substituters = [ 
+        "https://cuda-maintainers.cachix.org"
+        "https://nixpkgs-python.cachix.org"
+        "https://devenv.cachix.org"
+      ];
       trusted-public-keys = [
         "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
       ];
-      # substituters = [ "https://nix-gaming.cachix.org" "https://nixpkgs-python.cachix.org" "https://devenv.cachix.org" ];
-      # trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU=" ];
     };
     gc = {
       automatic = true;

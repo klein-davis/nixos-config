@@ -1,6 +1,6 @@
 { pkgs, pkgsBundle, lib, myOptions, ... }: {
 
-  environment.systemPackages = with pkgsBundle.pkgs-stable; [
+  environment.systemPackages = with pkgs; [
     (if myOptions.enable-nvidia-gpu then (blender.override {cudaSupport=true;}) else (blender))
   ];
 }

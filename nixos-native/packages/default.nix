@@ -1,4 +1,4 @@
-{ pkgs, pkgsBundle, lib, ... }: {
+{ inputs, myOptions, pkgs, pkgsBundle, lib, ... }: {
 
   imports = []
     ++ [(import ./blender.nix)]
@@ -14,80 +14,119 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino-ide                           # Arduino IDE
-    bambu-studio
+    audio-recorder
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
-    clementine                            # Music Player
-    pkgsBundle.pkgs-stable.distrobox
+    deskflow
+    distrobox
+    freecad
+    gimp
     google-chrome                         # Proprietary Web Browser
     gparted                               # Partition manager
     kicad
+    libreoffice
     linux-wifi-hotspot                    # GUI hotspot creator
     lmstudio                              # GUI LLM interface
+    nemo                                  # file manager
     nwg-look                              # GTK Config editor
     obs-studio                            # Screen recording and streaming
+    obsidian                              # Notetaking software
     ollama                                # LLM Backend
     openrocket                            # Rocket Simulator
     orca-slicer                           # 3D Printer Slicer
-    pkgsBundle.pkgs-unstable.obsidian     # Notetaking software
+    pavucontrol                           # pulseaudio volume controle (GUI)
+    prismlauncher                         # minecraft launcher
+    qalculate-gtk                         # calculator
     qbittorrent                           # Torrenting
     qpwgraph                              # Audio Routing Software
     viewnior                              # Image Viewer
+    wdisplays
+
 
     # CLI utils
+    inputs.alejandra.defaultPackage.${myOptions.system}
+    bitwise                               # cli tool for bit / hex manipulation
+    bleachbit                             # cache cleaner
     bluez                                 # Bluetooth audio tools
     bluez-tools                           # Bluetooth audio tools
     busybox                               # unused tools, remove if not needed for a while
     caligula                              # TUI iso flasher
+    cliphist                              # clipboard manager
+    cloc
+    cmatrix
     ddcutil                               # Screen brightness
+    devenv
+    direnv
+    dust
+    entr                                  # perform action when file change
+    entropy
+    eza                                   # ls replacement
     fastfetch                             # Fetch program
+    fd                                    # find replacement
+    ffmpeg
+    file                                  # show file information 
     file                                  # Show filetype
     foot                                  # Terminal Emulator
-    # gettext                               # Translation Tools
+    fzf
+    gettext                               # Translation Tools
     git                                   # Version Controll
+    gtrash                                # rm replacement, put deleted files in system trash
+    gtt                                   # google translate TUI
+    hexdump
+    imv                                   # imageviewer
     iperf3                                # Client to Client bandwidth tester
     jq jqp                                # JSON Tools
-    # lux                                 # Video Downloader
-    libheif                               # Convert to and from HEIF files
-    # mediainfo                             # Video file info
+    killall
+    libcaca
+    libnotify
+    lux                                   # Video Downloader
+    mediainfo                             # Video file info
+    mpv                                   # vide player
+    ncdu                                  # disk space
     nh                                    # Usefull Nix Tools
-    nmap                                  # Network Scanning Tool
+    nitch                                 # systhem fetch util
+    nix-prefetch-github
     nixos-generators
     nixpkgs-review                        # Used to review nixpkgs pr's
+    nmap                                  # Network Scanning Tool
     ntfs3g                                # NTFS drivers?
-    # openssl
-    # openvpn
+    openssl
     osc                                   # Remote clipboard
-    # ranger                              # CLI File Manager
-    # scrot                               # CLI Screen Capture
+    pamixer
+    playerctl                             # controller for media players
+    poweralertd
+    ripgrep                               # grep replacement
     speedtest-cli                         # Internet Speedtesting tool
     stress                                # Benchmark workload generator
-    # swww                                  # Wallpaper?
     tmux                                  # Terminal Multiplexer
+    todo                                  # cli todo list
+    toipe                                 # typing test in the terminal
     tree                                  # Show file tree
+    ttyper
+    udiskie
     unzip                                  
     usbip-ssh                             # USB Port over SSH
+    valgrind                              # c memory analyzer
     w3m  
     waypaper
     waypipe
     wayvnc
     wgcf
     wget
+    wl-clipboard                          # clipoard utils for wayland (wl-copy, wl-paste)
+    xdg-utils
+    xxd
+    yazi                                  # terminal file manager
     yt-dlp
+    zenity
     zip
     zram-generator
-
-    # GUI utils
-    # feh
-    # gromit-mpx
-    # screenkey
-    python3
-    
+    zsh-fzf-tab  
   ];
 
   fonts.packages = with pkgs; [
     jetbrains-mono
     noto-fonts
-    noto-fonts-emoji
+    # noto-fonts-emoji
     # twemoji-color-font
     font-awesome
     powerline-fonts

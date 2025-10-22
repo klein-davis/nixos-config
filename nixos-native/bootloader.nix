@@ -36,12 +36,15 @@
   #    };
   #});
 
-  
   # To prevent getting stuck at shutdown
   systemd.settings = {
     Manager = {
       DefaultTimeoutStopSec = "5s";
     };
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_default_ttl" = 128;
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
