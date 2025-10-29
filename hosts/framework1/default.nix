@@ -8,6 +8,7 @@
   services.logind = {
     settings.Login = {
       # Action when the lid is closed, regardless of power state
+      # HandleLidSwitch = "hibernate";
       HandleLidSwitch = "ignore";
       
       # Action when the lid is closed and on external power (AC)
@@ -15,6 +16,61 @@
       
       # Action when the lid is closed and docked (if applicable)
       HandleLidSwitchDocked = "ignore";
+    };
+  };
+
+  # 1. Disable the USB Host Controllers' wake feature before suspend
+  systemd.services.disable-wake-devices = {
+    description = "Disable USB Host Controller wake before suspend";
+    wantedBy = [ "sleep.target" ];
+    before = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = ''
+        ${pkgs.writeShellScript "disable-wake-devices-script" ''
+          echo "Disabling wake for XHC (USB Host Controllers)..."
+          # XHC0 (c4:00.3)
+          echo "disabled" > /sys/bus/pci/devices/0000:c4:00.3/power/wakeup 2>/dev/null
+          # XHC1 (c4:00.4)
+          echo "disabled" > /sys/bus/pci/devices/0000:c4:00.4/power/wakeup 2>/dev/null
+          # XHC3 (c6:00.3)
+          echo "disabled" > /sys/bus/pci/devices/0000:c6:00.3/power/wakeup 2>/dev/null
+          # XHC4 (c6:00.4)
+          echo "disabled" > /sys/bus/pci/devices/0000:c6:00.4/power/wakeup 2>/dev/null
+          
+          # Optional: Disable NHI (Thunderbolt) controllers too, if you suspect them
+          # echo "disabled" > /sys/bus/pci/devices/0000:c6:00.5/power/wakeup 2>/dev/null # NHI0
+          # echo "disabled" > /sys/bus/pci/devices/0000:c6:00.6/power/wakeup 2>/dev/null # NHI1
+        ''}
+      '';
+    };
+  };
+
+  # 2. Re-enable the wake feature after resume
+  systemd.services.enable-wake-devices = {
+    description = "Re-enable USB Host Controller wake after resume";
+    wantedBy = [ "sleep.target" ];
+    after = [ "suspend.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        ${pkgs.writeShellScript "enable-wake-devices-script" ''
+          echo "Re-enabling wake for XHC (USB Host Controllers)..."
+          # XHC0 (c4:00.3)
+          echo "enabled" > /sys/bus/pci/devices/0000:c4:00.3/power/wakeup 2>/dev/null
+          # XHC1 (c4:00.4)
+          echo "enabled" > /sys/bus/pci/devices/0000:c4:00.4/power/wakeup 2>/dev/null
+          # XHC3 (c6:00.3)
+          echo "enabled" > /sys/bus/pci/devices/0000:c6:00.3/power/wakeup 2>/dev/null
+          # XHC4 (c6:00.4)
+          echo "enabled" > /sys/bus/pci/devices/0000:c6:00.4/power/wakeup 2>/dev/null
+
+          # Optional: Re-enable NHI controllers too, if you disabled them above
+          # echo "enabled" > /sys/bus/pci/devices/0000:c6:00.5/power/wakeup 2>/dev/null # NHI0
+          # echo "enabled" > /sys/bus/pci/devices/0000:c6:00.6/power/wakeup 2>/dev/null # NHI1
+        ''}
+      '';
     };
   };
 

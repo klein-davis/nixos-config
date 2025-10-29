@@ -72,7 +72,7 @@
     gtrash                                # rm replacement, put deleted files in system trash
     gtt                                   # google translate TUI
     hexdump
-    imv                                   # imageviewer
+    imv                                   # Image Viewer
     iperf3                                # Client to Client bandwidth tester
     jq jqp                                # JSON Tools
     killall
@@ -99,7 +99,7 @@
     stress                                # Benchmark workload generator
     tmux                                  # Terminal Multiplexer
     todo                                  # cli todo list
-    toipe                                 # typing test in the terminal
+    # toipe                                 # typing test in the terminal
     tree                                  # Show file tree
     ttyper
     udiskie
@@ -121,6 +121,10 @@
     zip
     zram-generator
     zsh-fzf-tab  
+
+    # Background stuff
+    openvpn
+    python315
   ];
 
   fonts.packages = with pkgs; [

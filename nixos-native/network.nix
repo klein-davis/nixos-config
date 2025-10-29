@@ -28,6 +28,11 @@
   networking = {
     hostName = myOptions.hostname;
     networkmanager.enable = true;
+
+    networkmanager.plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
+    
     nameservers = [ "8.8.8.8" "1.1.1.1" ];
     firewall = {
       enable = true;
@@ -52,6 +57,7 @@
     };
   };
 
+
   services.openssh = {
       enable = myOptions.enable-ssh-access;
       ports = [22];
@@ -64,6 +70,7 @@
 
   environment.systemPackages = with pkgs; [
     networkmanagerapplet
+    openvpn
     gnome-network-displays
     pkgs.sshfs
   ];

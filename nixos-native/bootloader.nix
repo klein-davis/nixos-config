@@ -1,8 +1,13 @@
-{ pkgs, pkgsBundle, myOptions, ... }:
+{ pkgs, lib, pkgsBundle, myOptions, ... }:
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
+  # Use 'nodev' for UEFI installations (which you are using, given the 'efi' option above)
+  boot.loader.grub.device = "nodev";
+  # boot.loader.grub.splashImage = lib.mkForce "/etc/nixos/grub/my-grub-background.jpg";
 
   boot.initrd.kernelModules = []
   ++ (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [])
