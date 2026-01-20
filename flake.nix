@@ -36,13 +36,14 @@
     # Hyprland Inputs
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      # url = "github:hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprgrass = {
         url = "github:horriblename/hyprgrass";
-        inputs.hyprland.follows = "hyprland"; # IMPORTANT
+        inputs.hyprland.follows = "hyprland";
     };
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
@@ -109,6 +110,7 @@
         vm = {
           hostname = "NIXVM";
           enable-auto-login = true;
+          # system = "armv7l-linux"; # For 3B and older
         };
         pi = {
           system = "aarch64-linux";

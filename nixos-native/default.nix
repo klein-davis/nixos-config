@@ -15,6 +15,7 @@
     ++ [(import ./services.nix)]                    # System services
     ++ [(import ./sound.nix)]                       # Sound settings
     ++ [(import ./stylix.nix)]                      # System theming/styling
+    ++ [(import ./sunshine.nix)]
     ++ [(import ./system.nix)]                      # Core system configurations
     ++ [(import ./user.nix)]                        # User-specific settings
     ++ [(import ./virtmanager.nix)]                 # Virt-Manager for VMs

@@ -11,7 +11,7 @@
   }; 
   environment.systemPackages = with pkgs; [
     mangohud
-    steamcmd
+    # steamcmd
     steam-tui
   ];
   programs.gamemode.enable = true;

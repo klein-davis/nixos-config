@@ -7,7 +7,7 @@
         id = 0;
         isDefault = true;
         name = "${myOptions.username}";
-        extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
+        extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
           bitwarden
           clearurls
           don-t-fuck-with-paste

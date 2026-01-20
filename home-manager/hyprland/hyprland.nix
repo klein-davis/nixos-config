@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     # swww
     swaybg
-    inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+    inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
     hyprpicker
     grim
     slurp
@@ -22,8 +22,8 @@
     # enableNvidiaPatches = false;
     systemd.enable = true;
     plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-      inputs.hyprgrass.packages.${pkgs.system}.default
+      inputs.split-monitor-workspaces.packages.${pkgs.stdenv.hostPlatform.system}.split-monitor-workspaces
+      inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

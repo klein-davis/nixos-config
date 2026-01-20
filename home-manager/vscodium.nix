@@ -39,6 +39,9 @@
         # toto tree
         gruntfuggly.todo-tree
 
+        # spellcheck
+        streetsidesoftware.code-spell-checker
+
         # rust-lang.rust-analyzer
         # github.copilot
       ];
@@ -148,6 +151,8 @@
         "C_Cpp.workspaceParsingPriority" = "medium";
         "C_Cpp.clang_format_sortIncludes" = true;
         "C_Cpp.doxygen.generatedStyle" = "/**";
+
+        "explorer.confirmDelete" = false;
 
         "editor.tokenColorCustomizations" = lib.mkForce {
           "[Stylix]" = {

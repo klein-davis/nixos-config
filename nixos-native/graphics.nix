@@ -14,14 +14,14 @@ rec {
       enable32Bit = true;
       extraPackages = with pkgs; [
         libvdpau-va-gl
-        vaapiVdpau
+        libva-vdpau-driver
         vpl-gpu-rt
       ]
       ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
         # amdvlk
         rocmPackages.clr.icd
-        vaapiIntel
-        vaapiVdpau
+        intel-vaapi-driver
+        libva-vdpau-driver
         libvdpau-va-gl
         intel-media-driver
       ] else []);

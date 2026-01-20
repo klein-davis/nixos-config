@@ -43,7 +43,10 @@
       # For steam network file transfer
       allowedTCPPorts = ([ 27031 27032 27033 27034 27035 27036 27037 27038 27039 27040
       # For gnome-network-displays
-      ] ++ [7236 7250]); 
+      ] ++ [7236 7250]);
+      allowedTCPPortRanges = [
+        { from = 11000; to = 15000; } # ROS2
+      ];
 
       allowedUDPPorts = [ 13407 ]
       # For gnome-network-displays
@@ -53,6 +56,7 @@
         { from = 4000; to = 4007; }
         { from = 8000; to = 8010; }
         # { from = 13000; to = 14000; }
+        { from = 11000; to = 15000; } # ROS2
       ];
     };
   };

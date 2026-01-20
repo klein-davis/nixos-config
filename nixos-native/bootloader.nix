@@ -2,12 +2,25 @@
 {
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.systemd-boot.configurationLimit = 10;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  # Use 'nodev' for UEFI installations (which you are using, given the 'efi' option above)
-  boot.loader.grub.device = "nodev";
+  # # boot.loader.systemd-boot.configurationLimit = 10;
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.efiSupport = true;
+  # # Use 'nodev' for UEFI installations (which you are using, given the 'efi' option above)
+  # boot.loader.grub.device = "nodev";
   # boot.loader.grub.splashImage = lib.mkForce "/etc/nixos/grub/my-grub-background.jpg";
+  boot.loader = {
+    efi = {
+      # This is often the culprit. We're removing reliance on it.
+      canTouchEfiVariables = false; 
+    };
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      # ADD THIS LINE to force installation to the fallback path (\EFI\BOOT\BOOTX64.EFI)
+      efiInstallAsRemovable = true; 
+    };
+  };
 
   boot.initrd.kernelModules = []
   ++ (if (myOptions.enable-nvidia-gpu == true) then [ "nvidia" ] else [])
@@ -40,7 +53,7 @@
   #    modDirVersion = "6.10.1";
   #    };
   #});
-
+  
   # To prevent getting stuck at shutdown
   systemd.settings = {
     Manager = {
@@ -53,6 +66,11 @@
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  boot.supportedFilesystems = [ "ntfs" ];
+  environment.systemPackages = with pkgs; [
+    efibootmgr ntfs3g
+  ];
 
   # Enable zram compressed swap space support
   zramSwap = {

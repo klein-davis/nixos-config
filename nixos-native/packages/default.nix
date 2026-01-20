@@ -14,12 +14,13 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     arduino-ide                           # Arduino IDE
-    audio-recorder
+    # audio-recorder
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
     deskflow
     distrobox
     freecad
     gimp
+    ghidra
     google-chrome                         # Proprietary Web Browser
     gparted                               # Partition manager
     kicad
@@ -34,6 +35,7 @@
     openrocket                            # Rocket Simulator
     orca-slicer                           # 3D Printer Slicer
     pavucontrol                           # pulseaudio volume controle (GUI)
+    pdfsam-basic
     prismlauncher                         # minecraft launcher
     qalculate-gtk                         # calculator
     qbittorrent                           # Torrenting
