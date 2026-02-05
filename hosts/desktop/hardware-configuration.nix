@@ -23,9 +23,25 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
+  
+  fileSystems."/mnt/1TB_HDD" =
+    { device = "/dev/disk/by-uuid/5418574A185729EE";
+      fsType = "ntfs3";
+      options = [ "nofail" "uid=1000" "gid=100" "dmask=007" "fmask=117" ];
+    };
+
+  fileSystems."/mnt/3TB_HDD" =
+    { device = "/dev/disk/by-uuid/B070C07270C040B8";
+      fsType = "ntfs3";
+      options = [ "nofail" "uid=1000" "gid=100" "dmask=007" "fmask=117" ];
+    };
 
   swapDevices = [
      { device = "/swapfile"; size = 20 * 1024; } # 10GB
+  ];
+
+  environment.systemPackages = with pkgs; [
+    ntfs3g
   ];
 
 

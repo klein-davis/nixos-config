@@ -3,7 +3,8 @@
   imports = []
     ++ [(import ./blender.nix)]
     ++ [(import ./steam.nix)]                       # Steam integration
-    ++ [(import ./openrgb.nix)];          # OpenRGB for lighting control
+    ++ [(import ./openrgb.nix)]           # OpenRGB for lighting control
+    ++ [(import ./wireshark.nix)];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -15,6 +16,7 @@
     # Desktop apps
     arduino-ide                           # Arduino IDE
     # audio-recorder
+    bluetuith
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
     deskflow
     distrobox
@@ -40,9 +42,10 @@
     qalculate-gtk                         # calculator
     qbittorrent                           # Torrenting
     qpwgraph                              # Audio Routing Software
+    rpi-imager
     viewnior                              # Image Viewer
     wdisplays
-
+    wiremix    
 
     # CLI utils
     inputs.alejandra.defaultPackage.${myOptions.system}

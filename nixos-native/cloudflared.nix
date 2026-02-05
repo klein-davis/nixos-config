@@ -66,6 +66,7 @@
 
       ingress = {
         "head.kleindavis.xyz" = "http://10.31.0.9:8080";
+        "minecraft.kleindavis.xyz" = "tcp://localhost:41973";
         "silly.kleindavis.xyz" = "https://google.com";        
         "www.roboticcardinals.org" = "http://localhost:5000";    
         "api.roboticcardinals.org" = "http://localhost:5001";        
