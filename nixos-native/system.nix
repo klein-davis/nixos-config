@@ -75,7 +75,21 @@
     xorg.libXScrnSaver
     xorg.libxshmfence
     xorg.libXtst
-    zlib
+    # libX11
+    # libxcb
+    # libXcomposite
+    # libXcursor
+    # libXdamage
+    # libXext
+    # libXfixes
+    # libXi
+    # libxkbfile
+    # libXrandr
+    # libXrender
+    # libXScrnSaver
+    # libxshmfence
+    # libXtst
+    # zlib
   ];
 
   virtualisation.podman.enable = true;

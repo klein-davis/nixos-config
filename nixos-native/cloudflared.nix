@@ -68,8 +68,9 @@
         "head.kleindavis.xyz" = "http://10.31.0.9:8080";
         "minecraft.kleindavis.xyz" = "tcp://localhost:41973";
         "silly.kleindavis.xyz" = "https://google.com";        
-        "www.roboticcardinals.org" = "http://localhost:5000";    
-        "api.roboticcardinals.org" = "http://localhost:5001";        
+        "www.roboticcardinals.org" = "http://localhost:5000";
+        "api.roboticcardinals.org" = "http://localhost:5001";
+        "jellyfin.kleindavis.xyz" = "http://localhost:8096";   
       };
 
       default = "http_status:404";

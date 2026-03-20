@@ -13,5 +13,9 @@
     enable = true;
     package = pkgsBundle.pkgs-stable.virt-manager;
   };
+
+  environment.systemPackages = [
+    pkgs.virt-viewer
+  ];
 }
 

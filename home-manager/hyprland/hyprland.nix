@@ -23,7 +23,7 @@
     systemd.enable = true;
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.stdenv.hostPlatform.system}.split-monitor-workspaces
-      inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
+      # inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

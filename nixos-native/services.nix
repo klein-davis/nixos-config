@@ -7,12 +7,8 @@
     gnome.gnome-keyring.enable = false;
     gvfs.enable = true;
     seatd.enable = true;
-
-    # Enable CUPS to print documents.
     printing.enable = true;
-
     envfs.enable = true;
-    
     flatpak.enable = true;
   };
   

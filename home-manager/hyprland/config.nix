@@ -184,7 +184,7 @@
         "$mainMod, D, exec, wofi --show drun"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod SHIFT, P, pin"
-        "$mainMod, J, togglesplit, # dwindle"
+        # "$mainMod, J, togglesplit, # dwindle"
         "$mainMod, T, exec, kitty"
         "$mainMod, L, exec, swaylock"
         "$mainMod, S, exec, firefox"

@@ -1,10 +1,13 @@
-{ inputs, myOptions, pkgs, pkgsBundle, lib, ... }: {
+{ inputs, myOptions, pkgs, pkgsBundle, lib, host, ... }: {
 
   imports = []
     ++ [(import ./blender.nix)]
     ++ [(import ./steam.nix)]                       # Steam integration
+    ++ [(import ./obs-studio.nix)]
     ++ [(import ./openrgb.nix)]           # OpenRGB for lighting control
-    ++ [(import ./wireshark.nix)];
+    ++ [(import ./wireshark.nix)]
+    ++ (if host == "desktop" then [(import ./jellyfin.nix)] else [])        # Install jellyfin on desktop
+    ++ (if host == "desktop" then [(import ./home-assistant.nix)] else []); # Install home assistant
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -16,7 +19,6 @@
     # Desktop apps
     arduino-ide                           # Arduino IDE
     # audio-recorder
-    bluetuith
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
     deskflow
     distrobox
@@ -31,7 +33,6 @@
     lmstudio                              # GUI LLM interface
     nemo                                  # file manager
     nwg-look                              # GTK Config editor
-    obs-studio                            # Screen recording and streaming
     obsidian                              # Notetaking software
     ollama                                # LLM Backend
     openrocket                            # Rocket Simulator
@@ -44,13 +45,13 @@
     qpwgraph                              # Audio Routing Software
     rpi-imager
     viewnior                              # Image Viewer
-    wdisplays
-    wiremix    
+    wdisplays  
 
     # CLI utils
     inputs.alejandra.defaultPackage.${myOptions.system}
     bitwise                               # cli tool for bit / hex manipulation
     bleachbit                             # cache cleaner
+    bluetuith                             # TUI for bluetooth connections
     bluez                                 # Bluetooth audio tools
     bluez-tools                           # Bluetooth audio tools
     busybox                               # unused tools, remove if not needed for a while
@@ -99,7 +100,9 @@
     pamixer
     playerctl                             # controller for media players
     poweralertd
+    qlcplus                               # Open Source DMX Controller
     ripgrep                               # grep replacement
+    scope-tui                             # Terminal Oscilloscope
     speedtest-cli                         # Internet Speedtesting tool
     stress                                # Benchmark workload generator
     tmux                                  # Terminal Multiplexer
@@ -117,6 +120,7 @@
     wayvnc
     wgcf
     wget
+    wiremix                               # 
     wl-clipboard                          # clipoard utils for wayland (wl-copy, wl-paste)
     xdg-utils
     xxd

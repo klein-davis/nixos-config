@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "Switching NixOS to .#nixos flake"
 
 # Run nixos-rebuild switch with --flake option, pipe output to tee
