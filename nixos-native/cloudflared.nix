@@ -1,48 +1,5 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, pkgsBundle, ... }:
 {
-# Enable Headscale service
-  services.headscale = {
-    enable = false;
-    address = "0.0.0.0"; # Back here, directly under services.headscale
-    port = 8080;         # Back here, directly under services.headscale
-    user = "headscale"; # Use your configured user
-    group = "headscale";
-
-    settings = {
-      server_url = "https://head.kleindavis.xyz"; # Using the variable here
-
-      web_ui = {
-        enabled = true;
-        path = "/web"; # sometimes it's on a subpath
-      };
-
-      # DNS configuration now named dns_config, and inside settings
-      dns = {
-        base_domain = "tail.kleindavis.xyz"; # Note the underscore and use the variable
-        magic_dns = true;
-        search_domains = ["head.kleindavis.xyz"]; # Recommended by the example
-        nameservers.global = [
-          "1.1.1.1"
-          "8.8.8.8"
-        ];
-      };
-
-      ip_prefixes = [ # Essential for Tailscale IPs
-        "100.64.0.0/10"
-        "fd7a:115c:a1e0::/48"
-      ];
-
-      # Logtail simplified syntax
-      logtail.enabled = false;
-
-      # You can find all possible options in Headscale's default config.yaml or the NixOS options.
-      # Search for "services.headscale.settings" on search.nixos.org/options
-    };
-
-    # Define the user and group Headscale runs as (defaults are usually fine)
-    # user = "headscale"; # Already defined above
-    
-  };
   # https://github.com/cloudflare/cloudflared/issues/990
   # nix run nixpkgs#cloudflared -- tunnel login
   # nix run nixpkgs#cloudflared -- tunnel create <your-tunnel-name>
@@ -86,8 +43,28 @@
     tailscale
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      postgresql_16 = prev.postgresql_16.overrideAttrs (old: {
+        passthru = old.passthru // {
+          pkgs = prev.postgresql_16.pkgs // {
+            vectorchord = prev.postgresql_16.pkgs.vectorchord.overrideAttrs (_: rec {
+              version = "0.5.3";
+              src = prev.fetchFromGitHub {
+                owner = "tensorchord";
+                repo = "VectorChord";
+                rev = version;
+                hash = "sha256-+c1Uf/3rp+HuthDVPLloJF2MQPW3Xho897Z2eAnG6aM=";
+              };
+            });
+          };
+        };
+      });
+    })
+  ];
+
   services.immich.enable = true;
-  services.immich.package = pkgs.immich;
+  # services.immich.package = pkgsBundle.pkgs-main.immich;
   services.immich.port = 2283;
   services.immich.host = "0.0.0.0";
   services.immich.openFirewall = true;

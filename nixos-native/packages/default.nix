@@ -6,8 +6,8 @@
     ++ [(import ./obs-studio.nix)]
     ++ [(import ./openrgb.nix)]           # OpenRGB for lighting control
     ++ [(import ./wireshark.nix)]
-    ++ (if host == "desktop" then [(import ./jellyfin.nix)] else [])        # Install jellyfin on desktop
-    ++ (if host == "desktop" then [(import ./home-assistant.nix)] else []); # Install home assistant
+    # Install jellyfin on desktop
+    ++ (if host == "desktop" then [(import ./jellyfin.nix)] else []);
 
   nixpkgs.config = {
     allowUnfree = true;

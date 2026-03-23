@@ -27,7 +27,7 @@
   fileSystems."/mnt/1TB_HDD" =
     { device = "/dev/disk/by-uuid/5418574A185729EE";
       fsType = "ntfs3";
-      options = [ "nofail" "uid=1000" "gid=100" "dmask=007" "fmask=117" ];
+      options = [ "nofail" "force" "uid=1000" "gid=100" "dmask=007" "fmask=117" ];
     };
 
   fileSystems."/mnt/3TB_HDD" =
