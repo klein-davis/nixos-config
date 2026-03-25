@@ -2,11 +2,11 @@
 {
   programs.swaylock = {
     enable = true;
-    package = pkgsBundle.pkgs-stable.swaylock-effects;
+    package = pkgs.swaylock-effects;
     settings = {
       clock = true;
       datestr = "";
-      screenshots = true;
+      # screenshots = true;
       
       indicator = true;
       indicator-radius = 100;
@@ -14,7 +14,7 @@
       
       effect-blur = "5x5";
       effect-vignette = "0.5:0.5";
-      effect-pixelate = 1;
+      # effect-pixelate = 1;
       /* 050505,515151,b5b5b5,7c7c7c,3c3c3c,272727,848484,737474,343434,1c1c1c */
       #color="1e1e2e";
       #bs-hl-color="f5e0dc"; # ???

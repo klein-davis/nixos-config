@@ -5,7 +5,7 @@
 
   qt = {
     enable = true;
-    platformTheme = lib.mkForce "kde"; # kde6 qt5ct
+    # platformTheme = lib.mkForce "qtct"; # kde kde6 qt5ct
   };
 
   # programs.dconf.enable = true;
@@ -110,7 +110,7 @@
 
     targets = {
       gtk.enable = true;
-      # qt.platform = "qtct";
+      qt.platform = lib.mkForce "qtct";
     };
 
     fonts.monospace = {

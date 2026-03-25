@@ -22,12 +22,12 @@
       credentialsFile = "/var/lib/cloudflared/6207a673-e90b-431b-a686-14d347fae860.json";
 
       ingress = {
-        "head.kleindavis.xyz" = "http://10.31.0.9:8080";
-        "minecraft.kleindavis.xyz" = "tcp://localhost:41973";
-        "silly.kleindavis.xyz" = "https://google.com";        
+        # "head.kleindavis.xyz" = "http://10.31.0.9:8080";
+        # "minecraft.kleindavis.xyz" = "tcp://localhost:41973";    
         "www.roboticcardinals.org" = "http://localhost:5000";
         "api.roboticcardinals.org" = "http://localhost:5001";
-        "jellyfin.kleindavis.xyz" = "http://localhost:8096";   
+        "jellyfin.kleindavis.xyz" = "http://localhost:8096";
+        "homeassistant.kleindavis.xyz" = "http://homeassistant.tailf1460c.ts.net:8123";
       };
 
       default = "http_status:404";
@@ -43,25 +43,25 @@
     tailscale
   ];
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      postgresql_16 = prev.postgresql_16.overrideAttrs (old: {
-        passthru = old.passthru // {
-          pkgs = prev.postgresql_16.pkgs // {
-            vectorchord = prev.postgresql_16.pkgs.vectorchord.overrideAttrs (_: rec {
-              version = "0.5.3";
-              src = prev.fetchFromGitHub {
-                owner = "tensorchord";
-                repo = "VectorChord";
-                rev = version;
-                hash = "sha256-+c1Uf/3rp+HuthDVPLloJF2MQPW3Xho897Z2eAnG6aM=";
-              };
-            });
-          };
-        };
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     postgresql_16 = prev.postgresql_16.overrideAttrs (old: {
+  #       passthru = old.passthru // {
+  #         pkgs = prev.postgresql_16.pkgs // {
+  #           vectorchord = prev.postgresql_16.pkgs.vectorchord.overrideAttrs (_: rec {
+  #             version = "0.5.3";
+  #             src = prev.fetchFromGitHub {
+  #               owner = "tensorchord";
+  #               repo = "VectorChord";
+  #               rev = version;
+  #               hash = "sha256-+c1Uf/3rp+HuthDVPLloJF2MQPW3Xho897Z2eAnG6aM=";
+  #             };
+  #           });
+  #         };
+  #       };
+  #     });
+  #   })
+  # ];
 
   services.immich.enable = true;
   # services.immich.package = pkgsBundle.pkgs-main.immich;

@@ -61,35 +61,21 @@
     systemd
     vulkan-loader
     webkitgtk_6_0
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libxkbfile
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXScrnSaver
-    xorg.libxshmfence
-    xorg.libXtst
-    # libX11
-    # libxcb
-    # libXcomposite
-    # libXcursor
-    # libXdamage
-    # libXext
-    # libXfixes
-    # libXi
-    # libxkbfile
-    # libXrandr
-    # libXrender
-    # libXScrnSaver
-    # libxshmfence
-    # libXtst
-    # zlib
+    libX11
+    libxcb
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libxkbfile
+    libXrandr
+    libXrender
+    libXScrnSaver
+    libxshmfence
+    libXtst
+    zlib
   ];
 
   virtualisation.podman.enable = true;
