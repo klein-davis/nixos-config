@@ -17,6 +17,8 @@
 
   programs.zsh.enable = true;
 
+  boot.kernelModules = [ "cp210x" "ch341" ];
+
   users = {
     defaultUserShell = pkgs.zsh;
 

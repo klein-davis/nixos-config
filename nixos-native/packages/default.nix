@@ -19,6 +19,7 @@
     # Desktop apps
     arduino-ide                           # Arduino IDE
     # audio-recorder
+    bitwig-studio
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
     deskflow
     distrobox
@@ -43,9 +44,11 @@
     qalculate-gtk                         # calculator
     qbittorrent                           # Torrenting
     qpwgraph                              # Audio Routing Software
+    reaper
+    remmina                               # RDP Client
     rpi-imager
     viewnior                              # Image Viewer
-    wdisplays  
+    wdisplays
 
     # CLI utils
     inputs.alejandra.defaultPackage.${myOptions.system}
@@ -74,7 +77,9 @@
     foot                                  # Terminal Emulator
     fzf
     gettext                               # Translation Tools
+    gh
     git                                   # Version Controll
+    git-lfs
     gtrash                                # rm replacement, put deleted files in system trash
     gtt                                   # google translate TUI
     hexdump
@@ -111,10 +116,10 @@
     tree                                  # Show file tree
     ttyper
     udiskie
-    unzip                                  
+    unzip
     usbip-ssh                             # USB Port over SSH
     valgrind                              # c memory analyzer
-    w3m  
+    w3m
     waypaper
     waypipe
     wayvnc
@@ -129,11 +134,28 @@
     zenity
     zip
     zram-generator
-    zsh-fzf-tab  
+    zsh-fzf-tab
 
     # Background stuff
     openvpn
     python315
+
+    # Games
+    ## Utils
+    # winetricks
+    protonplus
+
+    ## Cli games
+    _2048-in-terminal
+    vitetris
+    nethack
+
+    ## Emulation
+    dosbox-x
+    sameboy
+    snes9x
+    cemu
+    dolphin-emu
   ];
 
   fonts.packages = with pkgs; [
