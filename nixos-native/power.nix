@@ -1,4 +1,4 @@
-{ pkgs, config, myOptions, ... }: {
+{ pkgs, config, myOptions, host, ... }: {
 
   powerManagement = {
     enable = myOptions.power.mobile;
@@ -9,6 +9,9 @@
       #TODO cpuFreqGovernor = lib.mkDefault "ondemand";
       "ondemand";
   };
+
+  # Laptop fan curves
+  hardware.fw-fanctrl.enable = myOptions.power.mobile && (host == "framework1");
 
   services.power-profiles-daemon.enable = false;
   services.tlp = if myOptions.power.mobile then {

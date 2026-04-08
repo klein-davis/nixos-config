@@ -50,6 +50,9 @@
     viewnior                              # Image Viewer
     wdisplays
 
+    opencode
+    minimax-mcp
+
     # CLI utils
     inputs.alejandra.defaultPackage.${myOptions.system}
     bitwise                               # cli tool for bit / hex manipulation
