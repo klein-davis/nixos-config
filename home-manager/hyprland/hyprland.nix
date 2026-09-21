@@ -26,6 +26,19 @@
       cmakeFlags = (old.cmakeFlags or []) ++ [
         "-DFETCHCONTENT_SOURCE_DIR_GLAZE=${pkgs.glaze.src}"
       ];
+      # Upstream's postInstall wraps Hyprland with hyprland-guiutils (welcome/
+      # dialog/run/update-screen helpers) on PATH. hyprland-guiutils fails to
+      # build right now - it's compiled with gcc 15 but links against
+      # hyprtoolkit's libhyprtoolkit.so, which was built with gcc 16 and
+      # exports std::format symbols the gcc 15 libstdc++ doesn't have
+      # (upstream ABI mismatch between the two sibling flakes, not something
+      # fixable from this config). Drop hyprland-guiutils from the PATH wrap
+      # so Hyprland itself still builds; this only loses those optional
+      # helper utilities, not core compositor functionality.
+      postInstall = ''
+        wrapProgram $out/bin/Hyprland \
+          --suffix PATH : ${pkgs.lib.makeBinPath [ pkgs.binutils pkgs.pciutils pkgs.pkgconf ]}
+      '';
     });
     enable = true;
     configType = "lua";

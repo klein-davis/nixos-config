@@ -310,7 +310,7 @@ in
 
           # Screen and sleep hotkeys
           (execBindOpts "SUPER + SHIFT + CTRL + O" "noctalia msg session lock-and-suspend" { locked = true; })
-          (execBindOpts "SUPER + Z" "${dpmsWakeScript}/bin/hypr-dpms-wake toggle" { locked = true; })
+          (execBindOpts "SUPER + Z" "${dpmsWakeScript}/bin/hypr-dpms-wake toggle superz" { locked = true; })
           (execBindOpts "SUPER + ALT + Z" "${fixLowResScript}/bin/hypr-fix-low-res" { locked = true; })
           (execBindOpts "SUPER + SHIFT + Z" "openrgb --mode off" { locked = true; })
         ];

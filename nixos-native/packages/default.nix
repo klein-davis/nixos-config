@@ -5,9 +5,11 @@
     ++ [(import ./deskflow.nix)]                    # Share mouse/keyboard across computers
     ++ [(import ./docker.nix)]                      # Container runtime
     ++ [(import ./flatpak.nix)]                     # Flatpak sandboxed app support
+    ++ [(import ./lmstudio.nix)]                    # LM Studio programs
     ++ [(import ./openrgb.nix)]                     # OpenRGB for lighting control
     ++ [(import ./steam.nix)]                       # Steam integration
-    ++ [(import ./wireshark.nix)];                  # Network protocol analyzer
+    ++ [(import ./wireshark.nix)]                   # Network protocol analyzer
+    ;
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -19,6 +21,8 @@
     # Test
     atopile                               # Design circuit boards with code
     gsettings-desktop-schemas             # GSettings schemas for desktop components
+    pv
+    pvetui
     # Bitwarden test
     bws
     bitwarden-desktop
@@ -29,7 +33,7 @@
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
     easyeffects                           # Audio effects for PipeWire
     en-croissant                          # Chess GUI/toolkit
-    freecad                               # 3D CAD modeler
+    pkgsBundle.pkgs-stable.freecad        # 3D CAD modeler (unstable fails to build ifcopenshell/boost)
     fretboard                             # Guitar chord lookup
     ghidra                                # Software reverse engineering suite
     pkgsBundle.pkgs-stable.gimp           # Image editor
@@ -127,6 +131,7 @@
     ser2net                               # Serial connections over IP
     speedtest-cli                         # Internet Speedtesting tool
     stress                                # Benchmark workload generator
+    timidity                              # Terminal MIDI player
     tmux                                  # Terminal Multiplexer
     todo                                  # cli todo list
     tree                                  # Show file tree

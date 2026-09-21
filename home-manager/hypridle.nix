@@ -23,7 +23,7 @@ in
           # (dpms off) fires again right after this on-resume sequence.
           # Restarting the service resets its idle timers so that doesn't
           # happen.
-          after_sleep_cmd = "${dpmsWake} on ; ${pkgs.brightnessctl}/bin/brightnessctl -r -c backlight ; ${pkgs.systemd}/bin/systemctl --user restart hypridle.service";
+          after_sleep_cmd = "${dpmsWake} on after-sleep ; ${pkgs.brightnessctl}/bin/brightnessctl -r -c backlight ; ${pkgs.systemd}/bin/systemctl --user restart hypridle.service";
         };
 
         listener =
@@ -35,8 +35,8 @@ in
           ++ (lib.optional (power.idle-dim != 0) {
             # turn monitor off
             timeout = power.idle-dim;
-            on-timeout = "${dpmsWake} off";
-            on-resume = "${dpmsWake} on";
+            on-timeout = "${dpmsWake} off idle-timeout";
+            on-resume = "${dpmsWake} on idle-resume";
           })
           ++ (lib.optional (power.idle-sleep != 0) {
             # suspend if idle and on battery

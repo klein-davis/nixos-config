@@ -43,14 +43,20 @@
       # For steam network file transfer
       allowedTCPPorts = ([ 27031 27032 27033 27034 27035 27036 27037 27038 27039 27040 ]
       # For gnome-network-displays
-      ++ [7236 7250]);
+      ++ [7236 7250]
+      # For Arduino OTA
+      ++ [48266]
+      # For LocalSend
+      ++ [53317]);
       allowedTCPPortRanges = [
         { from = 11000; to = 15000; } # ROS2
       ];
 
       allowedUDPPorts = [ 13407 ]
       # For gnome-network-displays
-      ++ [7236 5353];
+      ++ [7236 5353]
+      # For LocalSend
+      ++ [53317];
       allowedUDPPortRanges = [
         # { from = 2000; to = 3000; }
         { from = 4000; to = 4007; }

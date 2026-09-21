@@ -49,6 +49,11 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    lmstudio = {
+      url = "github:Daaboulex/lmstudio-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url =  "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -98,6 +103,7 @@
           enable-auto-login = true;
           hostname = "DESKTOP-GV1U8SC";
           power.idle-dim = 300;
+          power.idle-lock = 360;
           screens = [
             # Left Tall
             "DP-3, 1920x1200@60, 0x0, 1"
@@ -113,15 +119,13 @@
           hostname = "LAPTOP-PDQ3S7";
           power.mobile = true;
           power.idle-dim = 300;
-          # power.idle-lock = 65;
+          power.idle-lock = 360;
           # power.idle-sleep = 70;
           enable-amd-cpu = true;
           enable-amd-gpu = true;
           enable-auto-login = true;
           # enable-enterprise-wifi = true;
           screens = [ "eDP-2, 2560x1600@165, 0x0, 1.25"];
-          # prefered-gpu.enable = true;
-          # prefered-gpu.path = "/dev/dri/by-path/renderD129";
         };
         laptop = {
           hostname = "DESKTOP-SCSCNBU";

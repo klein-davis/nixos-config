@@ -2,19 +2,36 @@
 set -euo pipefail
 
 # Fuzzy-pick a PIA server location and switch to it, entirely through
-# NetworkManager - no sudo, no touching credentials.
+# NetworkManager - no sudo.
 #
 # This works because every PIA OpenVPN server shares one CA certificate,
-# so switching location is just: clone a connection that already has a
-# saved password, and change its `remote` field. See TEMPLATE_CONN below
-# for the connection whose stored secret gets reused.
+# so switching location is just: create a connection with that CA and
+# the credentials below, with `remote` pointed at the chosen location.
 #
 # usage: pia-switch            # fuzzy-pick a location and switch to it
 #        pia-switch <location> # switch straight to a known location code
 
-TEMPLATE_CONN="us_houston-aes-128-cbc-udp-dns"
 CA_PATH="/home/nixuser/.local/share/networkmanagement/certificates/nm-openvpn/us_houston-aes-128-cbc-udp-dns-ca.pem"
-PIA_USERNAME="p6882563"
+CREDENTIALS_FILE="$HOME/.config/pia/credentials"
+
+if [ ! -f "$CREDENTIALS_FILE" ]; then
+  echo "error: $CREDENTIALS_FILE not found." >&2
+  echo "Create it with your PIA username on line 1 and password on line 2, then: chmod 600 $CREDENTIALS_FILE" >&2
+  exit 1
+fi
+
+perms=$(stat -c '%a' "$CREDENTIALS_FILE")
+if [ "$perms" != "600" ]; then
+  echo "error: $CREDENTIALS_FILE must be readable only by you (chmod 600 $CREDENTIALS_FILE)" >&2
+  exit 1
+fi
+
+PIA_USERNAME=$(sed -n '1p' "$CREDENTIALS_FILE")
+PIA_PASSWORD=$(sed -n '2p' "$CREDENTIALS_FILE")
+if [ -z "$PIA_USERNAME" ] || [ -z "$PIA_PASSWORD" ]; then
+  echo "error: $CREDENTIALS_FILE must have the username on line 1 and password on line 2" >&2
+  exit 1
+fi
 
 # Prefer the live list from the `pia`/services.pia systemd units when
 # present (stays current if PIA adds/removes servers); fall back to a
@@ -209,9 +226,13 @@ conn_name="pia_${location//-/_}"
 
 if ! nmcli -t -f NAME connection show | grep -qx -- "$conn_name"; then
   echo "creating connection for $location..."
-  nmcli connection clone "$TEMPLATE_CONN" "$conn_name" >/dev/null
-  nmcli connection modify "$conn_name" vpn.data \
-    "auth = sha1, ca = $CA_PATH, challenge-response-flags = 2, cipher = aes-128-cbc, compress = yes, connection-type = password, dev = tun, password-flags = 0, remote = ${location}.privacy.network:1198, remote-cert-tls = server, reneg-seconds = 0, username = $PIA_USERNAME"
+  nmcli connection add type vpn con-name "$conn_name" ifname -- \
+    vpn.service-type org.freedesktop.NetworkManager.openvpn >/dev/null
+  nmcli connection modify "$conn_name" \
+    vpn.data \
+      "auth = sha1, ca = $CA_PATH, challenge-response-flags = 2, cipher = aes-128-cbc, compress = yes, connection-type = password, dev = tun, password-flags = 0, remote = ${location}.privacy.network:1198, remote-cert-tls = server, reneg-seconds = 0, username = $PIA_USERNAME" \
+    vpn.user-name "$PIA_USERNAME" \
+    vpn.secrets "password=$PIA_PASSWORD"
 fi
 
 # Bring down whatever PIA connection is currently active so we don't end
