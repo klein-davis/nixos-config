@@ -36,7 +36,9 @@ in
         # ms-vscode.cpptools-extension-pack
         # ms-vscode.cpptools
         llvm-vs-code-extensions.vscode-clangd
-        
+
+        # markdown
+        cherrymarkdownpublisher.cherry-markdown 
 
         # Python
         magicstack.magicpython

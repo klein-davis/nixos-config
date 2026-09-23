@@ -40,9 +40,9 @@
   # boot.blacklistedKernelModules = [ "nouveau" ];
 
   # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_7_2;
-  # boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
   # boot.kernelPackages = pkgsBundle.pkgs-stable.linuxKernel.packages.linux_6_12;
   #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_4_19.override {
   #  argsOverride = rec {
