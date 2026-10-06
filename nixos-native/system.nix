@@ -4,14 +4,15 @@
     inputs.nix-index-database.nixosModules.nix-index 
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-40.10.5"
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "electron-40.10.5"
+  # ];
 
   boot.tmp.cleanOnBoot = true;
 
+  # Expose flake.nix inputs to system
   nix.registry = lib.mapAttrs (_name: flake: { inherit flake; }) (lib.filterAttrs (n: _: n != "self") inputs);
-  nix.nixPath = lib.mapAttrsToList (name: _: "${name}=flake:${name}") (lib.filterAttrs (n: _: n != "self") inputs);
+  nix.settings.nix-path = lib.mapAttrsToList (name: _: "${name}=flake:${name}") (lib.filterAttrs (n: _: n != "self") inputs);
 
   # Nix Shared Libraires
   programs.nix-ld.enable = true;

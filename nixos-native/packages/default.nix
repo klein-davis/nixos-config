@@ -8,6 +8,7 @@
     ++ [(import ./lmstudio.nix)]                    # LM Studio programs
     ++ [(import ./openrgb.nix)]                     # OpenRGB for lighting control
     ++ [(import ./steam.nix)]                       # Steam integration
+    ++ [(import ./voicestudio.nix)]                 # ElevenLabs alternative
     ++ [(import ./wireshark.nix)]                   # Network protocol analyzer
     ;
 
@@ -43,7 +44,7 @@
     kicad                                 # Electronics design (EDA) suite
     libreoffice                           # Office productivity suite
     linux-wifi-hotspot                    # GUI hotspot creator
-    lmstudio                              # GUI LLM interface
+    # lmstudio                              # GUI LLM interface
     localsend                             # Cross-platform AirDrop alternative
     mission-center                        # CPU/Mem/Disk/Network/GPU monitor
     mission-planner                       # ArduPilot ground station
@@ -60,7 +61,7 @@
     # reaper
     remmina                               # RDP Client
     rpi-imager                            # Raspberry Pi imaging utility
-    pkgsBundle.pkgs-stable.rustdesk       # Open source remote desktop
+    rustdesk                              # Open source remote desktop
     viewnior                              # Image Viewer
     wdisplays                             # Wayland display configuration GUI
     winboat                               # Run Windows apps on Linux
@@ -78,6 +79,7 @@
     cliphist                              # clipboard manager
     cloc                                  # Count lines of code
     cmatrix                               # Matrix-style falling characters
+    inputs.nur-pkgs.packages.${pkgs.stdenv.hostPlatform.system}.computer-use-linux
     ddcutil                               # Screen brightness
     devenv                                # Reproducible dev environments
     dig                                   # DNS lookup tool
@@ -118,6 +120,7 @@
     nixpkgs-review                        # Used to review nixpkgs pr's
     nmap                                  # Network Scanning Tool
     ntfs3g                                # NTFS drivers?
+    nvd                                   # Nix/NixOS package version diff tool
     opencode                              # AI coding agent for the terminal
     openssl                               # TLS/SSL cryptography library
     osc                                   # Remote clipboard

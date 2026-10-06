@@ -6,4 +6,8 @@
   environment.systemPackages = with pkgs; [
     moonlight-qt
   ];
+  networking.firewall = {
+    allowedTCPPorts = [ 48010 ];
+    allowedUDPPorts = [ 48010 ];
+  };
 }

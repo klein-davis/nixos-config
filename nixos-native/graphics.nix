@@ -18,26 +18,14 @@ rec {
         vpl-gpu-rt
       ]
       ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
-        # amdvlk
         rocmPackages.clr.icd
         intel-vaapi-driver
         libva-vdpau-driver
         libvdpau-va-gl
         intel-media-driver
       ] else []);
-
-
-      extraPackages32 = [] 
-      ++ (if myOptions.enable-amd-gpu then with pkgs; [ 
-        # driversi686Linux.amdvlk
-      ] else []);
-
-
-      # extraPackages32 = []
-      # ++ (if myOptions.enable-amd-gpu then [pkgs.pkgsi686Linux.mesa.drivers.radeonsi pkgs.pkgsi686Linux.mesa.drivers.radeonsi] else []);
     };
     nvidia = if (myOptions.enable-nvidia-gpu) then {
-      # open = true; # For stylix
       open = false;
       modesetting.enable = true;
       powerManagement.enable = true;
@@ -57,21 +45,10 @@ rec {
       #   persistencedSha256 = "sha256-lyYxDuGDTMdGxX3CaiWUh1IQuQlkI2hPEs5LI20vEVw=";
       # };
     } else {};
-
-    # Removed
-    # amdgpu.amdvlk = if (myOptions.enable-amd-gpu) then {
-    #   enable = true;
-    #   support32Bit.enable = true;
-    # } else {};
   };
 
   # Environment variables related to graphics
   environment.sessionVariables = lib.mkMerge [
-    {
-      # >NIXOS_OZONE_WL = "1"; # Helps with Electron/Chromium-based apps on Wayland
-      # QT_QPA_PLATFORMTHEME = "qt5ct";
-    }
-
     # NVIDIA-specific environment variables, applied only if enable-nvidia-gpu is true
     (lib.mkIf myOptions.enable-nvidia-gpu {
       LIBVA_DRIVER_NAME = "nvidia";

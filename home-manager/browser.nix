@@ -6,14 +6,20 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgsBundle.pkgs-stable.firefox;
+    package = pkgsBundle.pkgs-main.firefox;
     nativeMessagingHosts = [pkgs.tridactyl-native];
-    configPath = "${config.xdg.configHome}/mozilla/firefox";
+    # Pinned explicitly: the real profile data lives here, and the firefox
+    # package wrapper doesn't support appDataDir, so the XDG default would
+    # silently stop applying anyway (see the profile-fork fix from 2026-10-03).
+    configPath = ".mozilla/firefox";
     profiles = {
       "${myOptions.username}" = {
         id = 0;
         isDefault = true;
         name = "${myOptions.username}";
+        # Matches the StoreID Firefox already assigned in ~/.mozilla/firefox/Profile Groups/,
+        # so home-manager's generated profiles.ini doesn't orphan the live profile group.
+        storeId = "f5cbd65f";
         extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
           bitwarden
           clearurls

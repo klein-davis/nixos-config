@@ -11,39 +11,51 @@
 
       theme = "agnoster";
     };
-    # Runs for every shell (including nested ones spawned by nix-shell/nix
-    # shell), before .zshrc. Captures the PATH we started with so later
-    # shells can tell whether nix has prepended anything to it. The `:=`
-    # only assigns when unset, and the export makes it inherited by child
-    # shells, so a shell spawned *by* nix-shell/nix shell still sees the
-    # original pre-nix baseline rather than re-capturing its own (already
-    # modified) PATH.
-    envExtra = ''
-      : ''${ZSH_BASE_PATH:=$PATH}
-      export ZSH_BASE_PATH
-    '';
-    initContent = lib.mkBefore ''
-      DISABLE_MAGIC_FUNCTIONS=true
-      export "MICRO_TRUECOLOR=1"
-      fastfetch
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
+        DISABLE_MAGIC_FUNCTIONS=true
+        export "MICRO_TRUECOLOR=1"
+        fastfetch
+      '')
+      # Nix shell indicator, placed with mkAfter so it runs after every
+      # other (default-priority) chunk of initContent - notably after
+      # home-manager's own `plugins = [ ... ]` handling above, which does
+      # `path+=(.../plugins/fzf-tab)` unconditionally on every shell. If we
+      # captured the PATH baseline any earlier than that, this addition
+      # alone would make PATH != baseline on a completely ordinary shell,
+      # producing a permanent false positive. Capturing here means static,
+      # always-applied PATH additions become part of the baseline itself,
+      # and only genuine nix-shell/nix develop/nix shell prepends show up
+      # as a difference.
+      #
+      # nix-shell/nix develop set $IN_NIX_SHELL, but the newer `nix shell`
+      # deliberately does not, so fall back to comparing PATH against this
+      # baseline: if it grew to include a /nix/store entry that wasn't
+      # there at shell startup, we're in one. (A plain "PATH contains
+      # /nix/store" check isn't safe on its own - some environments already
+      # have raw store paths in their base PATH.)
+      #
+      # The `:=` only assigns when unset, and the export makes it inherited
+      # by child shells, so a shell spawned *by* nix-shell/nix shell still
+      # sees the original pre-nix baseline rather than re-capturing its own
+      # (already modified) PATH.
+      (lib.mkAfter ''
+        : ''${ZSH_BASE_PATH:=$PATH}
+        export ZSH_BASE_PATH
 
-      # Nix shell indicator. nix-shell/nix develop set $IN_NIX_SHELL, but the
-      # newer `nix shell` deliberately does not, so fall back to comparing
-      # PATH against the baseline captured in .zshenv: if it grew to include
-      # a /nix/store entry that wasn't there at shell startup, we're in one.
-      # (A plain "PATH contains /nix/store" check isn't safe on its own -
-      # some environments already have raw store paths in their base PATH.)
-      _nix_shell_rprompt() {
-        if [[ -n "$IN_NIX_SHELL" ]] || \
-           [[ "$PATH" != "$ZSH_BASE_PATH" && "$PATH" == *"/nix/store"* ]]; then
-          RPROMPT="%F{cyan}❄ nix-shell%f"
-        else
-          RPROMPT=""
-        fi
-      }
-      autoload -Uz add-zsh-hook
-      add-zsh-hook precmd _nix_shell_rprompt
-    '';
+        _nix_shell_rprompt() {
+          if [[ -n "$IN_NIX_SHELL" ]] || \
+             [[ "$PATH" != "$ZSH_BASE_PATH" && "$PATH" == *"/nix/store"* ]]; then
+            RPROMPT="%F{cyan}❄ nix-shell%f"
+          else
+            RPROMPT=""
+          fi
+        }
+        autoload -Uz add-zsh-hook
+        add-zsh-hook precmd _nix_shell_rprompt
+      '')
+      (lib.mkAfter (builtins.readFile ./scripts/dirbusy_completion.zsh))
+    ];
     plugins = [
     # {
     #   name = "zsh-vi-mode";

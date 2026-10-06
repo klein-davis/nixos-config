@@ -28,8 +28,11 @@
     gtk4.theme = lib.mkForce null;
 
     # Icon theme has no Noctalia template, so it's a static pick here.
+    # Name must match the actual on-disk theme dir (share/icons/breeze-dark)
+    # exactly - GTK's icon theme lookup is a case-sensitive directory match,
+    # so "Breeze-Dark" silently fails to resolve and falls back to hicolor.
     iconTheme = lib.mkForce {
-      name = "Breeze-Dark";
+      name = "breeze-dark";
       package = pkgs.kdePackages.breeze-icons;
     };
   };

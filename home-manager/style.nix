@@ -7,7 +7,7 @@ let
     [Appearance]
     color_scheme_path=${colorsPath}
     custom_palette=true
-    icon_theme=Breeze-Dark
+    icon_theme=breeze-dark
     style=Fusion
 
     [Fonts]

@@ -43,6 +43,12 @@ let
     '' + lib.concatStringsSep "\n" (lib.tail (lib.splitString "\n" (builtins.readFile ../scripts/hypr_fix_low_res.sh)));
   };
 
+  sshfsUnstickScript = pkgs.writeShellApplication {
+    name = "sshfs-unstick";
+    runtimeInputs = [ pkgs.coreutils pkgs.gnugrep pkgs.util-linux pkgs.libnotify ];
+    text = builtins.readFile ../scripts/sshfs-unstick.sh;
+  };
+
   workspaceNumbers = lib.range 1 10;
   workspaceKey = i: if i == 10 then "0" else toString i;
 
@@ -212,8 +218,10 @@ in
 
           # Cycle through windows
           (dispBind "ALT + Tab" "hl.dsp.window.bring_to_top()")
-          (dispBind "ALT + Tab" "hl.dsp.window.cycle_next()")
-          (dispBind "ALT + SHIFT + Tab" "hl.dsp.window.cycle_next({ next = false })")
+          # (dispBind "ALT + Tab" "hl.dsp.window.cycle_next()")
+          # (dispBind "ALT + SHIFT + Tab" "hl.dsp.window.cycle_next({ next = false })")
+          (dispBind "ALT + Tab" "hl.dsp.layout(\"cyclenext\")")
+          (dispBind "ALT + SHIFT + Tab" "hl.dsp.layout(\"cycleprev\")")
 
           # Move focus with mainMod + arrow keys
           (dispBind "SUPER + left" "hl.dsp.focus({ direction = \"left\" })")
@@ -290,6 +298,10 @@ in
           (execBind "SUPER + B" "pkill -x noctalia; sleep 0.3; noctalia &") # graceful restart
           (execBind "SUPER + W" "pkill -9 -x noctalia; sleep 0.3; noctalia &") # force restart if hung
 
+          # Force-clean stale sshfs mounts (dead remote hangs anything that
+          # touches the mountpoint) without ever stat/ls/cd-ing into it.
+          (execBind "SUPER + SHIFT + U" "${sshfsUnstickScript}/bin/sshfs-unstick")
+
           # Disable all effects
           (execBind "SUPER + SHIFT + G" "~/.config/hypr/gamemode.sh ")
 
@@ -309,6 +321,8 @@ in
           (dispBindOpts "SUPER + mouse:273" "hl.dsp.window.resize()" { mouse = true; })
 
           # Screen and sleep hotkeys
+          # forward to logind
+          (execBindOpts "XF86PowerOff" "systemctl suspend" { locked = true; })
           (execBindOpts "SUPER + SHIFT + CTRL + O" "noctalia msg session lock-and-suspend" { locked = true; })
           (execBindOpts "SUPER + Z" "${dpmsWakeScript}/bin/hypr-dpms-wake toggle superz" { locked = true; })
           (execBindOpts "SUPER + ALT + Z" "${fixLowResScript}/bin/hypr-fix-low-res" { locked = true; })
