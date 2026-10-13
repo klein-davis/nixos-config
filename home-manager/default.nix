@@ -1,6 +1,7 @@
 {inputs, host, ...}: {
   imports =
        [(import ./bat.nix)]                       # better cat command
+    ++ [(import ./bluetooth.nix)]                 # bluetooth config
     ++ [(import ./browser.nix)]                   # browser configs 
     ++ [(import ./btop.nix)]                      # resouces monitor 
     ++ [(import ./cava.nix)]                      # audio visualizer

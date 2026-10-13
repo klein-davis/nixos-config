@@ -18,12 +18,10 @@
     enable = true;
     # tunnel ID
     tunnels."6207a673-e90b-431b-a686-14d347fae860" = {
-      
+
       credentialsFile = "/var/lib/cloudflared/6207a673-e90b-431b-a686-14d347fae860.json";
 
       ingress = {
-        # "head.kleindavis.xyz" = "http://10.31.0.9:8080";
-        # "minecraft.kleindavis.xyz" = "tcp://localhost:41973";    
         "www.roboticcardinals.org" = "http://localhost:5000";
         "api.roboticcardinals.org" = "http://localhost:5001";
         "jellyfin.kleindavis.xyz" = "http://localhost:8096";
@@ -35,12 +33,12 @@
       # Optional: You can specify a config file instead of ingress rules directly.
       # configFile = "/etc/cloudflared/config.yml";
     };
-
   };
 
   environment.systemPackages = with pkgs; [
     cloudflared
     tailscale
+    immich-cli
   ];
 
   # nixpkgs.overlays = [
@@ -63,10 +61,11 @@
   #   })
   # ];
 
-  services.immich.enable = true;
-  services.immich.package = pkgsBundle.pkgs-stable.immich;
-  # services.immich.package = pkgsBundle.pkgs-main.immich;
-  services.immich.port = 2283;
-  services.immich.host = "0.0.0.0";
-  services.immich.openFirewall = true;
+  services.immich = {
+    enable = true;
+    package = pkgsBundle.pkgs-main.immich;
+    port = 2283;
+    host = "0.0.0.0";
+    openFirewall = true;
+  };
 }

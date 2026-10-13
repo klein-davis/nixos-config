@@ -188,6 +188,7 @@ in
                 "wl-paste -t text --watch cliphist store &"
                 "wl-paste -p -t text --watch cliphist store &"
                 "wl-paste -p --watch xclip -i -selection primary &"
+                "STEAM_FRAME_FORCE_CLOSE=1 steam -silent &"
               ]
               ++ lib.optional myOptions.enable-rgb-lights "(sleep 6 && openrgb --startminimized) &"
             )

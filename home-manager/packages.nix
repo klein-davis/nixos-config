@@ -5,6 +5,14 @@
     (pkgs.writeShellScriptBin "pia-switch" (builtins.readFile ./scripts/pia-switch.sh))
     (pkgs.writeShellScriptBin "lunet-setup" (builtins.readFile ./scripts/lunet-setup.sh))
 
+    # Print the newest input lastModified timestamp from a flake.lock on stdin.
+    # Usage: git show HEAD~1:flake.lock | flake-lock-newest
+    (pkgs.writeShellScriptBin "flake-lock-newest"
+      (builtins.replaceStrings
+        [ "@JQ@" ]
+        [ "${pkgs.jq}/bin/jq" ]
+        (builtins.readFile ./scripts/flake-lock-newest.sh)))
+
     # Talk to Home Assistant's Assist conversation agent from a terminal.
     # Setup/usage: ha-assist --help (or see the top-of-file docstring).
     (pkgs.writers.writePython3Bin "ha-assist" { }

@@ -16,6 +16,20 @@
     allowUnfree = true;
   };
 
+  nixpkgs.overlays = [
+    # atopile's C++ extension is missing `#include <cstdint>` upstream, which
+    # newer GCC/libstdc++ no longer pulls in transitively (uintptr_t fails to resolve).
+    # (final: prev: {
+    #   atopile = prev.python3Packages.toPythonApplication (
+    #     prev.python3Packages.atopile.overrideAttrs (old: {
+    #       postPatch = (old.postPatch or "") + ''
+    #         sed -i '13a #include <cstdint>' src/faebryk/core/cpp/include/util.hpp
+    #       '';
+    #     })
+    #   );
+    # })
+  ];
+
   services.udev.packages = with pkgs; [ arduino ];
 
   environment.systemPackages = with pkgs; [
@@ -58,12 +72,12 @@
     pkgsBundle.pkgs-stable.qalculate-gtk  # calculator
     qdirstat                              # Graphical disk usage analyzer
     qpwgraph                              # Audio Routing Software
-    # reaper
     remmina                               # RDP Client
     rpi-imager                            # Raspberry Pi imaging utility
     rustdesk                              # Open source remote desktop
     viewnior                              # Image Viewer
     wdisplays                             # Wayland display configuration GUI
+    webcamoid                             # Webcam effects/capture app
     winboat                               # Run Windows apps on Linux
 
     # CLI utils
@@ -154,6 +168,7 @@
     wiremix                               # Simple TUI mixer for PipeWire
     wl-clipboard                          # clipoard utils for wayland (wl-copy, wl-paste)
     xdg-utils                             # Desktop integration CLI tools
+    inputs.nur-pkgs.packages.${pkgs.stdenv.hostPlatform.system}.xtool
     xxd                                   # Hex dump tool
     yazi                                  # terminal file manager
     yt-dlp                                # Video/audio downloader

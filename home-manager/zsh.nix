@@ -7,7 +7,7 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "fzf" ]; # Add "fzf-tab" to the plugins list
+      plugins = [ "fzf" ]; # Add "fzf-tab" to the plugins list
 
       theme = "agnoster";
     };
@@ -77,7 +77,7 @@
       #tt = "gtrash put";
       # cat = "bat";
       #nano = "micro";
-      code = "codium";
+      code = "codium 2> >(grep -v 'is not in the list of known options')";
       # py = "python";
       #icat = "kitten icat";
       #dsize = "du -hs";

@@ -16,6 +16,7 @@
   # nix.settings.access-tokens = { "github.com" = "ghp_xxxxxxxx"; };
   
   programs.direnv = {
+    enable = true;
     package = pkgs.direnv;
     silent = false;
     loadInNixShell = true;
