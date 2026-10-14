@@ -272,14 +272,15 @@ in
           (execBind "SUPER + F2" "brightnessctl -d *::kbd_backlight set 33%-")
 
           # Volume and Media Control
-          (execBind "XF86AudioRaiseVolume" "pamixer -i 5 ")
-          (execBind "XF86AudioLowerVolume" "pamixer -d 5 ")
-          (execBind "XF86AudioMute" "pamixer -t")
-          (execBind "XF86AudioMicMute" "pamixer --default-source --toggle-mute")
-          (execBind "XF86AudioPlay" "playerctl --all-players play-pause")
-          (execBind "XF86AudioPause" "playerctl --all-players play-pause")
-          (execBind "XF86AudioNext" "playerctl next")
-          (execBind "XF86AudioPrev" "playerctl previous")
+          # locked = true so these hardware keys still work on noctalia's lock screen.
+          (execBindOpts "XF86AudioRaiseVolume" "pamixer -i 5 " { locked = true; })
+          (execBindOpts "XF86AudioLowerVolume" "pamixer -d 5 " { locked = true; })
+          (execBindOpts "XF86AudioMute" "pamixer -t" { locked = true; })
+          (execBindOpts "XF86AudioMicMute" "pamixer --default-source --toggle-mute" { locked = true; })
+          (execBindOpts "XF86AudioPlay" "playerctl --all-players play-pause" { locked = true; })
+          (execBindOpts "XF86AudioPause" "playerctl --all-players play-pause" { locked = true; })
+          (execBindOpts "XF86AudioNext" "playerctl next" { locked = true; })
+          (execBindOpts "XF86AudioPrev" "playerctl previous" { locked = true; })
           (execBind "SUPER + ALT + right" "pamixer -t")
           (execBind "SUPER + ALT + up" "pamixer -i 5")
           (execBind "SUPER + ALT + down" "pamixer -d 5")
@@ -322,8 +323,11 @@ in
           (dispBindOpts "SUPER + mouse:273" "hl.dsp.window.resize()" { mouse = true; })
 
           # Screen and sleep hotkeys
-          # forward to logind
-          (execBindOpts "XF86PowerOff" "systemctl suspend" { locked = true; })
+          # Routed through noctalia's own lock-and-suspend command (not a bare
+          # "systemctl suspend") so its lock-on-suspend logic is invoked
+          # directly instead of racing noctalia's PrepareForSleep handling.
+          # See https://github.com/noctalia-dev/noctalia-shell/pull/2176#issuecomment-4060599828
+          (execBindOpts "XF86PowerOff" "noctalia msg session lock-and-suspend" { locked = true; })
           (execBindOpts "SUPER + SHIFT + CTRL + O" "noctalia msg session lock-and-suspend" { locked = true; })
           (execBindOpts "SUPER + Z" "${dpmsWakeScript}/bin/hypr-dpms-wake toggle superz" { locked = true; })
           (execBindOpts "SUPER + ALT + Z" "${fixLowResScript}/bin/hypr-fix-low-res" { locked = true; })

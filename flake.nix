@@ -64,6 +64,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # RemoteDesktop portal bridge for Hyprland (Deskflow client support).
+    # Fork provides the Nix module/package; upstream provides current source.
+    hypr-kdeconnect-fix = {
+      url = "github:NullString1/hypr-kdeconnect-fix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hypr-kdeconnect-fix-src = {
+      url = "github:gfhdhytghd/hypr-kdeconnect-fix";
+      flake = false;
+    };
+
     nur.url = "github:nix-community/NUR";
 
     nur-pkgs = {
@@ -207,6 +218,10 @@
         };
       };
     in {
+      # `nix fmt` formats every .nix file in the repo with alejandra
+      formatter = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ]
+        (sys: inputs.alejandra.defaultPackage.${sys});
+
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           system = (mergeAttrs myCOptions.default myCOptions.desktop).system;

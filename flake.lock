@@ -460,6 +460,42 @@
         "type": "github"
       }
     },
+    "hypr-kdeconnect-fix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790536024,
+        "narHash": "sha256-w91G+EszPPlMopm4TexQZLYP/vhrnKT7ga2zPIgdij4=",
+        "owner": "NullString1",
+        "repo": "hypr-kdeconnect-fix",
+        "rev": "a369d2a2b09dd63e32b632fff1dc7c03f276ed94",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NullString1",
+        "repo": "hypr-kdeconnect-fix",
+        "type": "github"
+      }
+    },
+    "hypr-kdeconnect-fix-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791238779,
+        "narHash": "sha256-vhb+UMDJXvw8PAIzH1bsLk4JmXzRIPiFTRQxZX3wPZM=",
+        "owner": "gfhdhytghd",
+        "repo": "hypr-kdeconnect-fix",
+        "rev": "5fc959475177197f0aa953fcc42a3742e6648671",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gfhdhytghd",
+        "repo": "hypr-kdeconnect-fix",
+        "type": "github"
+      }
+    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -1378,6 +1414,8 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "hypr-contrib": "hypr-contrib",
+        "hypr-kdeconnect-fix": "hypr-kdeconnect-fix",
+        "hypr-kdeconnect-fix-src": "hypr-kdeconnect-fix-src",
         "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
         "hyprpicker": "hyprpicker",

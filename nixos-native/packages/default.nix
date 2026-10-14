@@ -12,39 +12,18 @@
     ++ [(import ./wireshark.nix)]                   # Network protocol analyzer
     ;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
-  nixpkgs.overlays = [
-    # atopile's C++ extension is missing `#include <cstdint>` upstream, which
-    # newer GCC/libstdc++ no longer pulls in transitively (uintptr_t fails to resolve).
-    # (final: prev: {
-    #   atopile = prev.python3Packages.toPythonApplication (
-    #     prev.python3Packages.atopile.overrideAttrs (old: {
-    #       postPatch = (old.postPatch or "") + ''
-    #         sed -i '13a #include <cstdint>' src/faebryk/core/cpp/include/util.hpp
-    #       '';
-    #     })
-    #   );
-    # })
-  ];
+  nixpkgs.config.allowUnfree = true;
 
   services.udev.packages = with pkgs; [ arduino ];
 
   environment.systemPackages = with pkgs; [
     # Test
-    atopile                               # Design circuit boards with code
-    gsettings-desktop-schemas             # GSettings schemas for desktop components
     pv
-    pvetui
-    # Bitwarden test
-    bws
-    bitwarden-desktop
-    bitwarden-cli
+    pvetui    
 
     # Desktop apps
     arduino-ide                           # Arduino IDE
+    bitwarden-desktop                     # Bitwarden desktop app
     pkgsBundle.pkgs-old.chromium          # Chromium Web Browser
     easyeffects                           # Audio effects for PipeWire
     en-croissant                          # Chess GUI/toolkit
@@ -58,7 +37,6 @@
     kicad                                 # Electronics design (EDA) suite
     libreoffice                           # Office productivity suite
     linux-wifi-hotspot                    # GUI hotspot creator
-    # lmstudio                              # GUI LLM interface
     localsend                             # Cross-platform AirDrop alternative
     mission-center                        # CPU/Mem/Disk/Network/GPU monitor
     mission-planner                       # ArduPilot ground station
@@ -127,6 +105,7 @@
     mediainfo                             # Video file info
     mpv                                   # vide player
     ncdu                                  # disk space
+    nethogs
     nh                                    # Usefull Nix Tools
     nitch                                 # systhem fetch util
     nix-prefetch-github                   # Prefetch sources from GitHub

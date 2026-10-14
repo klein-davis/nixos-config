@@ -8,6 +8,7 @@
     pkgs.adw-gtk3 # base GTK theme Noctalia switches between light/dark at runtime
     pkgsBundle.pkgs-old.nerdfonts
     (pkgsBundle.pkgs-old.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    pkgs.gsettings-desktop-schemas
   ];
 
   dconf.enable = lib.mkForce true;

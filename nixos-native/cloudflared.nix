@@ -21,12 +21,14 @@
 
       credentialsFile = "/var/lib/cloudflared/6207a673-e90b-431b-a686-14d347fae860.json";
 
-      ingress = {
-        "www.roboticcardinals.org" = "http://localhost:5000";
-        "api.roboticcardinals.org" = "http://localhost:5001";
-        "jellyfin.kleindavis.xyz" = "http://localhost:8096";
-        "homeassistant.kleindavis.xyz" = "http://homeassistant.tailf1460c.ts.net:8123";
-      };
+      # ingress = {
+      #   "www.roboticcardinals.org" = "http://localhost:5000";
+      #   "api.roboticcardinals.org" = "http://localhost:5001";
+      #   "jellyfin.kleindavis.xyz" = "http://localhost:8096";
+      #   "homeassistant.kleindavis.xyz" = "http://homeassistant.tailf1460c.ts.net:8123";
+      #   "immich.kleindavis.xyz" = "http://localhost:2283";
+      #   "immich-share.kleindavis.xyz" = "http://localhost:3000";
+      # };
 
       default = "http_status:404";
 
@@ -39,6 +41,7 @@
     cloudflared
     tailscale
     immich-cli
+    immich-kiosk
   ];
 
   # nixpkgs.overlays = [
@@ -67,5 +70,11 @@
     port = 2283;
     host = "0.0.0.0";
     openFirewall = true;
+  };
+
+  services.immich-public-proxy = {
+    enable = true;
+    immichUrl = "http://localhost:2283";
+    port = 3000;
   };
 }

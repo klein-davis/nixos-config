@@ -2,6 +2,121 @@
 
 let
   pkgs-vscode = pkgs.extend (inputs.nix-vscode-extensions.overlays.default);
+
+  # Kept out of programs.vscodium.profiles.default.userSettings so the
+  # resulting settings.json can be a mutable file (see xdg.configFile below)
+  # instead of a read-only nix-store symlink.
+  vscodeUserSettings = {
+    "update.mode" = "none";
+    "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
+    # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
+    "window.titleBarStyle" = "custom";
+
+    # "window.menuBarVisibility" = "toggle";
+    # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
+    # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
+    "editor.fontSize" = 16;
+
+    "glassit.alpha" = 0.1;
+
+
+    # Telemetry Stuff
+    "github.copilot.enable" = false;
+
+
+    "vsicons.dontShowNewVersionMessage" = true;
+    "explorer.confirmDragAndDrop" = false;
+    "editor.fontLigatures" = true;
+    # "editor.minimap.enabled" = false;
+    "workbench.startupEditor" = "none";
+
+    # "editor.formatOnSave" = true;
+    # "editor.formatOnType" = true;
+    # "editor.formatOnPaste" = true;
+
+    # "workbench.layoutControl.type" = "menu";
+    # "workbench.editor.limit.enabled" = true;
+    # "workbench.editor.limit.value" = 10;
+    # "workbench.editor.limit.perEditorGroup" = true;
+    # "workbench.editor.showTabs" = "single";
+    "workbench.editor.showTabs" = "multiple";
+    # "files.autoSave" = "onWindowChange";
+    "files.autoSave" = "afterDelay";
+    "files.autoSaveDelay" = 500;
+    # "explorer.openEditors.visible" = 0;
+    # "breadcrumbs.enabled" = false;
+    "editor.renderControlCharacters" = false;
+    # "workbench.activityBar.location" = "hidden";
+    # "workbench.statusBar.visible" = false;
+    "workbench.sideBar.location" = "right";
+    # "editor.scrollbar.verticalScrollbarSize" = 2;
+    # "editor.scrollbar.horizontalScrollbarSize" = 2;
+    # "editor.scrollbar.vertical" = "hidden";
+    # "editor.scrollbar.horizontal" = "hidden";
+    # "workbench.layoutControl.enabled" = false;
+
+    "editor.mouseWheelZoom" = true;
+
+    "C_Cpp.autocompleteAddParentheses" = true;
+    "C_Cpp.formatting" = "vcFormat";
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction" = true;
+    "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType" = true;
+    "C_Cpp.vcFormat.space.beforeEmptySquareBrackets" = true;
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.block" = "sameLine";
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.function" = "sameLine";
+    "C_Cpp.vcFormat.newLine.beforeElse" = false;
+    "C_Cpp.vcFormat.newLine.beforeCatch" = false;
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.type" = "sameLine";
+    "C_Cpp.vcFormat.space.betweenEmptyBraces" = true;
+    "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets" = true;
+    "C_Cpp.vcFormat.indent.caseLabels" = true;
+    "C_Cpp.intelliSenseCacheSize" = 2048;
+    "C_Cpp.intelliSenseMemoryLimit" = 2048;
+    "C_Cpp.default.browse.path" = [
+      ''''${workspaceFolder}/**''
+    ];
+    "C_Cpp.default.cStandard" = "gnu11";
+    "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores" = false;
+    "C_Cpp.intelliSenseUpdateDelay" = 500;
+    "C_Cpp.workspaceParsingPriority" = "medium";
+    "C_Cpp.clang_format_sortIncludes" = true;
+    "C_Cpp.doxygen.generatedStyle" = "/**";
+
+    "explorer.confirmDelete" = false;
+
+    "editor.tokenColorCustomizations" = {
+      "[Stylix]" = {
+        textMateRules = [
+          {
+            scope = [
+              "punctuation.section.embedded"
+              "variable.interpolation"
+            ];
+            settings = {
+              # Static hex (no Noctalia template for vscodium) - matches base09.
+              foreground = "#717B76";
+            };
+          }
+          {
+            scope = [
+                "variable.parameter"
+
+                # Other related scopes inside the expression:
+                "entity.other.attribute-name.nix"
+                "punctuation.accessor.nix"
+
+                # The interpolation punctuation itself:
+                "punctuation.section.embedded.nix"
+            ];
+            settings = {
+                # Static hex (no Noctalia template for vscodium) - matches base09.
+              foreground = "#717B76";
+            };
+        }
+        ];
+      };
+    };
+  };
 in
 
 {
@@ -55,119 +170,6 @@ in
         # github.copilot
       ];
       
-      userSettings = {
-        "update.mode" = "none";
-        "extensions.autoUpdate" = false; # This stuff fixes vscode freaking out when theres an update
-        # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
-        "window.titleBarStyle" = "custom"; 
-
-        # "window.menuBarVisibility" = "toggle";
-        # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
-        # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
-        "editor.fontSize" = lib.mkForce 16;
-        
-        "glassit.alpha" = 0.1;
-
-
-        # Telemetry Stuff
-        "github.copilot.enable" = false;
-
-
-        "vsicons.dontShowNewVersionMessage" = true;
-        "explorer.confirmDragAndDrop" = false;
-        "editor.fontLigatures" = true;
-        # "editor.minimap.enabled" = false;
-        "workbench.startupEditor" = "none";
-
-        # "editor.formatOnSave" = true;
-        # "editor.formatOnType" = true;
-        # "editor.formatOnPaste" = true;
-
-        # "workbench.layoutControl.type" = "menu";
-        # "workbench.editor.limit.enabled" = true;
-        # "workbench.editor.limit.value" = 10;
-        # "workbench.editor.limit.perEditorGroup" = true;
-        # "workbench.editor.showTabs" = "single";
-        "workbench.editor.showTabs" = "multiple";
-        # "files.autoSave" = "onWindowChange";
-        "files.autoSave" = "afterDelay";
-        "files.autoSaveDelay" = 500;
-        # "explorer.openEditors.visible" = 0;
-        # "breadcrumbs.enabled" = false;
-        "editor.renderControlCharacters" = false;
-        # "workbench.activityBar.location" = "hidden";
-        # "workbench.statusBar.visible" = false;
-        "workbench.sideBar.location" = "right";
-        # "editor.scrollbar.verticalScrollbarSize" = 2;
-        # "editor.scrollbar.horizontalScrollbarSize" = 2;
-        # "editor.scrollbar.vertical" = "hidden";
-        # "editor.scrollbar.horizontal" = "hidden";
-        # "workbench.layoutControl.enabled" = false;
-
-        "editor.mouseWheelZoom" = true;
-
-        "C_Cpp.autocompleteAddParentheses" = true;
-        "C_Cpp.formatting" = "vcFormat";
-        "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction" = true;
-        "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType" = true;
-        "C_Cpp.vcFormat.space.beforeEmptySquareBrackets" = true;
-        "C_Cpp.vcFormat.newLine.beforeOpenBrace.block" = "sameLine";
-        "C_Cpp.vcFormat.newLine.beforeOpenBrace.function" = "sameLine";
-        "C_Cpp.vcFormat.newLine.beforeElse" = false;
-        "C_Cpp.vcFormat.newLine.beforeCatch" = false;
-        "C_Cpp.vcFormat.newLine.beforeOpenBrace.type" = "sameLine";
-        "C_Cpp.vcFormat.space.betweenEmptyBraces" = true;
-        "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets" = true;
-        "C_Cpp.vcFormat.indent.caseLabels" = true;
-        "C_Cpp.intelliSenseCacheSize" = 2048;
-        "C_Cpp.intelliSenseMemoryLimit" = 2048;
-        "C_Cpp.default.browse.path" = [
-          ''''${workspaceFolder}/**''
-        ];
-        "C_Cpp.default.cStandard" = "gnu11";
-        "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores" = false;
-        "C_Cpp.intelliSenseUpdateDelay" = 500;
-        "C_Cpp.workspaceParsingPriority" = "medium";
-        "C_Cpp.clang_format_sortIncludes" = true;
-        "C_Cpp.doxygen.generatedStyle" = "/**";
-
-        "explorer.confirmDelete" = false;
-
-        "editor.tokenColorCustomizations" = lib.mkForce {
-          "[Stylix]" = {
-            textMateRules = [
-              {
-                scope = [
-                  "punctuation.section.embedded"
-                  "variable.interpolation"
-                ];
-                settings = {
-                  # Static hex (no Noctalia template for vscodium) - matches base09.
-                  foreground = "#717B76";
-                };
-              }
-              {
-                scope = [
-                    "variable.parameter"
-
-                    # Other related scopes inside the expression:
-                    "entity.other.attribute-name.nix"
-                    "punctuation.accessor.nix"
-
-                    # The interpolation punctuation itself:
-                    "punctuation.section.embedded.nix"
-                ];
-                settings = {
-                    # Static hex (no Noctalia template for vscodium) - matches base09.
-                  foreground = "#717B76";
-                };
-            }
-            ];
-          };
-        };
-
-      };
-      
       # Keybindings
       keybindings = [
         {
@@ -182,5 +184,15 @@ in
         }
       ];
     };
+  };
+
+  # programs.vscodium normally symlinks settings.json straight into the nix
+  # store (read-only). Make it a mutable, force-overwritten file instead,
+  # via home-manager/mutability.nix, so in-app edits don't stick around
+  # across rebuilds but VSCodium can still write to it at runtime.
+  xdg.configFile."VSCodium/User/settings.json" = {
+    text = builtins.toJSON vscodeUserSettings;
+    force = true;
+    mutable = true;
   };
 }

@@ -7,6 +7,8 @@
   environment.systemPackages = with pkgs; [
     docker
   ];
+
+  hardware.nvidia-container-toolkit.enable = (myOptions.enable-nvidia-gpu);
   
   # Fix networking issues on docker systems
   boot.kernel.sysctl = {
