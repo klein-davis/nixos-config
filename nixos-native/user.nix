@@ -19,12 +19,14 @@
 
   boot.kernelModules = [ "cp210x" "ch341" ];
 
+  programs.ydotool.enable = true;
+
   users = {
     defaultUserShell = pkgs.zsh;
 
     users.${myOptions.username} = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "video" "seat" "dialout" "uinput" "input" "tty" "wireshark"]
+      extraGroups = [ "networkmanager" "wheel" "video" "seat" "dialout" "uinput" "input" "tty" "wireshark" "ydotool"]
       ++ (if myOptions.virtualization then ["libvirtd"] else []);
       packages = with pkgs; [];
       shell = pkgs.zsh;

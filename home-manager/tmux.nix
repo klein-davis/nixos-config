@@ -3,6 +3,8 @@
   programs.tmux = {
     enable = true;
     prefix = "C-f";
+    mouse = true;
+    historyLimit = 10000;
 
     plugins = with pkgs.tmuxPlugins; [
       {

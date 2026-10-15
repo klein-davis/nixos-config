@@ -158,6 +158,7 @@
 
     # Background stuff
     python315                             # Python interpreter
+    clang-tools                           # C/C++ tooling (clangd, clang-format, ...)
 
     # Games
     ## Utils

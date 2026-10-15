@@ -9,6 +9,7 @@
     ++ [(import ./fastfetch)]                     # fastfetch config
     ++ [(import ./git.nix)]                       # version control
     ++ [(import ./gtk.nix)]                       # gtk theme
+    ++ [(import ./ha-agent.nix)]                  # home assistant MQTT bridge
     ++ [(import ./hyprland)]                      # window manager
     ++ [(import ./hypridle.nix)]                  # idle
     ++ [(import ./kitty.nix)]                     # terminal
