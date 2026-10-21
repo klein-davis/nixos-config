@@ -45,6 +45,7 @@
     nwg-look                              # GTK Config editor
     obsidian                              # Notetaking software
     # orca-slicer                           # 3D Printer Slicer
+    packet
     pavucontrol                           # pulseaudio volume controle (GUI)
     prismlauncher                         # minecraft launcher
     pkgsBundle.pkgs-stable.qalculate-gtk  # calculator
@@ -52,7 +53,6 @@
     qpwgraph                              # Audio Routing Software
     remmina                               # RDP Client
     rpi-imager                            # Raspberry Pi imaging utility
-    rustdesk                              # Open source remote desktop
     viewnior                              # Image Viewer
     wdisplays                             # Wayland display configuration GUI
     webcamoid                             # Webcam effects/capture app
@@ -68,6 +68,7 @@
     bluez-tools                           # Bluetooth audio tools
     busybox                               # unused tools, remove if not needed for a while
     caligula                              # TUI iso flasher
+    claude-code
     cliphist                              # clipboard manager
     cloc                                  # Count lines of code
     cmatrix                               # Matrix-style falling characters
@@ -84,6 +85,7 @@
     fd                                    # find replacement
     ffmpeg                                # Audio/video conversion and streaming
     file                                  # show file information
+    firefox-devtools-mcp                  # mcp for firefox control
     foot                                  # Terminal Emulator
     fzf                                   # Fuzzy finder
     gettext                               # Translation Tools
@@ -157,8 +159,9 @@
     zsh-fzf-tab                           # Fuzzy tab completion for zsh
 
     # Background stuff
-    python315                             # Python interpreter
     clang-tools                           # C/C++ tooling (clangd, clang-format, ...)
+    python315                             # Python interpreter
+    nodejs
 
     # Games
     ## Utils

@@ -1,3 +1,6 @@
 nix-collect-garbage --delete-older-than 7d
 nix-env --delete-generations +4
 nix-store --gc
+
+dust $(nix-store -qR /run/current-system) # Dust files for current system
+hardlink -n /nix/store # How much space could be saved with hardlinking

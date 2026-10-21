@@ -2,6 +2,12 @@
 
   imports = [ inputs.noctalia.homeModules.default ];
 
+  home.file.".local/state/noctalia/settings.toml" = {
+    source = ./settings.toml;
+    force = true;
+    mutable = true;
+  };
+
   home.packages = [
     pkgs.noctalia-shell
 
@@ -10,7 +16,7 @@
     # ready-to-paste Nix snippets for anything not yet declared here.
     (pkgs.writers.writePython3Bin "noctalia-diff-settings"
       { libraries = [ pkgs.python3Packages.tomlkit ]; }
-      (builtins.readFile ./scripts/noctalia-diff-settings.py))
+      (builtins.readFile ../scripts/noctalia-diff-settings.py))
   ];
 
   programs.noctalia = {

@@ -1,0 +1,37 @@
+--- a/src/remotedesktop.rs	2026-10-20 02:09:41.997894688 -0500
++++ b/src/remotedesktop.rs	2026-10-20 02:09:42.034472119 -0500
+@@ -380,6 +380,7 @@
+         }
+         let device_type = current_session.device_type;
+         let clipboard_requested = current_session.clipboard_requested;
++        let session_screen_share_enabled = current_session.screen_share_enabled;
+ 
+         let remote_sessions = REMOTE_SESSIONS.lock().await;
+         if let Some(session) = remote_sessions
+@@ -389,6 +390,8 @@
+             let restore_data = session.restore_data.clone();
+             let streams = session.streams();
+             drop(remote_sessions);
++            // ensure_clipboard_session locks SESSIONS itself: don't hold it here.
++            drop(locked_sessions);
+             let clipboard_enabled = clipboard_requested
+                 && crate::clipboard::ensure_clipboard_session(
+                     &session_handle,
+@@ -401,7 +404,7 @@
+                     streams,
+                     devices: device_type,
+                     clipboard_enabled,
+-                    screen_share_enabled: current_session.screen_share_enabled,
++                    screen_share_enabled: session_screen_share_enabled,
+                     restore_data,
+                 },
+             ));
+@@ -478,6 +481,8 @@
+         current_session.restore_data = restore_data.clone();
+         let _ = current_session;
+         drop(remote_sessions);
++        // ensure_clipboard_session locks SESSIONS itself: don't hold it here.
++        drop(locked_sessions);
+         append_remote_session(RemoteSessionData::new(
+             session_handle.to_string(),
+             cast_thread,

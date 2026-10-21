@@ -1,6 +1,49 @@
 { pkgs, lib, inputs, host, myOptions, ... }:
 let
-  deskflow = pkgs.deskflow;
+  # Wayland clipboard sync needs Deskflow master (deskflow#9431, not in a release
+  # yet), libportal >= 0.10 and a portal backend with Clipboard/RemoteDesktop/
+  # InputCapture. See deskflow#9600. Drop these overrides once nixpkgs catches up.
+  libportal = pkgs.libportal.overrideAttrs (_: rec {
+    version = "0.11.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "flatpak"; repo = "libportal"; rev = version;
+      hash = "sha256-9p1YniRgPxHGaV8hRwIyYaIrXDcXboq3kKHZ6xrJn70=";
+    };
+    patches = [ ];
+  });
+
+  deskflow = (pkgs.deskflow.override { inherit libportal; }).overrideAttrs (o: {
+    # xdg-desktop-portal-hyprland only offers InputCapture v1, which can't carry the
+    # clipboard, so the server never requests it. This opens a device-less
+    # RemoteDesktop session (served by Luminous) for clipboard access instead.
+    patches = (o.patches or [ ]) ++ [ ../../patches/deskflow/deskflow-server-rd-clipboard.patch ../../patches/deskflow/deskflow-server-serve-while-active.patch ../../patches/deskflow/deskflow-server-claim-on-remote-copy.patch ];
+    version = "1.27.0.1-unstable-2026-10-16";
+    src = pkgs.fetchFromGitHub {
+      owner = "deskflow"; repo = "deskflow";
+      rev = "52f92f784c8ef00fc7865a4797a2c48afdadedd0";
+      hash = "sha256-KrbX0i6/HGjoTtlxqNcXyj4100IazwWHC1TmnUrfqeA=";
+    };
+    doCheck = false;
+  });
+
+  # Release 0.1.21 predates its Clipboard/InputCapture/EIS fixes.
+  luminous = pkgs.xdg-desktop-portal-luminous.overrideAttrs (o: rec {
+    version = "0.1.21-unstable-2026-10";
+    # RemoteDesktop.Start holds the SESSIONS lock while ensure_clipboard_session
+    # locks it again, so Start never returns once a client requests the clipboard.
+    patches = (o.patches or [ ]) ++ [ ../../patches/xdg-desktop-portal-luminous/luminous-remote-start-deadlock.patch ../../patches/xdg-desktop-portal-luminous/luminous-eis-region.patch ];
+    src = pkgs.fetchFromGitHub {
+      owner = "waycrate"; repo = "xdg-desktop-portal-luminous";
+      rev = "9ca09f5f";
+      hash = "sha256-OIpnu5R5PhxuHGtL/YEPN4pyJsrhrT5VzhJ1WkGJjsI=";
+    };
+    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+      inherit src version;
+      pname = o.pname;
+      hash = "sha256-3+h7QqrAz8u4MMycQWJ8ioFSjvzAomEFZBhDSj9xjwU=";
+    };
+  });
+
   systemctl = "${pkgs.systemd}/bin/systemctl";
 
   # Desktop is the server, framework1 the client. Settings (screen names, TLS,
@@ -53,44 +96,28 @@ let
     ${systemctl} start --no-block deskflow-desk-trigger.service
   '';
 in {
-  imports = [ inputs.hypr-kdeconnect-fix.nixosModules.default ];
-
   config = lib.mkMerge [
     {
       environment.systemPackages = [ deskflow ];
 
-      # Hyprland's portal lacks RemoteDesktop, which the Deskflow client needs
-      # on Wayland. This bridge provides it via virtual-pointer/keyboard + libei.
-      services.hypr-kdeconnect-fix = {
-        enable = true;
-        # Keep default portalUseIn: upstream's metadata test requires the full list,
-        # and routing is set explicitly in hyprland-portals.conf below anyway.
-        package = (pkgs.callPackage "${inputs.hypr-kdeconnect-fix}/nix/package.nix" { }).overrideAttrs (old: {
-          src = inputs.hypr-kdeconnect-fix-src;
-          # Bridge only accepts the exact caller exe; on NixOS that's the wrapped binary.
-          cmakeFlags = (old.cmakeFlags or []) ++ [
-            "-DHKCF_DESKFLOW_EXECUTABLE=${deskflow}/bin/.deskflow-core-wrapped"
-          ];
-        });
-      };
+      # Hyprland's portal lacks RemoteDesktop/Clipboard, which Deskflow needs on
+      # Wayland. Luminous (wlroots-based) provides them. InputCapture stays with
+      # Hyprland's portal: Luminous's covers every screen with a grey layer-shell
+      # overlay while capturing, which is unusable for an always-on server.
+      xdg.portal.extraPortals = [ luminous ];
 
-      # The bridge verifies the caller via /proc/<pid>/exe; these options put the
-      # user unit in its own namespace, making that readlink fail (session refused).
-      # asDropin: otherwise NixOS emits a full unit that shadows the packaged one.
-      systemd.user.services.hypr-kdeconnect-portal = {
-        overrideStrategy = "asDropin";
-        serviceConfig = {
-          PrivateTmp = false;
-          ProtectSystem = false;
-          ProtectHome = false;
-        };
-      };
+      # Luminous asks "Allow 'x' to make remote?" for every RemoteDesktop session
+      # (i.e. on each boot). With false it skips the dialog when there's one screen.
+      environment.etc."xdg/xdg-desktop-portal-luminous/config.toml".text = ''
+        remote_permission_check = false
+      '';
 
-      # hyprland-portals.conf overrides `common`, so route RemoteDesktop here too.
+      # hyprland-portals.conf overrides `common`, so route these here.
       # This /etc file shadows Hyprland's packaged one, so restate its default.
       xdg.portal.config.hyprland = {
         default = [ "hyprland" "gtk" ];
-        "org.freedesktop.impl.portal.RemoteDesktop" = [ "hypr-kdeconnect" ];
+        "org.freedesktop.impl.portal.RemoteDesktop" = [ "luminous" ];
+        "org.freedesktop.impl.portal.Clipboard" = [ "luminous" ];
       };
     }
 
@@ -104,7 +131,9 @@ in {
         description = "Deskflow server";
         wantedBy = [ "hyprland-session.target" ];
         partOf = [ "hyprland-session.target" ];
-        after = [ "hyprland-session.target" ];
+        # Its clipboard session is served by Luminous; start after it is up.
+        wants = [ "xdg-desktop-portal-luminous.service" ];
+        after = [ "hyprland-session.target" "xdg-desktop-portal-luminous.service" ];
         serviceConfig = {
           ExecStart = "${deskflow}/bin/deskflow-core server";
           Restart = "always";

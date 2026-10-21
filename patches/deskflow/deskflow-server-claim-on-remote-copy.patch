@@ -1,0 +1,49 @@
+--- a/src/lib/platform/PortalInputCapture.h	2026-10-20 15:37:38.358952833 -0500
++++ b/src/lib/platform/PortalInputCapture.h	2026-10-20 15:37:38.392294215 -0500
+@@ -34,6 +34,8 @@
+ 
+   // Get the clipboard for the specified ID
+   EiClipboard *getClipboard(ClipboardID id) const;
++  // Re-announce the cached clipboard to the system after the remote side changed it
++  void claimClipboard() const;
+   void enable();
+   void disable();
+   void release();
+--- a/src/lib/platform/PortalInputCapture.cpp	2026-10-20 15:37:38.360929689 -0500
++++ b/src/lib/platform/PortalInputCapture.cpp	2026-10-20 15:37:38.392407128 -0500
+@@ -241,6 +241,18 @@
+   return nullptr;
+ }
+ 
++void PortalInputCapture::claimClipboard() const
++{
++#ifdef HAVE_LIBPORTAL_CLIPBOARD
++  XdpSession *session = clipboardSession();
++  if (!session || !xdp_session_is_clipboard_enabled(session)) {
++    LOG_DEBUG("portal input capture clipboard not enabled, cannot claim");
++    return;
++  }
++  claimClipboardOwnership(session);
++#endif
++}
++
+ gboolean PortalInputCapture::timeoutHandler() const
+ {
+   return true; // keep re-triggering
+--- a/src/lib/platform/EiComputer.cpp	2026-10-20 15:37:37.994721492 -0500
++++ b/src/lib/platform/EiComputer.cpp	2026-10-20 15:37:38.392462219 -0500
+@@ -491,7 +491,13 @@
+     if (!targetClipboard) {
+       return false;
+     }
+-    return IClipboard::copy(targetClipboard, clipboard);
++    // Without a new claim the system never sees the selection change, so
++    // clipboard history managers would miss what the remote side copied.
++    const bool copied = IClipboard::copy(targetClipboard, clipboard);
++    if (copied && id == kClipboardClipboard) {
++      m_portalInputCapture->claimClipboard();
++    }
++    return copied;
+   }
+ 
+   // Otherwise use our own clipboard

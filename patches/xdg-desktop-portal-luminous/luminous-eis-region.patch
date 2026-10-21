@@ -1,0 +1,24 @@
+--- c/src/eis_server.rs	2026-10-20 02:18:49.750413834 -0500
++++ d/src/eis_server.rs	2026-10-20 02:18:49.786128214 -0500
+@@ -229,7 +229,20 @@
+                         DeviceCapability::PointerAbsolute
+                             | DeviceCapability::Button
+                             | DeviceCapability::Scroll,
+-                        |_| {},
++                        // Clients (e.g. Deskflow) derive the screen size from the
++                        // device regions; without one they see a 0x0 screen.
++                        // Same extent notify_pointer_motion_absolute uses.
++                        |device| {
++                            let connection = libwayshot::WayshotConnection::from_connection(
++                                crate::backend::get_wlconnection(),
++                            )
++                            .unwrap();
++                            let libwayshot::Size { width, height } =
++                                crate::remotedesktop::space_size(&connection);
++                            device
++                                .device()
++                                .region(0, 0, width as u32, height as u32, 1.0);
++                        },
+                         &request.seat,
+                     ));
+                 }

@@ -1,0 +1,319 @@
+config_version = 15
+
+[audio]
+enable_overdrive = false
+enable_sounds = true
+
+[bar.default]
+background_opacity = 0.9499999787658453
+center = [ "clock", "audio_visualizer" ]
+end = [
+    "cpu",
+    "tray",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
+margin_edge = 10
+margin_ends = 60
+scale = 1.1000000089406967
+start = [ "launcher", "wallpaper", "workspaces" ]
+thickness = 38
+
+    [bar.default.dead_zone.actions]
+    left = "panel-toggle control-center home"
+
+[brightness]
+enable_ddcutil = true
+
+[calendar]
+
+[control_center.calendar]
+show_events_card = false
+
+[dock]
+auto_hide = true
+enabled = true
+icon_size = 40
+launcher_position = "start"
+reserve_space = false
+show_dots = true
+
+[location]
+address = "Winnie, Texas"
+
+[lockscreen]
+transition = [ "honeycomb" ]
+transition_duration = 500
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@DP-2",
+    "lockscreen-login-box@DP-3",
+    "lockscreen-login-box@FALLBACK",
+    "lockscreen-login-box@eDP-2",
+    "lockscreen-widget-0000000000000001"
+]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 960.0
+    cy = 1200.0
+    output = "DP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 960.0
+    cy = 961.0
+    output = "DP-2"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 960.0
+    cy = 1081.0
+    output = "DP-3"
+    placement_height = 1200.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "FALLBACK"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1024.0
+    cy = 1102.0
+    output = "eDP-2"
+    placement_height = 1280.0
+    placement_width = 2048.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 128.0
+    box_width = 272.0
+    cx = 1024.0
+    cy = 640.0
+    output = "eDP-2"
+    placement_height = 1280.0
+    placement_width = 2048.0
+    rotation = 0.0
+    type = "clock"
+
+[shell]
+font_family = "JetBrainsMono NF"
+polkit_agent = true
+telemetry_enabled = true
+
+    [shell.launcher]
+    pinned = [ "lm-studio" ]
+
+    [shell.panel]
+    control_center_placement = "floating"
+    launcher_session_search = true
+    transparency_mode = "soft"
+
+    [[shell.session.actions]]
+    action = "lock"
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    enabled = true
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    enabled = true
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    enabled = true
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    enabled = true
+    shortcut = "5"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "command"
+    command = "notify-send 'Noctalia' 'Custom session entry'"
+    enabled = false
+    variant = "default"
+
+[theme]
+builtin = "Noctalia"
+community_palette = "Horizon"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "hyprland", "kcolorscheme", "kitty", "qt" ]
+
+[wallpaper.default]
+path = "/home/nixuser/Pictures/wallpapers/shaded_landscape.jpg"
+
+[wallpaper.last]
+path = "/home/nixuser/Pictures/wallpapers/shaded_landscape.jpg"
+
+[wallpaper.monitors.DP-1]
+path = "/home/nixuser/Pictures/wallpapers/shaded_landscape.jpg"
+
+[wallpaper.monitors.DP-2]
+path = "/home/nixuser/Pictures/wallpapers/shaded_landscape.jpg"
+
+[wallpaper.monitors.DP-3]
+path = "/home/nixuser/Pictures/wallpapers/shaded_landscape.jpg"
+
+[weather]
+unit = "imperial"
+
+[widget.audio_visualizer]
+capsule = true
+capsule_radius = 11
+color_2 = "on_tertiary"
+scale = 1.1500000000000001
+
+[widget.clock]
+capsule = true
+format = "{:%-I:%M %p}"
+
+[widget.network]
+show_label = false
+
+[widget.tray]
+drawer = true
+drawer_item_size = 22.0
+
+[widget.workspaces]
+capsule = true
+pill_scale = 0.95000000000000007

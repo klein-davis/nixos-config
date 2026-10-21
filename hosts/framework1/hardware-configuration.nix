@@ -25,7 +25,7 @@
     };
 
   swapDevices = [ #{ device = "/dev/disk/by-uuid/a803ff3f-a45d-47f4-a35e-5826bdc1d54f"; }
-    { device = "/swapfile"; priority = 1000; size = 40 * 1024; } # 40GB size = 40 * 1024;
+    { device = "/swapfile"; priority = 10; size = 40 * 1024; } # 40GB size = 40 * 1024;
   ];
 
   # Try to fix hibernate

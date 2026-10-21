@@ -105,7 +105,7 @@ in
 
         general = {
           gaps_in = 5;
-          gaps_out = 18;
+          gaps_out = 10;
           border_size = 3;
 
           # col.active_border / col.inactive_border are set at the bottom of

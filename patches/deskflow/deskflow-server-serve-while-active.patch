@@ -1,0 +1,16 @@
+--- a/src/lib/platform/PortalInputCapture.cpp	2026-10-20 15:29:19.211658026 -0500
++++ b/src/lib/platform/PortalInputCapture.cpp	2026-10-20 15:29:19.229839233 -0500
+@@ -278,10 +278,9 @@
+ void PortalInputCapture::handleSelectionTransfer(XdpSession *session, const char *mimeType, uint32_t serial) const
+ {
+ #ifdef HAVE_LIBPORTAL_CLIPBOARD
+-  if (m_isActive) {
+-    LOG_DEBUG("skipping clipboard selection transfer, clipboard is active");
+-    return;
+-  }
++  // Serve even while the remote screen is active: returning here without
++  // completing the transfer leaves the reader (e.g. a clipboard-history
++  // "wl-paste --watch") blocked on its pipe forever.
+   PortalClipboard::serveSelectionTransfer(m_clipboard, session, mimeType, serial);
+ #else
+   (void)session;

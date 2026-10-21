@@ -15,7 +15,7 @@
     ++ [(import ./kitty.nix)]                     # terminal
     ++ [(import ./mutability.nix)]                # writable, force-overwritten home files
     ++ [(import ./nano.nix)]                      # nano editor config
-    ++ [(import ./noctalia.nix)]                  # wayland shell/bar + theming
+    ++ [(import ./noctalia)]                      # wayland shell/bar + theming
     ++ [(import ./nvim.nix)]                      # neovim editor
     ++ [(import ./packages.nix)]                  # other packages
     ++ [(import ./preactivation.nix)]             # fix gtk rebuild error

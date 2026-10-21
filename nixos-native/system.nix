@@ -1,13 +1,5 @@
 { self, pkgs, lib, inputs, myOptions, ...}: 
 {
-  imports = [
-    inputs.nix-index-database.nixosModules.nix-index 
-  ];
-
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "electron-40.10.5"
-  # ];
-
   boot.tmp.cleanOnBoot = true;
 
   # Expose flake.nix inputs to system

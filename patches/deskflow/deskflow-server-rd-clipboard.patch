@@ -1,0 +1,186 @@
+--- a/src/lib/common/Settings.h	2026-10-20 14:48:38.000000000 -0500
++++ b/src/lib/common/Settings.h	2026-10-20 14:49:02.338103676 -0500
+@@ -121,6 +121,7 @@
+     inline static const auto Win32KeepForeground = QStringLiteral("server/win32KeepForeground");
+     inline static const auto XdpClipboardRetried = QStringLiteral("server/xdpClipboardRetried");
+     inline static const auto XdpRestoreToken = QStringLiteral("server/xdpRestoreToken");
++    inline static const auto XdpClipboardRestoreToken = QStringLiteral("server/xdpClipboardRestoreToken");
+   };
+ 
+   struct Computer
+@@ -385,6 +386,7 @@
+     , Client::XdpRestoreToken
+     , Server::XdpClipboardRetried
+     , Server::XdpRestoreToken
++    , Server::XdpClipboardRestoreToken
+    };
+ 
+   // Contains settings keys to be upgraded.
+--- a/src/lib/platform/PortalInputCapture.h	2026-10-20 14:48:40.000000000 -0500
++++ b/src/lib/platform/PortalInputCapture.h	2026-10-20 14:49:02.338185459 -0500
+@@ -62,6 +62,14 @@
+   void readClipboardSelection(XdpSession *session) const;
+   void claimClipboardOwnership(XdpSession *session) const;
+ 
++  // Fallback for InputCapture backends that cannot carry the clipboard
++  // (InputCapture v1, e.g. xdg-desktop-portal-hyprland): a device-less
++  // RemoteDesktop session used only for org.freedesktop.portal.Clipboard.
++  void initClipboardSession();
++  void handleClipboardSessionCreated(GObject *object, GAsyncResult *res);
++  void handleClipboardSessionStarted(GObject *object, GAsyncResult *res);
++  XdpSession *clipboardSession() const;
++
+   /// g_signal_connect callback wrapper
+   static void sessionClosed(XdpSession *session, const gpointer data)
+   {
+@@ -172,6 +180,9 @@
+   std::vector<BarrierInfo> m_barrierInfo;
+ 
+   EiClipboard *m_clipboard = nullptr;
++
++  XdpSession *m_clipboardSession = nullptr;
++  gulong m_clipboardTransferSignal = 0;
+ };
+ 
+ } // namespace deskflow
+--- a/src/lib/platform/PortalInputCapture.cpp	2026-10-20 14:48:40.000000000 -0500
++++ b/src/lib/platform/PortalInputCapture.cpp	2026-10-20 14:49:02.338267667 -0500
+@@ -216,6 +216,13 @@
+     g_object_unref(m_session);
+   }
+ 
++  if (m_clipboardSession) {
++    if (m_clipboardTransferSignal != 0)
++      g_signal_handler_disconnect(m_clipboardSession, m_clipboardTransferSignal);
++    xdp_session_close(m_clipboardSession);
++    g_clear_object(&m_clipboardSession);
++  }
++
+   for (auto b : m_barriers) {
+     g_object_unref(b);
+   }
+@@ -290,16 +297,113 @@
+ #endif
+ }
+ 
++XdpSession *PortalInputCapture::clipboardSession() const
++{
++#ifdef HAVE_LIBPORTAL_CLIPBOARD
++  if (m_clipboardSession && xdp_session_is_clipboard_enabled(m_clipboardSession))
++    return m_clipboardSession;
++#endif
++  return m_session ? xdp_input_capture_session_get_session(m_session) : nullptr;
++}
++
++void PortalInputCapture::initClipboardSession()
++{
++#ifdef HAVE_LIBPORTAL_CLIPBOARD
++  if (m_clipboardSession)
++    return;
++
++  // libportal g_strdup()s the restore token, so a temporary is fine here.
++  const auto token = Settings::value(Settings::Server::XdpClipboardRestoreToken).toByteArray();
++
++  LOG_DEBUG("creating remote desktop session for clipboard access");
++  xdp_portal_create_remote_desktop_session_full(
++      m_portal, XDP_DEVICE_NONE, XDP_OUTPUT_NONE, XDP_REMOTE_DESKTOP_FLAG_NONE, XDP_CURSOR_MODE_HIDDEN,
++      XDP_PERSIST_MODE_PERSISTENT, token.isEmpty() ? nullptr : token.constData(),
++      nullptr, // cancellable
++      [](GObject *obj, GAsyncResult *res, gpointer data) {
++        static_cast<PortalInputCapture *>(data)->handleClipboardSessionCreated(obj, res);
++      },
++      this
++  );
++#endif
++}
++
++void PortalInputCapture::handleClipboardSessionCreated(GObject *object, GAsyncResult *res)
++{
++#ifdef HAVE_LIBPORTAL_CLIPBOARD
++  g_autoptr(GError) error = nullptr;
++  auto session = xdp_portal_create_remote_desktop_session_finish(XDP_PORTAL(object), res, &error);
++  if (!session) {
++    LOG_WARN("clipboard remote desktop session failed, continuing without clipboard: %s", error->message);
++    return;
++  }
++
++  m_clipboardSession = session;
++  xdp_session_request_clipboard(session);
++  m_clipboardTransferSignal =
++      g_signal_connect(G_OBJECT(session), "selection-transfer", G_CALLBACK(selectionTransfer), this);
++
++  xdp_session_start(
++      session,
++      nullptr, // parent
++      nullptr, // cancellable
++      [](GObject *obj, GAsyncResult *res, gpointer data) {
++        static_cast<PortalInputCapture *>(data)->handleClipboardSessionStarted(obj, res);
++      },
++      this
++  );
++#else
++  (void)object;
++  (void)res;
++#endif
++}
++
++void PortalInputCapture::handleClipboardSessionStarted(GObject *object, GAsyncResult *res)
++{
++#ifdef HAVE_LIBPORTAL_CLIPBOARD
++  g_autoptr(GError) error = nullptr;
++  auto session = XDP_SESSION(object);
++  if (!xdp_session_start_finish(session, res, &error)) {
++    LOG_WARN("clipboard remote desktop session did not start, continuing without clipboard: %s", error->message);
++    if (m_clipboardTransferSignal != 0) {
++      g_signal_handler_disconnect(session, m_clipboardTransferSignal);
++      m_clipboardTransferSignal = 0;
++    }
++    g_clear_object(&m_clipboardSession);
++    return;
++  }
++
++  if (char *token = xdp_session_get_restore_token(session)) {
++    Settings::setValue(Settings::Server::XdpClipboardRestoreToken, QString(token));
++    g_free(token);
++  }
++
++  if (xdp_session_is_clipboard_enabled(session))
++    LOG_INFO("clipboard enabled via remote desktop session");
++  else
++    LOG_WARN("remote desktop session started but the backend did not enable the clipboard");
++#else
++  (void)object;
++  (void)res;
++#endif
++}
++
+ void PortalInputCapture::setupSession(XdpInputCaptureSession *session)
+ {
+   g_autoptr(GError) error = nullptr;
+   XdpSession *parentSession = xdp_input_capture_session_get_session(session);
+ 
+ #ifdef HAVE_LIBPORTAL_CLIPBOARD
+-  if (!xdp_session_is_clipboard_enabled(parentSession) && m_portalVersion > 1) {
++  if (m_portalVersion < 2) {
++    // InputCapture v1 has no RequestClipboard/Start, so the frontend refuses
++    // clipboard on this session. Use a separate RemoteDesktop session instead.
++    LOG_INFO("input capture portal v%d cannot carry the clipboard, using a remote desktop session", m_portalVersion);
++    initClipboardSession();
++  } else if (!xdp_session_is_clipboard_enabled(parentSession)) {
+     if (Settings::value(Settings::Server::XdpClipboardRetried).toBool()) {
+       // some backends never report clipboard enabled even when granted; don't loop forever
+-      LOG_DEBUG("clipboard still not enabled on session after one retry, continuing without it");
++      LOG_DEBUG("clipboard still not enabled on session after one retry, using a remote desktop session");
++      initClipboardSession();
+     } else {
+       LOG_WARN("clipboard not enabled on session, discarding restore token to force a fresh session");
+ #ifdef HAVE_LIBPORTAL_INPUTCAPTURE_RESTORE
+@@ -744,7 +848,7 @@
+     LOG_DEBUG("reading clipboard selection on activation");
+     m_computer->sendClipboardEvent(EventTypes::ClipboardGrabbed, kClipboardClipboard);
+ 
+-    XdpSession *session = xdp_input_capture_session_get_session(m_session);
++    XdpSession *session = clipboardSession();
+     const char **mimeTypes = xdp_session_get_selection_mime_types(session);
+ 
+     if (mimeTypes && mimeTypes[0]) {
