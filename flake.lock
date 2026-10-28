@@ -1376,11 +1376,11 @@
     },
     "nixpkgs-main": {
       "locked": {
-        "lastModified": 1793209173,
-        "narHash": "sha256-iAH/mfekCZ+os1H2LaNGDnJtWm22ChTyszhz62/lq2E=",
+        "lastModified": 1793209843,
+        "narHash": "sha256-b34ULQwRzH7QZlPsYw3hXeD6abhR+TashMJxK7+ZBjw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "aee15ab3bd4347e2a0e66041008b510f9a965a48",
+        "rev": "47d29a47656cd746e0e151068198430f77ad9830",
         "type": "github"
       },
       "original": {
@@ -1624,11 +1624,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1793209542,
-        "narHash": "sha256-lNS/+Vg330cATZcGa+bH0copokSdiL4fwfWXvP6BTPA=",
+        "lastModified": 1793210700,
+        "narHash": "sha256-V28wCEOJzW5GN3ayBFzvYnxmUFHJH27Ft8V2aay4jRs=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c991f021527926d84e99958bd1eb5ae77f1288b3",
+        "rev": "2ebd433c22b9fe1c37d4e9ad0b34629e4c8943c0",
         "type": "github"
       },
       "original": {
@@ -1688,14 +1688,17 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1793206612,
+        "lastModified": 1793211099,
         "narHash": "sha256-dt8hWnajR7cw3VwlN5jnq7o/TteOEMmuQeJY0rQUt+A=",
-        "path": "/home/nixuser/pia-nix-fixed",
-        "type": "path"
+        "owner": "klein-davis",
+        "repo": "pia-nix-fixed",
+        "rev": "7876202b05e5279ef9398beba68f48103a0a8b62",
+        "type": "github"
       },
       "original": {
-        "path": "/home/nixuser/pia-nix-fixed",
-        "type": "path"
+        "owner": "klein-davis",
+        "repo": "pia-nix-fixed",
+        "type": "github"
       }
     },
     "pre-commit-hooks": {

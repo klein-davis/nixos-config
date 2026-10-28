@@ -97,7 +97,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pia.url = "path:/home/nixuser/pia-nix-fixed";
+    pia.url = "github:klein-davis/pia-nix-fixed";
 
     microvm = {
       url = "github:astro/microvm.nix";
