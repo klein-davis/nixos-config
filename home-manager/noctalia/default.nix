@@ -9,8 +9,6 @@
   };
 
   home.packages = [
-    pkgs.noctalia-shell
-
     # Diffs Noctalia's GUI-written settings.toml overrides against the
     # config.toml generated from this file's `settings`, and prints
     # ready-to-paste Nix snippets for anything not yet declared here.

@@ -64,7 +64,13 @@
 
       CPU_DRIVER_OPMODE_ON_AC = "active";
       CPU_DRIVER_OPMODE_ON_BAT = "active";
-      
+
+      CPU_BOOST_ON_BAT = 0;
+      PLATFORM_PROFILE_ON_BAT = "low-power";
+      PCIE_ASPM_ON_BAT = "powersupersave";
+      # Panel backlight/contrast trade-off (0-4); was 0 with no ppd running
+      AMDGPU_ABM_LEVEL_ON_BAT = 3;
+
       # CPU_ENERGY_PERF_POLICY_ON_AC = "power";
       # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
     };

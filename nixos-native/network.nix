@@ -56,7 +56,9 @@
       # For gnome-network-displays
       ++ [7236 5353]
       # For LocalSend
-      ++ [53317];
+      ++ [53317]
+      # For RustDesk LAN discovery
+      ++ [21119];
       allowedUDPPortRanges = [
         # { from = 2000; to = 3000; }
         { from = 4000; to = 4007; }

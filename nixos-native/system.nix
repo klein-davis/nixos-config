@@ -1,10 +1,22 @@
-{ self, pkgs, lib, inputs, myOptions, ...}: 
+{ pkgs, lib, inputs, myOptions, ...}:
+let
+  # Walk inputs-of-inputs (e.g. home-manager's nixpkgs) too; genericClosure dedupes by
+  # outPath, which plain recursion can't (devenv <-> cachix inputs form a cycle)
+  toNodes = ins: map (i: { key = i.outPath; input = i; })
+    (builtins.attrValues (builtins.removeAttrs ins [ "self" ]));
+  allInputPaths = map (n: n.key) (builtins.genericClosure {
+    startSet = toNodes inputs;
+    operator = n: toNodes (n.input.inputs or { });
+  });
+in
 {
   boot.tmp.cleanOnBoot = true;
 
   # Expose flake.nix inputs to system
   nix.registry = lib.mapAttrs (_name: flake: { inherit flake; }) (lib.filterAttrs (n: _: n != "self") inputs);
   nix.settings.nix-path = lib.mapAttrsToList (name: _: "${name}=flake:${name}") (lib.filterAttrs (n: _: n != "self") inputs);
+  # Add flake build deps to system to prevent gc
+  system.extraDependencies = allInputPaths;
 
   # Nix Shared Libraires
   programs.nix-ld.enable = true;

@@ -20,6 +20,24 @@
   # fingerprint available for anything else (e.g. sudo) that opts in.
   security.pam.services.login.fprintAuth = false;
 
+  # FIXME: nixos-hardware's framework-laptop-kmod installs without a .ko.cer, which
+  # breaks module aggregation (nixpkgs#575192). Same module, built with the
+  # upstream fix (nixpkgs#575818). Drop this block once that reaches
+  # nixos-unstable.
+  hardware.framework.enableKmod = false;
+  boot.kernelModules = [ "cros_ec" "cros_ec_lpcs" ];
+  boot.extraModulePackages = [
+    (config.boot.kernelPackages.framework-laptop-kmod.overrideAttrs (o: {
+      makeFlags = o.makeFlags ++ [
+        "INSTALL_MOD_PATH=${placeholder "out"}"
+        "INSTALL_MOD_DIR=extra"
+        "DEPMOD=true"
+      ];
+      installPhase = null;
+      installTargets = [ "modules_install" ];
+    }))
+  ];
+
   services.logind = {
     settings.Login = {
       # Action when the lid is closed, regardless of power state

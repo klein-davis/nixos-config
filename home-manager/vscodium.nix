@@ -1,7 +1,7 @@
-{ lib, pkgs, pkgsBundle, inputs, ... }:
+{ pkgs, pkgsBundle, inputs, host, ... }:
 
 let
-  pkgs-vscode = pkgs.extend (inputs.nix-vscode-extensions.overlays.default);
+  # pkgs-vscode = pkgs.extend (inputs.nix-vscode-extensions.overlays.default);
 
   # Kept out of programs.vscodium.profiles.default.userSettings so the
   # resulting settings.json can be a mutable file (see xdg.configFile below)
@@ -84,36 +84,22 @@ let
 
     "explorer.confirmDelete" = false;
 
-    "editor.tokenColorCustomizations" = {
-      "[Stylix]" = {
-        textMateRules = [
-          {
-            scope = [
-              "punctuation.section.embedded"
-              "variable.interpolation"
-            ];
-            settings = {
-              # Static hex (no Noctalia template for vscodium) - matches base09.
-              foreground = "#717B76";
-            };
-          }
-          {
-            scope = [
-                "variable.parameter"
+    "files.associations" = {
+      "*.toml" = "toml";
+    };
 
-                # Other related scopes inside the expression:
-                "entity.other.attribute-name.nix"
-                "punctuation.accessor.nix"
-
-                # The interpolation punctuation itself:
-                "punctuation.section.embedded.nix"
-            ];
-            settings = {
-                # Static hex (no Noctalia template for vscodium) - matches base09.
-              foreground = "#717B76";
-            };
-        }
-        ];
+    # Nix language server: nixd evaluates this flake so completions know
+    # the real option tree (e.g. services.flatpak.<tab> -> enable, update, ...)
+    "nix.enableLanguageServer" = true;
+    "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+    "nix.serverSettings" = {
+      nixd = {
+        nixpkgs.expr = "import (builtins.getFlake (\"git+file://\" + builtins.toString ./.)).inputs.nixpkgs { }";
+        formatting.command = [ "${pkgs.alejandra}/bin/alejandra" ];
+        options = {
+          nixos.expr = "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).nixosConfigurations.${host}.options";
+          home-manager.expr = "(builtins.getFlake (\"git+file://\" + builtins.toString ./.)).nixosConfigurations.${host}.options.home-manager.users.type.getSubOptions []";
+        };
       };
     };
   };

@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, host, myOptions, ... }:
+{ pkgs, lib, host, myOptions, ... }:
 let
   # Wayland clipboard sync needs Deskflow master (deskflow#9431, not in a release
   # yet), libportal >= 0.10 and a portal backend with Clipboard/RemoteDesktop/
@@ -114,8 +114,12 @@ in {
 
       # hyprland-portals.conf overrides `common`, so route these here.
       # This /etc file shadows Hyprland's packaged one, so restate its default.
+      # ScreenCast goes to Luminous too: RustDesk opens one RemoteDesktop session and
+      # calls ScreenCast.SelectSources on it, which Hyprland's portal rejects with
+      # "SelectSources: no session" when RemoteDesktop lives in another backend.
       xdg.portal.config.hyprland = {
         default = [ "hyprland" "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "luminous" ];
         "org.freedesktop.impl.portal.RemoteDesktop" = [ "luminous" ];
         "org.freedesktop.impl.portal.Clipboard" = [ "luminous" ];
       };

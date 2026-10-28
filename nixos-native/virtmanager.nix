@@ -10,19 +10,12 @@
     };
   };
 
-  # virtualisation.waydroid.enable = true;
-
   programs.virt-manager = {
     enable = true;
     package = pkgsBundle.pkgs-stable.virt-manager;
   };
 
-  virtualisation.waydroid.enable = true;
-  # Kernel lacks legacy iptables tables, so waydroid-net.sh must use nft
-  virtualisation.waydroid.package = pkgs.waydroid-nftables;
-
-  networking.firewall.trustedInterfaces = [ "waydroid0" "virbr0" ];
-  boot.kernelModules = [ "binder_linux" "ashmem_linux" ];
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
   # networking.nftables.enable = true;
 
   environment.systemPackages = [
