@@ -31,7 +31,11 @@ let
     version = "0.1.21-unstable-2026-10";
     # RemoteDesktop.Start holds the SESSIONS lock while ensure_clipboard_session
     # locks it again, so Start never returns once a client requests the clipboard.
-    patches = (o.patches or [ ]) ++ [ ../../patches/xdg-desktop-portal-luminous/luminous-remote-start-deadlock.patch ../../patches/xdg-desktop-portal-luminous/luminous-eis-region.patch ];
+    patches = (o.patches or [ ]) ++ [
+      ../../patches/xdg-desktop-portal-luminous/luminous-remote-start-deadlock.patch
+      ../../patches/xdg-desktop-portal-luminous/luminous-eis-region.patch
+      ../../patches/xdg-desktop-portal-luminous/luminous-all-outputs.patch
+    ];
     src = pkgs.fetchFromGitHub {
       owner = "waycrate"; repo = "xdg-desktop-portal-luminous";
       rev = "9ca09f5f";
@@ -130,6 +134,11 @@ in {
     (lib.mkIf isServer {
       # Only reachable over Tailscale; the client connects to the Tailscale IP.
       networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 24800 ];
+
+      # Share every output as its own stream (one RemoteDesktop session), and skip
+      # the screen-picker overlay, which would block unattended RustDesk/Deskflow
+      # sessions on multi-monitor hosts.
+      systemd.user.services.xdg-desktop-portal-luminous.environment.LUMINOUS_ALL_OUTPUTS = "1";
 
       systemd.user.services.deskflow-server = {
         description = "Deskflow server";

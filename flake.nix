@@ -115,8 +115,6 @@
 
   outputs = { self, nixpkgs, home-manager, nixos-hardware, ... } @ inputs:
     let
-      system = "x86_64-linux";
-
       myCOptions = {
         desktop = {
           enable-nvidia-gpu = true;

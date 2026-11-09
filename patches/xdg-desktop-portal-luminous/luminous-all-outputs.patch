@@ -1,0 +1,389 @@
+--- a/src/remotedesktop.rs
++++ b/src/remotedesktop.rs
+@@ -149,9 +149,16 @@
+     pub persist_mode: Option<PersistMode>,
+ }
+ 
++/// One PipeWire cast per shared output; `position` is in compositor space.
++pub struct CastStream {
++    pub thread: ScreencastThread,
++    pub position: (i32, i32),
++    pub size: (i32, i32),
++}
++
+ pub struct RemoteSessionData {
+     pub session_handle: String,
+-    pub cast_thread: Option<ScreencastThread>,
++    pub casts: Vec<CastStream>,
+     pub remote_control: RemoteControl,
+     pub restore_data: Option<RestoreData>,
+ }
+@@ -159,13 +166,13 @@
+ impl RemoteSessionData {
+     pub fn new(
+         session_handle: String,
+-        cast_thread: Option<ScreencastThread>,
++        casts: Vec<CastStream>,
+         remote_control: RemoteControl,
+         restore_data: impl Into<Option<RestoreData>>,
+     ) -> Self {
+         Self {
+             session_handle,
+-            cast_thread,
++            casts,
+             remote_control,
+             restore_data: restore_data.into(),
+         }
+@@ -175,8 +182,8 @@
+ impl RemoteSessionData {
+     fn stop(&self) {
+         self.remote_control.stop();
+-        if let Some(cast_thread) = &self.cast_thread {
+-            cast_thread.stop();
++        for cast in &self.casts {
++            cast.thread.stop();
+         }
+         EIS_SERVER
+             .0
+@@ -185,13 +192,27 @@
+     }
+ 
+     fn streams(&self) -> Vec<Stream> {
+-        let Some(cast_thread) = &self.cast_thread else {
+-            return vec![];
+-        };
+-        vec![Stream(cast_thread.node_id(), StreamProperties::default())]
++        casts_to_streams(&self.casts)
+     }
+ }
+ 
++fn casts_to_streams(casts: &[CastStream]) -> Vec<Stream> {
++    casts
++        .iter()
++        .map(|cast| {
++            Stream(
++                cast.thread.node_id(),
++                StreamProperties {
++                    position: Some(cast.position),
++                    size: cast.size,
++                    source_type: SourceType::Monitor,
++                    ..Default::default()
++                },
++            )
++        })
++        .collect()
++}
++
+ pub static REMOTE_SESSIONS: LazyLock<Arc<Mutex<Vec<RemoteSessionData>>>> =
+     LazyLock::new(|| Arc::new(Mutex::new(Vec::new())));
+ 
+@@ -411,69 +432,87 @@
+         }
+ 
+         let screen_share_enabled = current_session.screen_share_enabled;
+-        let mut streams = vec![];
+-        let mut cast_thread = None;
++        let mut casts = vec![];
+         let connection =
+             libwayshot::WayshotConnection::from_connection(get_wlconnection()).unwrap();
+-        let RemoteInfo {
+-            width,
+-            height,
+-            x,
+-            y,
+-            wl_output,
+-            output_name,
+-        } = if let Some(RestoreData {
+-            vendor_name,
+-            version,
+-            data,
+-        }) = current_session.restore_data.clone()
+-            && current_session.persist_mode.is_persist()
+-            && vendor_name == VENDOR_NAME
+-            && version == RESTORE_DATA_VERSION
+-            && let Some(display) = connection
++        // Unattended hosts (RustDesk) can't answer the screen picker: share every
++        // output, one stream each, when LUMINOUS_ALL_OUTPUTS is set.
++        let all_outputs = std::env::var_os("LUMINOUS_ALL_OUTPUTS").is_some();
++        let infos: Vec<RemoteInfo> = if all_outputs {
++            connection
+                 .get_all_outputs()
+                 .iter()
+-                .find(|output_info| output_info.name == data.display)
+-        {
+-            let libwayshot::Size { width, height } = space_size(&connection);
+-
+-            let libwayshot::region::Position { x, y } = display.logical_region.inner.position;
+-            RemoteInfo {
+-                x,
+-                y,
+-                width,
+-                height,
+-                output_name: display.name.to_owned(),
+-                wl_output: display.wl_output.clone(),
+-            }
++                .map(|output| {
++                    let libwayshot::region::Position { x, y } = output.logical_region.inner.position;
++                    let libwayshot::Size { width, height } = output.logical_region.inner.size;
++                    RemoteInfo {
++                        x,
++                        y,
++                        width: width as i32,
++                        height: height as i32,
++                        output_name: output.name.to_owned(),
++                        wl_output: output.wl_output.clone(),
++                    }
++                })
++                .collect()
+         } else {
+-            get_monitor_info_from_socket(&connection)?
++            vec![if let Some(RestoreData {
++                vendor_name,
++                version,
++                data,
++            }) = current_session.restore_data.clone()
++                && current_session.persist_mode.is_persist()
++                && vendor_name == VENDOR_NAME
++                && version == RESTORE_DATA_VERSION
++                && let Some(display) = connection
++                    .get_all_outputs()
++                    .iter()
++                    .find(|output_info| output_info.name == data.display)
++            {
++                let libwayshot::Size { width, height } = space_size(&connection);
++
++                let libwayshot::region::Position { x, y } = display.logical_region.inner.position;
++                RemoteInfo {
++                    x,
++                    y,
++                    width,
++                    height,
++                    output_name: display.name.to_owned(),
++                    wl_output: display.wl_output.clone(),
++                }
++            } else {
++                get_monitor_info_from_socket(&connection)?
++            }]
+         };
+         if screen_share_enabled {
+             let show_cursor = current_session.cursor_mode.show_cursor();
+-
+-            let output = wl_output;
+-
+-            let cast_thread_target =
+-                ScreencastThread::start_cast(show_cursor, CastTarget::Screen(output), connection)
+-                    .await
+-                    .map_err(|e| {
+-                        zbus::Error::Failure(format!("cannot start pipewire stream, error: {e}"))
+-                    })?;
+-
+-            let node_id = cast_thread_target.node_id();
+-            streams.push(Stream(
+-                node_id,
+-                StreamProperties {
+-                    size: (width, height),
+-                    source_type: SourceType::Monitor,
+-                    ..Default::default()
+-                },
+-            ));
+-            cast_thread = Some(cast_thread_target);
++            for info in &infos {
++                let thread = ScreencastThread::start_cast(
++                    show_cursor,
++                    CastTarget::Screen(info.wl_output.clone()),
++                    libwayshot::WayshotConnection::from_connection(get_wlconnection()).unwrap(),
++                )
++                .await
++                .map_err(|e| {
++                    zbus::Error::Failure(format!("cannot start pipewire stream, error: {e}"))
++                })?;
++                casts.push(CastStream {
++                    thread,
++                    position: (info.x, info.y),
++                    size: (info.width, info.height),
++                });
++            }
+         }
+-        let remote_control = RemoteControl::init(x as u32, y as u32, width as u32, height as u32);
+-        let restore_data = current_session.persist_mode.is_persist().then(|| {
++        // Absolute pointer coordinates are per stream; notify_pointer_motion_absolute
++        // adds the stream's position, so the controller itself has no offset.
++        let libwayshot::Size {
++            width: space_width,
++            height: space_height,
++        } = space_size(&connection);
++        let streams = casts_to_streams(&casts);
++        let remote_control = RemoteControl::init(0, 0, space_width as u32, space_height as u32);
++        let output_name = infos[0].output_name.clone();
++        let restore_data = (current_session.persist_mode.is_persist() && !all_outputs).then(|| {
+             RestoreData::new(LuminousData {
+                 display: output_name,
+             })
+@@ -485,7 +524,7 @@
+         drop(locked_sessions);
+         append_remote_session(RemoteSessionData::new(
+             session_handle.to_string(),
+-            cast_thread,
++            casts,
+             remote_control,
+             restore_data.clone(),
+         ))
+@@ -520,11 +559,34 @@
+         &self,
+         session_handle: ObjectPath<'_>,
+         _options: HashMap<String, Value<'_>>,
+-        _steam: u32,
++        stream: u32,
+         x: f64,
+         y: f64,
+     ) -> zbus::fdo::Result<()> {
+-        notify_input_event(session_handle, InputRequest::PointerMotionAbsolute { x, y }).await
++        // x/y are relative to the stream's output; the controller works in the
++        // whole compositor space.
++        let (ox, oy) = {
++            let sessions = REMOTE_SESSIONS.lock().await;
++            sessions
++                .iter()
++                .find(|session| session.session_handle == session_handle.to_string())
++                .and_then(|session| {
++                    session
++                        .casts
++                        .iter()
++                        .find(|cast| cast.thread.node_id() == stream)
++                        .or(session.casts.first())
++                })
++                .map_or((0, 0), |cast| cast.position)
++        };
++        notify_input_event(
++            session_handle,
++            InputRequest::PointerMotionAbsolute {
++                x: x + ox as f64,
++                y: y + oy as f64,
++            },
++        )
++        .await
+     }
+ 
+     async fn notify_pointer_button(
+--- a/src/screencast.rs
++++ b/src/screencast.rs
+@@ -96,8 +96,18 @@
+ 
+ pub struct CastSessionData {
+     session_handle: String,
+-    cast_thread: ScreencastThread,
++    casts: Vec<(ScreencastThread, StreamProperties)>,
+ }
++
++impl CastSessionData {
++    fn streams(&self) -> Vec<Stream> {
++        self.casts
++            .iter()
++            .map(|(thread, props)| Stream(thread.node_id(), props.clone()))
++            .collect()
++    }
++}
++
+ pub static CAST_SESSIONS: LazyLock<Arc<Mutex<Vec<CastSessionData>>>> =
+     LazyLock::new(|| Arc::new(Mutex::new(Vec::new())));
+ 
+@@ -114,7 +124,9 @@
+     else {
+         return;
+     };
+-    sessions[index].cast_thread.stop();
++    for (thread, _) in &sessions[index].casts {
++        thread.stop();
++    }
+     tracing::info!("session {} is stopped", sessions[index].session_handle);
+     sessions.remove(index);
+ }
+@@ -209,10 +221,7 @@
+             .find(|session| session.session_handle == session_handle.to_string())
+         {
+             return Ok(PortalResponse::Success(StartReturnValue {
+-                streams: vec![Stream(
+-                    session.cast_thread.node_id(),
+-                    StreamProperties::default(),
+-                )],
++                streams: session.streams(),
+                 ..Default::default()
+             }));
+         }
+@@ -236,6 +245,44 @@
+         let show_cursor = current_session.cursor_mode.show_cursor();
+         let connection = libwayshot::WayshotConnection::new().unwrap();
+ 
++        // Unattended hosts (RustDesk) can't answer the screen picker: share every
++        // output, one stream each, when LUMINOUS_ALL_OUTPUTS is set.
++        if std::env::var_os("LUMINOUS_ALL_OUTPUTS").is_some() {
++            let mut casts = vec![];
++            for output in connection.get_all_outputs() {
++                let libwayshot::region::Position { x, y } = output.logical_region.inner.position;
++                let libwayshot::Size { width, height } = output.logical_region.inner.size;
++                let thread = ScreencastThread::start_cast(
++                    show_cursor,
++                    CastTarget::Screen(output.wl_output.clone()),
++                    libwayshot::WayshotConnection::new().unwrap(),
++                )
++                .await
++                .map_err(|e| {
++                    zbus::Error::Failure(format!("cannot start pipewire stream, error: {e}"))
++                })?;
++                casts.push((
++                    thread,
++                    StreamProperties {
++                        position: Some((x, y)),
++                        size: (width as i32, height as i32),
++                        source_type: SourceType::Monitor,
++                        ..Default::default()
++                    },
++                ));
++            }
++            let session = CastSessionData {
++                session_handle: session_handle.to_string(),
++                casts,
++            };
++            let streams = session.streams();
++            append_cast_session(session).await;
++            return Ok(PortalResponse::Success(StartReturnValue {
++                streams,
++                ..Default::default()
++            }));
++        }
++
+         use iced::widget::image;
+         let top_levels = connection.get_all_toplevels();
+         let mut top_levels_iced = vec![];
+@@ -361,22 +408,21 @@
+                 zbus::Error::Failure(format!("cannot start pipewire stream, error: {e}"))
+             })?;
+ 
+-        let node_id = cast_thread.node_id();
+-
+-        append_cast_session(CastSessionData {
++        let session = CastSessionData {
+             session_handle: session_handle.to_string(),
+-            cast_thread,
+-        })
+-        .await;
+-
+-        Ok(PortalResponse::Success(StartReturnValue {
+-            streams: vec![Stream(
+-                node_id,
++            casts: vec![(
++                cast_thread,
+                 StreamProperties {
+                     source_type,
+                     ..Default::default()
+                 },
+             )],
++        };
++        let streams = session.streams();
++        append_cast_session(session).await;
++
++        Ok(PortalResponse::Success(StartReturnValue {
++            streams,
+             ..Default::default()
+         }))
+     }

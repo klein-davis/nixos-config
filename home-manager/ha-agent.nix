@@ -26,7 +26,17 @@
           availability = false;
         };
 
-        number = []
+        number = [
+          {
+            id = "volume";
+            read_command = "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf \"%d\", $2*100}'";
+            set_command = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ {value}%";
+            min = 0;
+            max = 100;
+            step = 5;
+            interval = "5s";
+          }
+        ]
         ++ (if (host == "framework1") then [
           {
             id = "brightness";
@@ -37,6 +47,17 @@
             step = 5;
             interval = "5s";
           }] else []);
+
+        # "on" = muted.
+        switch = [
+          {
+            id = "muted";
+            read_command = "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo on || echo off";
+            on_command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ 1";
+            off_command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0";
+            interval = "5s";
+          }
+        ];
 
         sensor = [
           {

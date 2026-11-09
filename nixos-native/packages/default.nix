@@ -6,6 +6,7 @@
     ++ [(import ./docker.nix)]                      # Container runtime
     ++ [(import ./flatpak.nix)]                     # Flatpak sandboxed app support
     ++ [(import ./lmstudio.nix)]                    # LM Studio programs
+    ++ [(import ./rustdesk-client.nix)]             # RustDesk client + unattended-access service
     ++ [(import ./openrgb.nix)]                     # OpenRGB for lighting control
     ++ [(import ./steam.nix)]                       # Steam integration
     # FIXME: nur-pkgs d9c7331 bumped voicestudio and writable-runtime-staging.patch no longer applies
@@ -47,6 +48,7 @@
     nwg-look                              # GTK Config editor
     obsidian                              # Notetaking software
     # orca-slicer                           # 3D Printer Slicer
+    openscad
     packet
     pavucontrol                           # pulseaudio volume controle (GUI)
     pkgsBundle.pkgs-unstable.poliedros    # Multi-type dice roller
@@ -56,17 +58,6 @@
     qpwgraph                              # Audio Routing Software
     remmina                               # RDP Client
     rpi-imager                            # Raspberry Pi imaging utility
-    (symlinkJoin {                        # Remote desktop client
-      # Wayland capture runs through GStreamer's pipewiresrc, which the packaged
-      # wrapper's GST_PLUGIN_SYSTEM_PATH_1_0 leaves out ("gst-plugin:unavailable:pipewiresrc").
-      name = "rustdesk-pipewire";
-      paths = [ rustdesk ];
-      nativeBuildInputs = [ makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/rustdesk \
-          --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pipewire}/lib/gstreamer-1.0
-      '';
-    })
     viewnior                              # Image Viewer
     wdisplays                             # Wayland display configuration GUI
     webcamoid                             # Webcam effects/capture app

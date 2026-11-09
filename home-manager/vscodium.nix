@@ -1,7 +1,7 @@
 { pkgs, pkgsBundle, inputs, host, ... }:
 
 let
-  # pkgs-vscode = pkgs.extend (inputs.nix-vscode-extensions.overlays.default);
+  pkgs-vscode = pkgs.extend inputs.nix-vscode-extensions.overlays.default;
 
   # Kept out of programs.vscodium.profiles.default.userSettings so the
   # resulting settings.json can be a mutable file (see xdg.configFile below)
@@ -56,6 +56,7 @@ let
     # "workbench.layoutControl.enabled" = false;
 
     "editor.mouseWheelZoom" = true;
+    "editor.selectionClipboard" = false; # disables middle-click paste (Linux X11 primary selection)
 
     "C_Cpp.autocompleteAddParentheses" = true;
     "C_Cpp.formatting" = "vcFormat";
@@ -117,7 +118,7 @@ in
       extensions =
       # with inputs.nix-vscode-extensions.extensions.x86_64-linux.vscode-marketplace; 
       # with pkgs.vscode-extensions; 
-      with pkgs.vscode-marketplace; 
+      with pkgs-vscode.vscode-marketplace; 
       [
         # nix language
         # bbenoist.nix

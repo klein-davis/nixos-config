@@ -323,11 +323,8 @@ in
           (dispBindOpts "SUPER + mouse:273" "hl.dsp.window.resize()" { mouse = true; })
 
           # Screen and sleep hotkeys
-          # Routed through noctalia's own lock-and-suspend command (not a bare
-          # "systemctl suspend") so its lock-on-suspend logic is invoked
-          # directly instead of racing noctalia's PrepareForSleep handling.
-          # See https://github.com/noctalia-dev/noctalia-shell/pull/2176#issuecomment-4060599828
-          (execBindOpts "XF86PowerOff" "noctalia msg session lock-and-suspend" { locked = true; })
+          # forward to logind
+          (execBindOpts "XF86PowerOff" "systemctl suspend" { locked = true; })
           (execBindOpts "SUPER + SHIFT + CTRL + O" "noctalia msg session lock-and-suspend" { locked = true; })
           (execBindOpts "SUPER + Z" "${dpmsWakeScript}/bin/hypr-dpms-wake toggle superz" { locked = true; })
           (execBindOpts "SUPER + ALT + Z" "${fixLowResScript}/bin/hypr-fix-low-res" { locked = true; })
@@ -432,6 +429,15 @@ in
         name = "decouple-client-fullscreen-from-window-size",
         match = { class = ".*" },
         sync_fullscreen = false,
+      })
+
+      -- RustDesk's connection-manager window pops up on the host at the start of
+      -- every session and would otherwise tile and shrink whatever is focused.
+      -- Anchored title: the viewer's windows are titled "rustdesk" or after the peer.
+      hl.window_rule({
+        name = "rustdesk-cm-floating",
+        match = { class = "^rustdesk$", title = "^RustDesk$" },
+        float = true,
       })
     '';
   };

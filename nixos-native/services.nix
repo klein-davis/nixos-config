@@ -22,13 +22,12 @@
   
   services.logind.settings = {
     Login = {
-      # Hand the power key entirely to Hyprland's XF86PowerOff bind (which
-      # routes through "noctalia msg session lock-and-suspend") instead of
-      # having logind suspend directly off the raw evdev event - otherwise
-      # logind's own suspend races noctalia's lock-on-suspend handling.
-      # See https://github.com/noctalia-dev/noctalia-shell/pull/2176#issuecomment-4060599828
-      HandlePowerKey = "ignore";
+      HandlePowerKey = "suspend";
     };
   };
-  
+
+  # Kernel 6.18.57 ships tiny_power_button, which signals systemd to power off on
+  # every power-key press before logind/Hyprland can handle it.
+  boot.blacklistedKernelModules = [ "tiny_power_button" ];
+
 }
