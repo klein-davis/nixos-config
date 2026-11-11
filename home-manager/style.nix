@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   qt5ctColors = "/home/nixuser/.config/qt5ct/colors/noctalia.conf";

@@ -1,7 +1,11 @@
 # Home Assistant MQTT bridge for this laptop (battery/brightness/CPU sensors
 # over MQTT). Laptop-only: desktop/vm hosts have no battery or backlight to
 # report, so this only enables on "framework1".
-{ inputs, host, lib, config, myOptions, ... }:
+{ inputs, host, config, myOptions, pkgs, ... }:
+let
+  dpmsWakeScript = import ./scripts/hypr-dpms-wake.nix { inherit pkgs; };
+  dpmsWake = "${dpmsWakeScript}/bin/hypr-dpms-wake";
+in
 {
   imports = [ inputs.ha-linux-agent.homeManagerModules.default ];
 
@@ -55,6 +59,17 @@
             read_command = "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo on || echo off";
             on_command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ 1";
             off_command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0";
+            interval = "5s";
+          }
+          # Screen on/off. Reads and writes both go through hypr-dpms-wake so
+          # HA sees the same state rule ("on" = at least one monitor lit) and
+          # drives the same per-monitor dispatch + renderer reload as the
+          # Super+Z hotkey and hypridle.
+          {
+            id = "screen";
+            read_command = "${dpmsWake} status";
+            on_command = "${dpmsWake} on home-assistant";
+            off_command = "${dpmsWake} off home-assistant";
             interval = "5s";
           }
         ];

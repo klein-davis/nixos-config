@@ -1,4 +1,4 @@
-{ hostname, config, pkgs, host, lib, ...}: 
+{ pkgs, host, lib, ...}: 
 {
   programs.zsh = {
     enable = true;
@@ -90,6 +90,7 @@
       # Nixos
       #cdnix = "cd ~/nixos-config && codium ~/nixos-config";
       ns = "nix-shell --run zsh";
+      nsu = "NIXPKGS_ALLOW_UNFREE=1 nix shell --impure";
       #nix-shell = "nix-shell --run zsh";
       nix-switch = "sudo nixos-rebuild switch --flake .#${host}";
       nix-list-hosts = "nix flake show --json 2>/dev/null | jq -r '.nixosConfigurations | keys[]'";

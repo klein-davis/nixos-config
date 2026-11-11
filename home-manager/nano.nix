@@ -1,5 +1,5 @@
 # home-manager/modules/nano-config.nix
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   

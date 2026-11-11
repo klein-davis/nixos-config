@@ -1,4 +1,4 @@
-{inputs, host, ...}: {
+{ ... }: {
   imports =
        [(import ./bat.nix)]                       # better cat command
     ++ [(import ./bluetooth.nix)]                 # bluetooth config

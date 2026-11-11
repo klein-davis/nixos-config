@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   programs.tmux = {
     enable = true;
@@ -25,8 +25,8 @@
         '';
       }
 
-      # fuzzback
-      # harpoon
+      fuzzback
+      harpoon
     ];
   };
 }

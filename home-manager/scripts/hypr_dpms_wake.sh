@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Force DPMS on/off, or toggle - tracked and dispatched per monitor.
+# Usage: hypr_dpms_wake.sh [on|off|toggle|status] [source-label]
+# Force DPMS on/off, toggle, or print the current state - tracked and
+# dispatched per monitor.
 #
 # Hyprland 0.56's Lua config dropped the old "dispatch dpms toggle" CLI
 # syntax (dispatch now takes a single Lua expression), so this goes through
@@ -17,6 +19,12 @@ source_label="${2:-unknown}"
 reload() { hyprctl eval "hl.dispatch(hl.dsp.force_renderer_reload())" >/dev/null; }
 # "name=true|false" per line
 dpms_states() { hyprctl monitors -j | jq -r '.[] | "\(.name)=\(.dpmsStatus)"'; }
+
+# Read-only: print "on" if any monitor is lit, else "off". No dispatch, no log.
+if [ "$action" = "status" ]; then
+  if dpms_states | grep -q '=true$'; then echo on; else echo off; fi
+  exit 0
+fi
 
 log="$HOME/.local/state/hypr-dpms-wake.log"
 mkdir -p "$(dirname "$log")"

@@ -1,6 +1,6 @@
-{ inputs, pkgs, pkgsBundle, myOptions, ... }:
+{ pkgs, ... }:
 {
-  home.packages = (with pkgs; [
+  home.packages = [
     (pkgs.writeShellScriptBin "envssh" (builtins.readFile ./scripts/envssh.sh))
     (pkgs.writeShellScriptBin "lunet-setup" (builtins.readFile ./scripts/lunet-setup.sh))
 
@@ -26,5 +26,5 @@
         [ "@FUSER@" ]
         [ "${pkgs.psmisc}/bin/fuser" ]
         (builtins.readFile ./scripts/dirbusy.py)))
-  ]);
+  ];
 }

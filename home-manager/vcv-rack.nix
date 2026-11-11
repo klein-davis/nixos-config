@@ -1,4 +1,4 @@
-{ config, pkgsBundle, ... }:
+{ pkgsBundle, ... }:
 let
   pkgs-silly = pkgsBundle.pkgs-stable;
   vcv-rack = pkgs-silly.vcv-rack.overrideAttrs (old: rec {

@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, myOptions, pkgsBundle, ... }: {
+{ pkgs, inputs, myOptions, pkgsBundle, ... }: {
 
   home.packages = [
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
