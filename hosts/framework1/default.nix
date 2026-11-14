@@ -11,6 +11,13 @@
   # tracked.
   services.fprintd.enable = true;
 
+  # Stable /dev/dri/igpu name for the 780M (card numbers can swap between
+  # boots). Hyprland is pinned to it via AQ_DRM_DEVICES so it never wakes the
+  # dGPU on resume, where gfx_v11 times out (-110) and freezes the session.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:c4:00.0", SYMLINK+="dri/igpu"
+  '';
+
   # By default enabling fprintd inserts `pam_fprintd.so` as the first, and
   # blocking, entry in every PAM service's auth stack (mkDefault on
   # fprintAuth). The "login" service is shared by both SDDM and Noctalia's

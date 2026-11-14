@@ -65,14 +65,17 @@ in
         { output = ""; mode = "preferred"; position = "auto"; scale = "1"; }
       ];
 
-      env = map parseEnv [
+      env = map parseEnv ([
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "XCURSOR_SIZE,36"
         # "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/Pictures/Screenshots"
-      ];
+      ] ++ lib.optionals (myOptions.hostname == "LAPTOP-PDQ3S7") [
+        # iGPU only; dGPU stays free for games (see hosts/framework1 udev rule).
+        "AQ_DRM_DEVICES,/dev/dri/igpu"
+      ]);
 
       # split-monitor-workspaces ships a pure-Lua library for the new Lua
       # config (no more .so plugin / hl.plugin.load) - see the files staged

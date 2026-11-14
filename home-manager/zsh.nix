@@ -126,6 +126,7 @@
     };
   };
 
+  # the goat
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;

@@ -47,6 +47,10 @@
 
           # URL BAR
           "browser.urlbar.suggest.history" = true;
+          # Learn "typed text -> chosen URL" pairs so e.g. "black" autofills the Blackboard page
+          "browser.urlbar.autoFill" = true;
+          "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
+          "browser.urlbar.autoFill.adaptiveHistory.minCharsThreshold" = 0;
 
           # PASSWORDS
           "signon.rememberSignons" = false;

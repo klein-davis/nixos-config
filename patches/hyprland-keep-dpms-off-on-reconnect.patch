@@ -1,0 +1,77 @@
+--- a/src/output/Monitor.cpp	2026-11-12 17:05:24.357630105 -0600
++++ b/src/output/Monitor.cpp	2026-11-12 17:05:24.396715520 -0600
+@@ -1,4 +1,7 @@
+ #include "Monitor.hpp"
++#include <chrono>
++#include <string>
++#include <unordered_map>
+ #include "../helpers/MiscFunctions.hpp"
+ #include "../macros.hpp"
+ #include "SharedDefs.hpp"
+@@ -105,6 +108,14 @@
+         g_pHyprRenderer->glBackend()->destroyMonitorResources(m_self);
+ }
+ 
++// Some monitors drop HPD for a couple of seconds a while after losing signal
++// (i.e. after DPMS off) and then reconnect. The reconnect creates a fresh
++// CMonitor, which would be lit (m_dpmsStatus defaults to true), so remember
++// which outputs were DPMS-off when their connector vanished and bring them
++// back dark if they return shortly after.
++static std::unordered_map<std::string, std::chrono::steady_clock::time_point> s_dpmsOffAtDisconnect;
++static constexpr std::chrono::seconds                                         DPMS_OFF_REMEMBER{30};
++
+ void CMonitor::onConnect(bool noRule) {
+     Event::bus()->m_events.monitor.preAdded.emit(m_self.lock());
+     CScopeGuard x = {[]() { State::monitorLayoutController()->arrange(); }};
+@@ -261,12 +272,27 @@
+     // get monitor rule that matches
+     auto monitorRule = Config::monitorRuleMgr()->get(m_self.lock());
+ 
++    bool keepDpmsOff = false;
++    if (const auto IT = s_dpmsOffAtDisconnect.find(m_name); IT != s_dpmsOffAtDisconnect.end()) {
++        keepDpmsOff = std::chrono::steady_clock::now() - IT->second < DPMS_OFF_REMEMBER;
++        s_dpmsOffAtDisconnect.erase(IT);
++    }
++
++    const auto restoreDpmsOff = [this]() {
++        Log::logger->log(Log::DEBUG, "Output {} reconnected while it was DPMS off, keeping it off", m_name);
++        m_dpmsStatus = false;
++        m_dpmsBlackOpacity->setValueAndWarp(1.F);
++        m_events.dpmsChanged.emit();
++    };
++
+     if (m_enabled && !monitorRule.m_disabled) {
+         auto cpy = monitorRule;
+         applyMonitorRule(std::move(cpy));
+ 
+         m_output->state->resetExplicitFences();
+-        m_output->state->setEnabled(true);
++        m_output->state->setEnabled(!keepDpmsOff);
++        if (keepDpmsOff)
++            restoreDpmsOff();
+         m_state.commit();
+         return;
+     }
+@@ -302,7 +328,9 @@
+     m_enabled = true;
+ 
+     m_output->state->resetExplicitFences();
+-    m_output->state->setEnabled(true);
++    m_output->state->setEnabled(!keepDpmsOff);
++    if (keepDpmsOff)
++        restoreDpmsOff();
+ 
+     // set mode, also applies
+     if (!noRule) {
+@@ -403,6 +431,11 @@
+     m_frameScheduler.reset();
+     clearModeRetry();
+ 
++    if (!m_dpmsStatus && !g_pCompositor->m_isShuttingDown)
++        s_dpmsOffAtDisconnect[m_name] = std::chrono::steady_clock::now();
++    else
++        s_dpmsOffAtDisconnect.erase(m_name);
++
+     if (!m_enabled || g_pCompositor->m_isShuttingDown)
+         return;
+ 

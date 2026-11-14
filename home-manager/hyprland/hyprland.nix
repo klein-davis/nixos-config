@@ -12,6 +12,8 @@
     wf-recorder
     wayland
     hyprsunset
+    # nixpkgs' build (not the hyprland flake's, which is broken - see below)
+    hyprland-guiutils
   ];
 
   systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
@@ -23,6 +25,12 @@
     # network). Force FetchContent to use the already-fetched nixpkgs glaze
     # source instead, sidestepping the live clone entirely.
     package = (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland).overrideAttrs (old: {
+      # A reconnected output (e.g. the desktop's middle DP-2, which drops HPD
+      # ~16s after DPMS off) comes back lit as a brand-new monitor. Remember
+      # DPMS-off outputs across a short disconnect so it returns dark.
+      patches = (old.patches or []) ++ [
+        ../../patches/hyprland-keep-dpms-off-on-reconnect.patch
+      ];
       cmakeFlags = (old.cmakeFlags or []) ++ [
         "-DFETCHCONTENT_SOURCE_DIR_GLAZE=${pkgs.glaze.src}"
       ];

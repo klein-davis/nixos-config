@@ -9,8 +9,7 @@
     ++ [(import ./rustdesk-client.nix)]             # RustDesk client + unattended-access service
     ++ [(import ./openrgb.nix)]                     # OpenRGB for lighting control
     ++ [(import ./steam.nix)]                       # Steam integration
-    # FIXME: nur-pkgs d9c7331 bumped voicestudio and writable-runtime-staging.patch no longer applies
-    # ++ [(import ./voicestudio.nix)]                 # ElevenLabs alternative
+    ++ [(import ./voicestudio.nix)]                 # ElevenLabs alternative
     ++ [(import ./wireshark.nix)]                   # Network protocol analyzer
     ;
 
@@ -129,12 +128,14 @@
     playerctl                             # controller for media players
     poweralertd                           # UPower-based battery alerts
     qlcplus                               # Open Source DMX Controller
+    qrencode                              # QR code generator
     ripgrep                               # grep replacement
     scope-tui                             # Terminal Oscilloscope
     ser2net                               # Serial connections over IP
     speedtest-cli                         # Internet Speedtesting tool
     stress                                # Benchmark workload generator
-    timidity                              # Terminal MIDI player
+    tailcat                               # Netcat over Tailscale's data plane
+    timidity                           # Terminal MIDI player
     tmux                                  # Terminal Multiplexer
     todo                                  # cli todo list
     tree                                  # Show file tree

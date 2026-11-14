@@ -3,9 +3,18 @@ let
   power = myOptions.power;
   dpmsWakeScript = import ./scripts/hypr-dpms-wake.nix { inherit pkgs; };
   dpmsWake = "${dpmsWakeScript}/bin/hypr-dpms-wake";
+  # Exists while the idle-dim listener is in its fired state; the HA agent's
+  # "idle" binary sensor reads it. Lives in XDG_RUNTIME_DIR (tmpfs) so it
+  # never survives a logout/reboot.
+  idleFlag = "$XDG_RUNTIME_DIR/hypridle-idle";
 in
 {
   config = {
+    # Any (re)start of hypridle resets its timers, so a stale flag from before
+    # the restart (sleep resume, HA screen-on) must not outlive it.
+    systemd.user.services.hypridle.Service.ExecStartPre =
+      "${pkgs.coreutils}/bin/rm -f %t/hypridle-idle";
+
     services.hypridle = {
       enable = power.idle-lock != 0 || power.idle-dim != 0 || power.idle-sleep != 0;
       settings = {
@@ -35,8 +44,8 @@ in
           ++ (lib.optional (power.idle-dim != 0) {
             # turn monitor off
             timeout = power.idle-dim;
-            on-timeout = "${dpmsWake} off idle-timeout";
-            on-resume = "${dpmsWake} on idle-resume";
+            on-timeout = "${pkgs.coreutils}/bin/touch ${idleFlag} ; ${dpmsWake} off idle-timeout";
+            on-resume = "${pkgs.coreutils}/bin/rm -f ${idleFlag} ; ${dpmsWake} on idle-resume";
           })
           ++ (lib.optional (power.idle-sleep != 0) {
             # suspend if idle and on battery

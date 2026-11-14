@@ -1,4 +1,4 @@
-{ pkgs, config, myOptions, host, ... }: {
+{ pkgs, myOptions, host, ... }: {
 
   powerManagement = {
     enable = myOptions.power.mobile;
@@ -23,9 +23,9 @@
           speedCurve = [
             { temp =  0; speed = 0; }
             { temp = 50; speed = 30; }
-            { temp = 76; speed = 45; }
-            { temp = 85; speed = 55; }
-            { temp = 88; speed = 100; }
+            { temp = 76; speed = 55; }
+            { temp = 85; speed = 65; }
+            { temp = 90; speed = 90; }
           ];
         };
       };

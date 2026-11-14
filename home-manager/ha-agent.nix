@@ -61,6 +61,14 @@ in
             off_command = "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0";
             interval = "5s";
           }
+          # "on" = adapter powered.
+          {
+            id = "bluetooth";
+            read_command = "${pkgs.bluez}/bin/bluetoothctl show | grep -q 'Powered: yes' && echo on || echo off";
+            on_command = "${pkgs.bluez}/bin/bluetoothctl power on";
+            off_command = "${pkgs.bluez}/bin/bluetoothctl power off";
+            interval = "5s";
+          }
           # Screen on/off. Reads and writes both go through hypr-dpms-wake so
           # HA sees the same state rule ("on" = at least one monitor lit) and
           # drives the same per-monitor dispatch + renderer reload as the
@@ -68,7 +76,10 @@ in
           {
             id = "screen";
             read_command = "${dpmsWake} status";
-            on_command = "${dpmsWake} on home-assistant";
+            # Restarting hypridle resets its idle timers (and clears the idle
+            # flag), same as the input from Super+Z would. try-restart so a
+            # host with hypridle disabled doesn't make the command fail.
+            on_command = "${dpmsWake} on home-assistant ; ${pkgs.systemd}/bin/systemctl --user try-restart hypridle.service";
             off_command = "${dpmsWake} off home-assistant";
             interval = "5s";
           }
@@ -99,7 +110,15 @@ in
           }
         ] else []);
 
-        binary_sensor = []
+        binary_sensor = [
+          # ON while hypridle's idle-dim timeout has fired and no input (or
+          # HA screen-on) has happened since.
+          {
+            id = "idle";
+            command = "test -e \"$XDG_RUNTIME_DIR/hypridle-idle\" && echo on";
+            interval = "5s";
+          }
+        ]
         ++ (if (host == "framework1") then [
           {
             id = "charging";
